@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#102e2b" />
+    <title>CircuitLens — Make the connection</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/" aria-label="CircuitLens home"
+        ><span class="logo">⌘</span>Circuit<span>Lens</span></a
+      ><span class="header-label">THE ELECTRONICS DEBUGGING WORKBENCH</span
+      ><span class="local"><i></i> Local & private</span>
+    </header>
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">LESS GUESSWORK. MORE LIGHTBULB MOMENTS.</div>
+          <h1>Make the<br /><em>right connection.</em></h1>
+          <p>
+            Turn a confusing breadboard into a circuit you understand. Review
+            the connections. Find the fault. Learn the why.
+          </p>
+          <div class="hero-actions">
+            <button id="start" class="primary">
+              Open a circuit photo <span>↗</span></button
+            ><button id="try-demo" class="secondary">
+              Try a guided example →
+            </button>
+          </div>
+          <p class="privacy">
+            No account. No cloud uploads. Your photos stay in your browser.
+          </p>
+        </div>
+        <div class="hero-art">
+          <div class="art-label">
+            <span>01 / THE FIRST LIGHT</span><span>5.0 V DC</span>
+          </div>
+          <img
+            src="/examples/healthy.svg"
+            alt="Generated breadboard illustration of a resistor and LED circuit"
+          />
+          <div class="art-footer">
+            <span class="pulse"></span>A small circuit. A clearer understanding.
+          </div>
+        </div>
+      </section>
+      <section class="examples-section" id="examples">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">THE PRACTICE BENCH</div>
+            <h2>Small circuits. Real lessons.</h2>
+          </div>
+          <p>Generated diagrams • editable fixtures • live rule engine</p>
+        </div>
+        <div
+          id="example-list"
+          class="example-list"
+          aria-label="Example circuits"
+        ></div>
+      </section>
+      <section id="workbench" class="workbench">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">YOUR WORKBENCH</div>
+            <h2>Look closer. Trace the path.</h2>
+          </div>
+          <button id="reset" class="text-button">New analysis ↗</button>
+        </div>
+        <ol class="steps">
+          <li class="active">1 <span>Capture</span></li>
+          <li>2 <span>Confirm connections</span></li>
+          <li>3 <span>Understand & fix</span></li>
+        </ol>
+        <div class="bench-grid">
+          <div class="visual-panel">
+            <div class="panel-head">
+              <h3 id="image-title">Your circuit, in focus</h3>
+              <span id="source-badge" class="badge">NO IMAGE</span>
+            </div>
+            <div id="image-stage" class="image-stage">
+              <div id="empty-image">
+                <div class="upload-icon">↥</div>
+                <h3>Bring your circuit to the bench</h3>
+                <p>
+                  Choose a photo or start with an example.<br />JPG, PNG or WebP
+                  · up to 12 MB
+                </p>
+                <button id="upload-button" class="secondary">
+                  Choose circuit photo
+                </button>
+              </div>
+              <canvas
+                id="photo"
+                hidden
+                aria-label="Circuit image with editable terminal annotations"
+              ></canvas>
+            </div>
+            <input
+              type="file"
+              id="upload"
+              accept="image/jpeg,image/png,image/webp"
+              hidden
+            />
+            <div class="image-tools">
+              <button id="replace-photo" class="text-button">
+                Upload / replace photo</button
+              ><label
+                ><input id="features" type="checkbox" /> Highlight color
+                features</label
+              >
+            </div>
+            <p id="image-help" class="helper">
+              Photos are a visual reference. Confirm components and terminals
+              manually; color highlights are not component recognition.
+            </p>
+            <div class="legend">
+              <span><i class="dot resistor"></i> Resistor</span
+              ><span><i class="dot led"></i> LED</span
+              ><span><i class="dot wire"></i> Jumper</span
+              ><span><i class="dot fault"></i> Needs review</span>
+            </div>
+          </div>
+          <div class="editor-panel">
+            <div class="panel-head">
+              <h3>Confirm the build</h3>
+              <span class="badge">HUMAN IN THE LOOP</span>
+            </div>
+            <div class="form-row">
+              <label
+                >Intended circuit<select id="reference">
+                  <option value="">No reference · safety checks only</option>
+                </select></label
+              ><label class="voltage-label"
+                >Supply (V)<input
+                  type="number"
+                  id="voltage"
+                  min="0.1"
+                  max="12"
+                  step="0.1"
+                  value="5"
+              /></label>
+            </div>
+            <details>
+              <summary>How breadboard terminals work</summary>
+              <p>
+                A1–E1 share a net; F1–J1 share a separate net. Rows 1–30 are
+                isolated. VCC and GND are logical continuous rails. Verify split
+                rails on your real board. LED terminal A means anode; B means
+                cathode. Resistor A/B labels are matched to the reference.
+              </p>
+            </details>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID / type</th>
+                    <th>A / anode</th>
+                    <th>B / cathode</th>
+                    <th>Ω / state</th>
+                    <th><span class="sr-only">Remove</span></th>
+                  </tr>
+                </thead>
+                <tbody id="components"></tbody>
+              </table>
+            </div>
+            <p id="empty-components" class="helper">
+              Add each visible component and its two terminals.
+            </p>
+            <div class="editor-actions">
+              <button id="add" class="secondary small">+ Component</button
+              ><button id="import" class="text-button">Import JSON</button
+              ><input
+                type="file"
+                id="netlist"
+                accept=".json,application/json"
+                hidden
+              /><button id="export" class="text-button">Export JSON ↗</button>
+            </div>
+            <details id="reference-detail">
+              <summary>View intended connections</summary>
+              <pre id="reference-preview">Choose a reference above.</pre>
+            </details>
+            <label class="confirm"
+              ><input type="checkbox" id="confirmed" /> I checked the component
+              types, terminals and values.</label
+            ><button id="analyze" class="primary full" disabled>
+              Analyze connections <span>→</span>
+            </button>
+            <p class="helper">
+              Results describe your confirmed netlist. They cannot verify hidden
+              contacts or physical continuity.
+            </p>
+            <div id="error" role="alert" hidden></div>
+          </div>
+        </div>
+      </section>
+      <section id="results" hidden aria-live="polite">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">FOLLOW THE EVIDENCE</div>
+            <h2 id="result-heading"></h2>
+          </div>
+          <label class="education"
+            ><input type="checkbox" id="education" checked /> Explain the
+            why</label
+          >
+        </div>
+        <div id="result-summary"></div>
+        <div id="measurements" class="measurements"></div>
+        <div id="issue-list" class="issue-list"></div>
+        <details class="graph-details">
+          <summary>Inspect the circuit graph</summary>
+          <div id="graph-view"></div>
+        </details>
+        <button id="download-report" class="secondary">
+          Download analysis report ↓
+        </button>
+        <p id="limits" class="helper"></p>
+      </section>
+      <section id="export-preview" class="export-preview" hidden>
+        <h3 id="export-title">JSON export</h3>
+        <p class="helper">
+          Your export is ready. If your browser does not save the file, select
+          the JSON below and copy it into a .json file.
+        </p>
+        <textarea
+          id="export-data"
+          aria-label="Exported JSON"
+          readonly
+          rows="10"
+          spellcheck="false"
+        ></textarea>
+        <button id="select-export" class="secondary small">
+          Select JSON to copy
+        </button>
+      </section>
+      <section class="principles">
+        <div>
+          <span>01</span>
+          <h3>Evidence, before answers.</h3>
+          <p>Every finding points to the connections that triggered it.</p>
+        </div>
+        <div>
+          <span>02</span>
+          <h3>You're in the loop.</h3>
+          <p>
+            Correct the build model before checking its electrical behavior.
+          </p>
+        </div>
+        <div>
+          <span>03</span>
+          <h3>Understand the why.</h3>
+          <p>Learn what a component does, not just which wire to move.</p>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a class="brand" href="/">CircuitLens</a
+      ><span>Built for curious minds and messy breadboards.</span
+      ><span>Rules-based MVP · No pretrained model</span>
+    </footer>
+  </body>
+</html>

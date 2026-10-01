@@ -1,0 +1,37 @@
+[
+  {
+    "example": "healthy",
+    "heading": "The connections check out.",
+    "summary": "✓\nNo supported-rule faults found\n\n4 components · 3 electrical nets · Compared with intended circuit"
+  },
+  {
+    "example": "reversed",
+    "heading": "4 findings. A clearer next step.",
+    "summary": "◎\nReview the highlighted connections\n\n4 components · 3 electrical nets · Compared with intended circuit"
+  },
+  {
+    "example": "no-resistor",
+    "heading": "3 findings. A clearer next step.",
+    "summary": "◎\nDisconnect power before making changes\n\n4 components · 2 electrical nets · Compared with intended circuit"
+  },
+  {
+    "example": "disconnected",
+    "heading": "2 findings. A clearer next step.",
+    "summary": "◎\nReview the highlighted connections\n\n4 components · 4 electrical nets · Compared with intended circuit"
+  },
+  {
+    "example": "short",
+    "heading": "3 findings. A clearer next step.",
+    "summary": "◎\nDisconnect power before making changes\n\n5 components · 2 electrical nets · Compared with intended circuit"
+  },
+  {
+    "example": "divider",
+    "heading": "The connections check out.",
+    "summary": "✓\nNo supported-rule faults found\n\n4 components · 3 electrical nets · Compared with intended circuit"
+  },
+  {
+    "example": "button",
+    "heading": "The connections check out.",
+    "summary": "✓\nNo supported-rule faults found\n\n5 components · 3 electrical nets · Compared with intended circuit"
+  }
+]

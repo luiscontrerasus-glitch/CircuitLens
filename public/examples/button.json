@@ -1,0 +1,38 @@
+{
+  "name": "Button-controlled LED (pressed)",
+  "voltage": 5,
+  "components": [
+    {
+      "id": "W1",
+      "type": "wire",
+      "a": "VCC",
+      "b": "A5"
+    },
+    {
+      "id": "S1",
+      "type": "button",
+      "a": "B5",
+      "b": "B8",
+      "closed": true
+    },
+    {
+      "id": "R1",
+      "type": "resistor",
+      "a": "C8",
+      "b": "C12",
+      "value": 330
+    },
+    {
+      "id": "D1",
+      "type": "led",
+      "a": "D12",
+      "b": "D18"
+    },
+    {
+      "id": "W2",
+      "type": "wire",
+      "a": "A18",
+      "b": "GND"
+    }
+  ]
+}

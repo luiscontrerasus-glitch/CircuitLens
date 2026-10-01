@@ -1,0 +1,1 @@
+CircuitLens turns confirmed breadboard connections into explainable debugging guidance. Review a photo, trace the electrical graph, and learn why an LED stays dark or a misplaced wire creates a short.

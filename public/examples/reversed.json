@@ -1,0 +1,31 @@
+{
+  "name": "LED + current limiter",
+  "voltage": 5,
+  "components": [
+    {
+      "id": "W1",
+      "type": "wire",
+      "a": "VCC",
+      "b": "A5"
+    },
+    {
+      "id": "R1",
+      "type": "resistor",
+      "a": "B5",
+      "b": "B12",
+      "value": 330
+    },
+    {
+      "id": "D1",
+      "type": "led",
+      "a": "D18",
+      "b": "D12"
+    },
+    {
+      "id": "W2",
+      "type": "wire",
+      "a": "A18",
+      "b": "GND"
+    }
+  ]
+}

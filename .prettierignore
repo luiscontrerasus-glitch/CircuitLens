@@ -1,0 +1,4 @@
+public/examples/*.svg
+submission/screenshots/
+package-lock.json
+.verification-runtime/
