@@ -310,6 +310,6 @@ export function analyze(c, expected = null) {
         "Connectivity, reference agreement, LED polarity and series-path checks",
     },
     limitations:
-      "Checks apply to the entered circuit, not verified physical continuity. No hardware measurements or arbitrary-photo recognition. Same-side A–E / F–J rows are connected; VCC/GND are logical continuous rails.",
+      "Checks apply to confirmed terminals, not verified physical continuity. Visual suggestions can be wrong; no hardware measurements are taken. Same-side A–E / F–J rows are connected; VCC/GND are logical continuous rails.",
   };
 }

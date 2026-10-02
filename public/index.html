@@ -13,7 +13,7 @@
       <a class="brand" href="/" aria-label="CircuitLens home"
         ><span class="logo">⌘</span>Circuit<span>Lens</span></a
       ><span class="header-label">THE ELECTRONICS DEBUGGING WORKBENCH</span
-      ><span class="local"><i></i> Local & private</span>
+      ><span class="local"><i></i> AI + circuit reasoning</span>
     </header>
     <main>
       <section class="hero">
@@ -32,7 +32,8 @@
             </button>
           </div>
           <p class="privacy">
-            No account. No cloud uploads. Your photos stay in your browser.
+            Manual review stays local. Live AI sends the resized image to OpenAI
+            only with your consent.
           </p>
         </div>
         <div class="hero-art">
@@ -61,6 +62,16 @@
           class="example-list"
           aria-label="Example circuits"
         ></div>
+      </section>
+      <section class="vision-experiments">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">PIXELS TO OBSERVATIONS TO ENGINEERING</div>
+            <h2>Let vision take the first look.</h2>
+          </div>
+          <p>Three synthetic images - no diagnoses supplied to the model</p>
+        </div>
+        <div id="vision-demos" class="editor-actions"></div>
       </section>
       <section id="workbench" class="workbench">
         <div class="section-head">
@@ -114,9 +125,39 @@
               >
             </div>
             <p id="image-help" class="helper">
-              Photos are a visual reference. Confirm components and terminals
-              manually; color highlights are not component recognition.
+              Run live vision to propose components and terminals. Review each
+              detection before constructing the circuit graph.
             </p>
+            <div class="vision-control">
+              <h3>Visual perception</h3>
+              <p id="vision-model" class="helper">
+                Checking vision availability...
+              </p>
+              <label class="confirm"
+                ><input type="checkbox" id="vision-consent" /> Send this resized
+                image to OpenAI for visual analysis.</label
+              >
+              <label id="vision-access-label" hidden
+                >Demo access code<input
+                  type="password"
+                  id="vision-access"
+                  autocomplete="off"
+                  placeholder="Provided by the deployment owner"
+              /></label>
+              <div class="editor-actions">
+                <button id="vision-run" class="primary" disabled>
+                  Analyze image with AI</button
+                ><button id="vision-replay" class="secondary" hidden>
+                  Use recorded observations
+                </button>
+              </div>
+              <p class="helper">
+                One request, no automatic retries. Photos are not saved by this
+                app. Provider processing policies apply. Manual entry always
+                remains available.
+              </p>
+              <p id="vision-status" class="helper" role="status"></p>
+            </div>
             <div class="legend">
               <span><i class="dot resistor"></i> Resistor</span
               ><span><i class="dot led"></i> LED</span
@@ -198,6 +239,35 @@
           </div>
         </div>
       </section>
+      <section id="detection-review" class="detection-review" hidden>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">SEE WHAT THE MODEL SAW</div>
+            <h2>Review the observations.</h2>
+          </div>
+          <span id="review-count" class="helper"></span>
+        </div>
+        <p id="vision-provenance" class="badge"></p>
+        <p id="vision-summary"></p>
+        <p id="vision-warnings" class="helper"></p>
+        <p class="helper">
+          * Confidence scores are model estimates, not calibrated probabilities.
+          A = LED anode; B = cathode. Dashed boxes need review. Accept only what
+          you can verify.
+        </p>
+        <div id="detection-list" class="detection-list"></div>
+        <div class="editor-actions">
+          <button id="detection-add" class="secondary">
+            + Missing detection</button
+          ><button id="vision-apply" class="primary" disabled>
+            Build circuit from accepted observations
+          </button>
+        </div>
+        <details>
+          <summary>Inspect structured observations</summary>
+          <pre id="observation-json"></pre>
+        </details>
+      </section>
       <section id="results" hidden aria-live="polite">
         <div class="section-head">
           <div>
@@ -261,7 +331,7 @@
     <footer>
       <a class="brand" href="/">CircuitLens</a
       ><span>Built for curious minds and messy breadboards.</span
-      ><span>Rules-based MVP · No pretrained model</span>
+      ><span>Structured vision · Deterministic engineering</span>
     </footer>
   </body>
 </html>

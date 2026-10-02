@@ -1,6 +1,9 @@
 node_modules/
-.env
-.env.local
+.env*
+!.env.example
 *.log
 coverage/
 test-results/
+.runtime/
+dist/
+.vercel/

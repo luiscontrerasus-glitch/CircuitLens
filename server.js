@@ -4,6 +4,17 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { analyze } from "./src/engine.js";
 import { examples, references } from "./src/examples.js";
+import {
+  prepareImage,
+  perceiveImage,
+  normalizeObservations,
+  observationsToCircuit,
+  PerceptionError,
+  MODEL,
+} from "./src/perception.js";
+import { createVisionBudget } from "./src/vision-budget.js";
+import { timingSafeEqual } from "node:crypto";
+import { existsSync } from "node:fs";
 const publicDir = path.resolve(
   fileURLToPath(new URL("./public/", import.meta.url)),
 );
@@ -13,13 +24,72 @@ const mime = {
   ".css": "text/css; charset=utf-8",
   ".svg": "image/svg+xml",
   ".json": "application/json",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
 };
+export const visionDemos = [
+  {
+    id: "correct",
+    name: "A complete path",
+    image: "/vision-demos/correct.png",
+  },
+  {
+    id: "reversed",
+    name: "Polarity under the lens",
+    image: "/vision-demos/reversed.png",
+  },
+  {
+    id: "miswired",
+    name: "One hole makes a difference",
+    image: "/vision-demos/miswired.png",
+  },
+];
+async function readJson(req, limit) {
+  let body = "",
+    size = 0;
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size > limit)
+      throw new PerceptionError("request_size", "Request is too large.", 413);
+    body += chunk;
+  }
+  try {
+    const data = JSON.parse(body);
+    if (!data || typeof data !== "object" || Array.isArray(data)) throw Error();
+    return data;
+  } catch {
+    throw new PerceptionError("invalid_json", "Provide a JSON object.");
+  }
+}
+function equalSecret(a, b) {
+  const x = Buffer.from(a || ""),
+    y = Buffer.from(b || "");
+  return x.length === y.length && timingSafeEqual(x, y);
+}
+function isLocal(req) {
+  return (
+    ["127.0.0.1", "::1", "::ffff:127.0.0.1"].includes(
+      req.socket.remoteAddress,
+    ) &&
+    /^(127\.0\.0\.1|localhost|\[::1\])(:\d+)?$/.test(req.headers.host ?? "")
+  );
+}
 function json(res, status, data) {
   res.writeHead(status, { "Content-Type": "application/json" });
   res.end(JSON.stringify(data));
 }
-export function createServer() {
+export function createServer(options = {}) {
+  const apiKey = options.apiKey ?? process.env.OPENAI_API_KEY;
+  const model = options.model ?? process.env.OPENAI_VISION_MODEL ?? MODEL;
+  const limit = Number(process.env.VISION_DAILY_LIMIT || 20);
+  if (!Number.isInteger(limit) || limit < 1 || limit > 20)
+    throw Error("VISION_DAILY_LIMIT must be 1–20.");
+  const budget =
+    options.budget ??
+    createVisionBudget({ limit, file: process.env.VISION_USAGE_FILE });
+  const perception = options.perception ?? perceiveImage;
   return http.createServer(async (req, res) => {
+    res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader("Referrer-Policy", "no-referrer");
     res.setHeader(
@@ -28,11 +98,134 @@ export function createServer() {
     );
     try {
       const url = new URL(req.url, "http://localhost");
+      if (req.method === "POST" && req.headers.origin) {
+        let origin;
+        try {
+          origin = new URL(req.headers.origin);
+        } catch {}
+        if (
+          !origin ||
+          !["http:", "https:"].includes(origin.protocol) ||
+          origin.host !== req.headers.host
+        )
+          throw new PerceptionError(
+            "origin",
+            "Cross-origin requests are not allowed.",
+            403,
+          );
+      }
+      if (req.method === "GET" && url.pathname === "/api/vision-config")
+        return json(res, 200, {
+          configured: !!apiKey,
+          model,
+          daily_limit: limit,
+          requires_access_code: !isLocal(req),
+          demos: visionDemos.map((d) => ({
+            ...d,
+            recorded: existsSync(
+              path.join(publicDir, "vision-demos", d.id + ".observations.json"),
+            ),
+          })),
+        });
+      if (req.method === "POST" && url.pathname === "/api/perceive") {
+        if (
+          !isLocal(req) &&
+          (!process.env.VISION_ACCESS_CODE ||
+            !equalSecret(
+              req.headers["x-vision-access-code"],
+              process.env.VISION_ACCESS_CODE,
+            ))
+        )
+          throw new PerceptionError(
+            "access_required",
+            "Enter the deployment demo access code to use live AI. Manual analysis remains open.",
+            403,
+          );
+        if (!apiKey)
+          throw new PerceptionError(
+            "not_configured",
+            "Live AI is not configured. Use manual review or a recorded demo.",
+            503,
+          );
+        const data = await readJson(req, 4600000);
+        if (data.consent !== true)
+          throw new PerceptionError(
+            "consent_required",
+            "Confirm that this image may be sent to OpenAI.",
+          );
+        const image = await prepareImage(data.image);
+        const output = await budget.run(() =>
+          perception(image, { apiKey, model }),
+        );
+        return json(res, 200, output);
+      }
+      if (
+        req.method === "GET" &&
+        url.pathname.startsWith("/api/vision-replay/")
+      ) {
+        const id = url.pathname.split("/").pop();
+        if (!visionDemos.some((d) => d.id === id))
+          return json(res, 404, { error: "Unknown demo." });
+        try {
+          const record = JSON.parse(
+            await readFile(
+              path.join(publicDir, "vision-demos", id + ".observations.json"),
+              "utf8",
+            ),
+          );
+          return json(res, 200, {
+            ...record,
+            provenance: {
+              ...record.provenance,
+              mode: "recorded",
+              note: "Saved output from an actual prior model request for this synthetic image. No live model call on this run.",
+            },
+          });
+        } catch {
+          return json(res, 404, {
+            error: "No recorded observation is available for this demo.",
+          });
+        }
+      }
+      if (
+        req.method === "POST" &&
+        url.pathname === "/api/observations/convert"
+      ) {
+        const data = await readJson(req, 131072);
+        const raw = data.observations;
+        if (!raw || !Array.isArray(raw.components))
+          throw new PerceptionError(
+            "invalid_observations",
+            "Provide reviewed observations.",
+          );
+        const observations = normalizeObservations({
+          image_kind: raw.image_kind,
+          summary: raw.summary,
+          supply_voltage: raw.supply_voltage,
+          warnings: raw.warnings,
+          components: raw.components.map((p) => {
+            if (!p || typeof p !== "object" || Array.isArray(p))
+              throw new PerceptionError(
+                "invalid_observations",
+                "Each detection must be an object.",
+              );
+            const { review, edited, manual, ...rest } = p;
+            return rest;
+          }),
+        });
+        observations.components.forEach((p, i) => {
+          p.review = data.observations.components[i].review;
+        });
+        return json(res, 200, {
+          circuit: observationsToCircuit(observations, data.voltage),
+          observations,
+        });
+      }
       if (req.method === "GET" && url.pathname === "/api/health")
         return json(res, 200, {
           ok: true,
-          version: "1.0.0",
-          mode: "local deterministic analysis",
+          version: "2.0.0",
+          mode: "reviewed visual perception + deterministic analysis",
         });
       if (req.method === "GET" && url.pathname === "/api/examples")
         return json(res, 200, { examples, references });
@@ -90,6 +283,8 @@ export function createServer() {
       });
       res.end(req.method === "HEAD" ? undefined : content);
     } catch (e) {
+      if (e instanceof PerceptionError)
+        return json(res, e.status, { error: e.message, code: e.code });
       json(res, e.code === "ENOENT" ? 404 : 500, {
         error:
           e.code === "ENOENT"
@@ -103,6 +298,10 @@ if (
   process.argv[1] &&
   path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
 ) {
+  if (existsSync(new URL("./.env.local", import.meta.url)))
+    process.loadEnvFile(
+      fileURLToPath(new URL("./.env.local", import.meta.url)),
+    );
   const port = Number(process.env.PORT || 3000),
     host = process.env.HOST || "127.0.0.1";
   createServer().listen(port, host, () =>

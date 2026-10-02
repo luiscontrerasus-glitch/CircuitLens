@@ -1,0 +1,1 @@
+CircuitLens — From visual guesses to explainable debugging

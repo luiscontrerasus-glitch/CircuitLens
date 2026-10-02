@@ -1,3 +1,4 @@
+import { initPerception } from "./perception-ui.js";
 import { colorFeatureMask } from "./vision.js";
 import { terminalPoint } from "./layout.js";
 const $ = (id) => document.getElementById(id),
@@ -13,6 +14,7 @@ const $ = (id) => document.getElementById(id),
           "'": "&#39;",
         })[c],
     );
+let perception = null;
 let fixtures = [],
   references = {},
   circuit = { voltage: 5, components: [] },
@@ -76,6 +78,7 @@ function renderImage() {
       `Color feature mask: ${mask.percentage.toFixed(1)}% of pixels have strong saturation. This can highlight insulation, LEDs, or unrelated objects; confirm everything manually.`;
   }
 
+  perception?.draw(ctx, canvas.width, canvas.height);
   for (const p of circuit.components) {
     const points = isDemo
       ? [terminalPoint(p.a), terminalPoint(p.b)].map((q) => ({
@@ -134,6 +137,7 @@ async function setImage(url, demo) {
   $("image-help").textContent = demo
     ? "Generated diagram with known fixture terminals. Edit the table to change the analyzed circuit; the original illustration stays fixed."
     : "Review the photo and enter terminals. Use Mark ↗ on a component to place two visual anchors; anchors do not infer electrical connections.";
+  perception?.imageChanged();
   renderImage();
 }
 function scrollBench() {
@@ -162,6 +166,7 @@ async function loadExample(id) {
   scrollBench();
 }
 function reset() {
+  perception?.reset();
   invalidate();
   photoVersion++;
   circuit = { voltage: 5, components: [] };
@@ -178,7 +183,7 @@ function reset() {
   $("features").checked = false;
   $("features").disabled = false;
   $("image-help").textContent =
-    "Photos are a visual reference. Confirm components and terminals manually.";
+    "Run live AI to propose components and terminals, or enter them manually.";
   document
     .querySelectorAll(".example-card")
     .forEach((b) => b.classList.remove("selected"));
@@ -437,8 +442,45 @@ $("download-report").onclick = () => {
       circuit,
       reference: $("reference").value || null,
       analysis: result,
+      perception: perception?.provenance(),
     });
 };
+perception = initPerception({
+  getImage: () => image,
+  getVoltage: () => Number($("voltage").value),
+  redraw: renderImage,
+  onInvalidate: () => {
+    invalidate();
+    circuit = { voltage: Number($("voltage").value), components: [] };
+    annotations = {};
+    renderEditor();
+  },
+  onApply: (converted, observation) => {
+    invalidate();
+    circuit = converted;
+    isDemo = false;
+    annotations = {};
+    for (const p of observation.observations.components.filter(
+      (p) => p.review === "accepted",
+    ))
+      annotations[p.id] = [p.a.point, p.b.point].map((q) => ({
+        x: q.x * canvas.width,
+        y: q.y * canvas.height,
+      }));
+    renderEditor();
+    renderImage();
+    $("components").scrollIntoView({ behavior: "smooth" });
+  },
+  onImage: async (demo) => {
+    reset();
+    await setImage(demo.image, false);
+    $("image-title").textContent = demo.name;
+    $("source-badge").textContent = "SYNTHETIC VISION DEMO";
+    $("reference").value = "led";
+    referencePreview();
+    scrollBench();
+  },
+});
 try {
   const response = await fetch("/api/examples");
   if (!response.ok)

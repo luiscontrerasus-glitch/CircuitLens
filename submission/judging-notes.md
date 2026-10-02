@@ -1,14 +1,5 @@
-# Judging notes
+# Technical substance for judges
 
-The technical contribution is the bridge between an editable physical-build model and explainable electrical checks:
+This is more than image-to-prose: an untrusted visual result must pass a strict typed schema, human review, netlist validation, breadboard union-find and deterministic reference/rule checks. A model cannot directly issue the final diagnosis. Demonstrate both a fault and the same graph after correction.
 
-- Breadboard topology normalization and union-find net creation.
-- Passive-network path search for LED orientation, open paths, and current-limiter bypasses.
-- Reference comparison using labeled pin-net signatures rather than row coordinates.
-- Fault localization linked to image annotations and component rows.
-- A strict confirmation/invalidation loop that keeps findings tied to reviewed input.
-- Tested API, graph rules, original generated fixtures, and local pixel processing.
-
-Ask the presenter to move a correct circuit to other rows, remove the resistor, open the button, or bridge the rails. The result is recalculated, not selected from an expected-output list. Fixture expected codes are used in automated tests, never as analysis outputs.
-
-No runtime LLM is present. The system is not an LLM wrapper, but it also does not satisfy an automatic-photo-recognition claim. Its current scope is transparent assisted review and deterministic validation.
+Judge code/interface reliability separately from unverified perception quality. The strongest current evidence is the 39-test suite, browser correction workflow and production smoke. Five unsuccessful live requests are an operational limitation, not a recognition benchmark. No award or impact outcome is claimed.

@@ -1,0 +1,70 @@
+[
+  {
+    "route": "/",
+    "status": 200
+  },
+  {
+    "route": "/api/health",
+    "status": 200
+  },
+  {
+    "route": "/api/vision-config",
+    "status": 200
+  },
+  {
+    "route": "/perception-ui.js",
+    "status": 200
+  },
+  {
+    "route": "/vision-demos/correct.png",
+    "status": 200
+  },
+  {
+    "route": "/vision-demos/reversed.png",
+    "status": 200
+  },
+  {
+    "route": "/vision-demos/miswired.png",
+    "status": 200
+  },
+  {
+    "example": "healthy",
+    "status": "pass",
+    "codes": []
+  },
+  {
+    "example": "reversed",
+    "status": "review",
+    "codes": [
+      "reversed-led",
+      "connection-mismatch",
+      "connection-mismatch",
+      "connection-mismatch"
+    ]
+  },
+  {
+    "example": "no-resistor",
+    "status": "critical",
+    "codes": ["missing-resistor", "missing-component", "connection-mismatch"]
+  },
+  {
+    "example": "disconnected",
+    "status": "review",
+    "codes": ["open-circuit", "connection-mismatch"]
+  },
+  {
+    "example": "short",
+    "status": "critical",
+    "codes": ["supply-short", "connection-mismatch", "connection-mismatch"]
+  },
+  {
+    "example": "divider",
+    "status": "pass",
+    "codes": []
+  },
+  {
+    "example": "button",
+    "status": "pass",
+    "codes": []
+  }
+]

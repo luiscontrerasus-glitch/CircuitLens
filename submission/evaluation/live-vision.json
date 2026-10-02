@@ -1,0 +1,22 @@
+{
+  "evaluated_at": "2026-10-01T21:21:08.052Z",
+  "synthetic": true,
+  "acceptance": "Simulated for evaluation; every UI proposal still needs human review.",
+  "results": [
+    {
+      "id": "correct",
+      "error": "quota_or_rate_limit",
+      "message": "The model account reached its quota or rate limit. Use manual review or a recorded demo."
+    },
+    {
+      "id": "reversed",
+      "error": "quota_or_rate_limit",
+      "message": "The model account reached its quota or rate limit. Use manual review or a recorded demo."
+    },
+    {
+      "id": "miswired",
+      "error": "quota_or_rate_limit",
+      "message": "The model account reached its quota or rate limit. Use manual review or a recorded demo."
+    }
+  ]
+}

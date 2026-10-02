@@ -1,7 +1,8 @@
 {
   "name": "circuitlens",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "Local-first breadboard debugging with reviewable circuit graphs",
   "engines": {
@@ -11,11 +12,18 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "test": "node --test --test-isolation=none",
-    "check": "node --check server.js && node --check public/app.js && node --check src/engine.js",
+    "check": "node scripts/check.js",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "build": "node scripts/build.js",
+    "evaluate:vision": "node scripts/evaluate-vision.js --live --record",
+    "security:check": "node scripts/security-check.js"
   },
   "devDependencies": {
     "prettier": "3.6.2"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "sharp": "0.35.5"
   }
 }

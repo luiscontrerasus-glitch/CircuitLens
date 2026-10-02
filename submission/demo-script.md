@@ -1,41 +1,15 @@
-# Demo script — approximately 2–3 minutes
+# Demo script — 2–3 minutes
 
-## 0:00–0:20 · The problem
+**0:00–0:20 — Problem.** “An LED that stays dark could mean reversed polarity, a missing connection, or something we cannot see. CircuitLens makes the evidence inspectable.”
 
-Show the landing page.
+**0:20–0:50 — Separate visual perception from reasoning.** Show the three clearly labeled synthetic vision images. Explain that live analysis sends only pixels, with consent, and that a reference is never sent to the model. State the current API-credit blocker before presenting any simulated material. Do not repeatedly trigger known quota failures.
 
-“A breadboard can look right and still do nothing. CircuitLens helps a beginner connect a visible wiring mistake to the electrical reason behind it.”
+**0:50–1:25 — Review.** For a developer demonstration, run the explicitly labeled simulated provider harness and show candidate boxes, terminal scores, accept/reject, a missing detection, and LED A/B edits. Narrate “This provider response is simulated for interface testing, not a successful AI inference.” Alternatively show the captured simulated-review screenshot. Never remove its label. There is currently no genuine recorded-model replay to show.
 
-## 0:20–0:45 · Make the model explicit
+**1:25–2:10 — Working engineering demo.** On the normal app choose the fixture “A light that stays dark.” Confirm the netlist and analyze. Show the reversed-LED evidence and specific fix. Change D1 A to D12 and B to D18, re-confirm and analyze: the fault clears and the simple-path current estimate is 9.1 mA. Explain that the physical diagram is unchanged when the netlist is edited.
 
-Click **A light that stays dark**. Point to the **Generated example** label, then the terminal table and intended design.
+**2:10–2:35 — Reliability.** Show “One row away”: the graph reports an open path. Show “The first light”: no supported-rule faults. These results come from the real deterministic engine using fixture netlists, not image recognition.
 
-“This demo uses an original generated diagram with known terminals. For a real photo, the user enters and confirms the terminals. This MVP does not claim automatic component recognition.”
+**2:35–2:55 — Honest scope.** “The runtime visual API path is implemented and tested with mocks; live extraction remains unverified because every current provider attempt ran out of credits. Manual correction keeps the workbench usable. We have 39 passing automated tests, but no real-photo benchmark or measured learning outcomes.”
 
-## 0:45–1:15 · Find and explain
-
-Check confirmation and click **Analyze connections**. Show the LED polarity finding and reference differences.
-
-“The engine merges breadboard strips and jumpers into electrical nets. Here the cathode reaches power while the anode reaches ground. Every finding provides evidence, why it matters, and a correction.”
-
-## 1:15–1:45 · Fix and verify
-
-Set D1 terminal A to **D12** and B to **D18**. Confirm again and analyze.
-
-“Changing the model invalidates the old result. The corrected model now has no supported-rule faults. This 9.1 milliamp estimate assumes a two-volt LED drop and a simple series path; it is not a hardware measurement.”
-
-## 1:45–2:10 · Show technical range
-
-Choose **Crossed rails**, confirm, and analyze. Show the critical direct-short finding. Then choose **Split the difference**, confirm, and analyze to show **2.50 V**.
-
-“The same engine catches a rail short and calculates an ideal unloaded divider. These outputs are recomputed from the editable netlist.”
-
-## 2:10–2:35 · Close with scope
-
-Expand **Inspect the circuit graph**.
-
-“CircuitLens is a working, local-first foundation for AI-assisted debugging. Today the perception step is manual, while graph checks are deterministic and testable. The next step is evaluated vision proposals, feeding this same review and validation workflow.”
-
-## Recovery
-
-If a photo or file picker causes trouble, return to a generated example. If you accidentally edit the wrong field, reload the example. No network or AI service is needed for the core demonstration.
+Once usable API credits are confirmed, replace the simulated segment with an actual request, retain provenance, review all detections, and update the evidence files. Do not claim this future demonstration has already happened.

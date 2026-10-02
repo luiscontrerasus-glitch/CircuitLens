@@ -5,3 +5,7 @@ test-results
 submission
 tests
 *.log
+dist
+.runtime
+.verification-runtime
+test-support

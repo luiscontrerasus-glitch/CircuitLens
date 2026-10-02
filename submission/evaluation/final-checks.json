@@ -1,0 +1,27 @@
+{
+  "checked_date": "2026-10-01",
+  "automated": {
+    "tests": 39,
+    "passed": 39,
+    "failed": 0
+  },
+  "audit_vulnerabilities": 0,
+  "build": "passed",
+  "production_smoke": "passed_without_credentials",
+  "fixture_demos": 7,
+  "secret_scan": {
+    "status": "passed",
+    "files_and_blobs": 345,
+    "env_local_ignored": true,
+    "env_local_tracked": false
+  },
+  "browser": {
+    "provider": "explicitly simulated test harness",
+    "review_conversion": "passed",
+    "correction": "passed",
+    "quota_fallback_manual_entry": "passed"
+  },
+  "live_inference_successes": 0,
+  "new_live_requests_this_finalization": 0,
+  "public_deployment": false
+}

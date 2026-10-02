@@ -1,0 +1,12 @@
+{
+  "evaluated_at": "2026-10-01T21:23:12.864Z",
+  "synthetic": true,
+  "acceptance": "Simulated for evaluation; every UI proposal still needs human review.",
+  "results": [
+    {
+      "id": "correct",
+      "error": "quota_or_rate_limit",
+      "message": "The model account reached a quota or rate limit. Manual review remains available."
+    }
+  ]
+}
