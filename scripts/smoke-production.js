@@ -58,7 +58,7 @@ const report = {
   demos,
 };
 await writeFile(
-  "submission/evaluation/redesign-production-smoke.json",
+  process.argv[3] || "submission/evaluation/redesign-production-smoke.json",
   JSON.stringify(report, null, 2) + "\n",
 );
 console.log(

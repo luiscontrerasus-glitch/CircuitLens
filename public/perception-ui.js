@@ -1,3 +1,4 @@
+import { analysisPhase } from "./instrument.js";
 const $ = (id) => document.getElementById(id),
   esc = (s) =>
     String(s).replace(
@@ -87,6 +88,12 @@ export function initPerception({
     }
     const token = ++generation;
     busy = true;
+    analysisPhase(
+      "perception",
+      recorded
+        ? "Loading recorded observations / not live inference"
+        : "Scanning components / mapping connection candidates",
+    );
     document.querySelector(".visual-panel").classList.add("processing");
     $("vision-run").setAttribute("aria-busy", "true");
     status(
@@ -128,6 +135,7 @@ export function initPerception({
       response = data;
       selected = null;
       onInvalidate();
+      analysisPhase("review", "Observations ready / human review required");
       status(
         data.observations.components.length
           ? "Observations ready. Review every part and both terminal candidates."
@@ -143,11 +151,16 @@ export function initPerception({
             : "smooth",
       });
     } catch (e) {
-      if (token === generation)
+      if (token === generation) {
+        analysisPhase(
+          "model",
+          "Perception unavailable / manual entry remains available",
+        );
         status(
           `${e.message} You can still add components manually below.`,
           true,
         );
+      }
     } finally {
       if (token === generation) {
         busy = false;
@@ -240,6 +253,10 @@ export function initPerception({
     const token = generation;
     const revision = reviewRevision;
     try {
+      analysisPhase(
+        "building",
+        "Building circuit model from accepted observations",
+      );
       const r = await fetch("/api/observations/convert", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -252,10 +269,18 @@ export function initPerception({
       if (token !== generation || revision !== reviewRevision) return;
       if (!r.ok) throw Error(data.error);
       onApply(data.circuit, response);
+      analysisPhase(
+        "model",
+        "Reviewed model built / confirm and run engineering checks",
+      );
       status(
         "Accepted observations transferred to the circuit editor. Check the supply and reference, confirm the netlist, then analyze.",
       );
     } catch (e) {
+      analysisPhase(
+        "review",
+        "Resolve accepted observations before constructing the model",
+      );
       status(e.message, true);
     }
   };

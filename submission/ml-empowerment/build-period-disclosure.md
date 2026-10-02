@@ -13,3 +13,7 @@ The separate feature commit preserves the original history. Its commit date is n
 The current 3.0 rules begin the event September 5, 2026. Development here occurred September 30 and October 1. The rules prose lists October 5 at 9 PM PDT while the page header lists October 9 at 11:45 PM PDT; verify the effective deadline before submitting. Earlier editions are not the target. [Official rules](https://ml-build-challenge-3.devpost.com/rules).
 
 Rules target high-school and college students. Student status is unverified. No sponsor tools, training dataset, fine-tuning, performance metrics or prize eligibility beyond these documented facts are claimed.
+
+## Subsequent presentation upgrade
+
+An October 1–2 cinematic frontend pass follows baseline 1850e5d. It adds illustration, CSS 3D/scroll storytelling, workbench presentation and two tests; the original deterministic reasoning and prior work remain intact. Browser review and new capture are incomplete due to denied browser permission. This later work must not be represented as completed before an event deadline. No organizer acceptance or eligibility is asserted.

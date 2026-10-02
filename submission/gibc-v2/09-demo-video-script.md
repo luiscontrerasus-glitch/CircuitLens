@@ -1,5 +1,7 @@
 # Demo video — three-minute story
 
+> This script describes the preceding verified design. The latest cinematic experience has a [2:45 recording script](../cinematic-demo/recording-script.md) and [capture checklist](../cinematic-demo/recording-checklist.md). No video or new cinematic screenshots exist; browser access was denied.
+
 Target: approximately 3:00 at a natural pace, with short pauses while the circuit changes. English narration. No hardware footage is required or implied. All circuit inputs shown here are original synthetic diagrams. Perception footage uses the explicitly labeled development test provider; do not relabel it as live AI.
 
 ## 0:00–0:20 — A light that stays dark

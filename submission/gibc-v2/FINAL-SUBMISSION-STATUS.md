@@ -1,5 +1,7 @@
 # FINAL SUBMISSION STATUS — CircuitLens / GIBC V2 Track 03
 
+> Historical status for the previous design. A subsequent cinematic frontend upgrade is implemented with 44 passing tests and a successful production smoke, but browser permission was denied: its visual review, new screenshots and video remain incomplete. Use [current verification](../evaluation/cinematic-verification.md) and [new recording preparation](../cinematic-demo/recording-script.md) for the current checkout. No deadline extension, eligibility or timely submission is asserted for the October 1–2 redesign.
+
 **Local product and submission assets: complete and reviewable. Devpost entry: NOT READY TO SUBMIT until the external requirements below are resolved.**
 
 ## Commit and verification

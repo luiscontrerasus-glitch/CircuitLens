@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#09161c" />
+    <meta name="theme-color" content="#111210" />
     <meta
       name="description"
       content="Trace circuit connections, find electrical faults, and understand the fix. A reviewable vision and deterministic engineering workbench."
@@ -11,6 +11,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>CircuitLens — See the fault. Understand the fix.</title>
     <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/cinematic.css" />
     <script src="/app.js" type="module"></script>
   </head>
   <body>
@@ -28,98 +29,148 @@
       </nav>
     </header>
     <main>
-      <section class="hero">
-        <div>
-          <div class="eyebrow">
-            <i class="pulse"></i> CIRCUIT DIAGNOSTICS / WORKBENCH 02
+      <section
+        class="cinema"
+        data-scene="physical"
+        aria-label="Illustrative circuit story"
+      >
+        <div class="cinema-sticky">
+          <div class="scene-grain" aria-hidden="true"></div>
+          <div class="scene-topline">
+            <span>CIRCUITLENS / ENGINEERING, IN FOCUS</span
+            ><span id="story-position">01 / 06</span>
           </div>
-          <h1>
-            See the fault.<br /><em>Understand<br />the fix.</em>
-          </h1>
-          <p>
-            A dark LED. A missing jumper. A connection that almost works. Trace
-            your build into an editable circuit graph. Find the evidence. Learn
-            what to change.
-          </p>
-          <div class="hero-actions">
-            <button id="start" class="primary">
-              Open a circuit photo <span>↗</span></button
-            ><button id="try-demo" class="secondary">
-              Diagnose a dark LED →
+          <div class="cinema-layout">
+            <div class="story-type">
+              <p id="story-note" class="eyebrow">01 / PHYSICAL CIRCUIT</p>
+              <h1 id="story-heading">See<br />what’s wrong.</h1>
+              <p id="story-copy">
+                A dark LED. One wrong connection.<br />Make the invisible
+                understandable.
+              </p>
+              <div class="cinema-actions">
+                <button id="try-demo" class="primary">
+                  Diagnose a dark LED →</button
+                ><button id="start" class="text-button">
+                  Open a circuit photo ↗
+                </button>
+              </div>
+            </div>
+            <div
+              class="object-stage"
+              aria-label="Original stylized circuit assembly; illustrative synthetic scene"
+            >
+              <div class="object-orbit" aria-hidden="true"></div>
+              <div class="object-shadow" aria-hidden="true"></div>
+              <div class="circuit-assembly">
+                <div class="board-edge" aria-hidden="true"></div>
+                <img
+                  class="object-board"
+                  src="/circuit-object.svg"
+                  alt="Stylized metal circuit board with resistor, LED and copper traces; synthetic illustration"
+                />
+                <div class="component-resistor" aria-hidden="true">
+                  <i></i><i></i><i></i><i></i>
+                </div>
+                <div class="component-led" aria-hidden="true">
+                  <span></span>
+                </div>
+                <div class="story-overlays" aria-hidden="true">
+                  <span class="candidate candidate-r">R1 / TYPE CANDIDATE</span
+                  ><span class="candidate candidate-d">D1 / VERIFY A & K</span
+                  ><span class="candidate candidate-w">TERMINAL / REVIEW</span>
+                </div>
+              </div>
+              <svg
+                class="story-schematic"
+                viewBox="0 0 720 500"
+                role="img"
+                aria-label="Illustrative resistor and LED topology, before and after polarity correction"
+              >
+                <defs>
+                  <pattern
+                    id="story-dot-grid"
+                    width="24"
+                    height="24"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <circle
+                      cx="1"
+                      cy="1"
+                      r="1"
+                      fill="currentColor"
+                      opacity=".13"
+                    />
+                  </pattern>
+                </defs>
+                <rect width="720" height="500" fill="url(#story-dot-grid)" />
+                <path
+                  class="story-wire"
+                  d="M100 130H246M330 130H540V226M540 306V390H100V130"
+                />
+                <path
+                  class="story-resistor"
+                  d="M246 130h9l6-14 12 28 12-28 12 28 12-28 6 14h15"
+                />
+                <g class="story-diode">
+                  <path
+                    d="M540 226v12m-17 0h34l-17 30zM523 273h34m-17 0v33M573 248l14-14m-5 0h5v5M578 264l14-14m-5 0h5v5"
+                  />
+                </g>
+                <circle class="schematic-node" cx="100" cy="130" r="9" />
+                <circle class="schematic-node" cx="100" cy="390" r="9" />
+                <text x="64" y="103">+5 V</text>
+                <text x="70" y="429">GND</text>
+                <text x="255" y="97">R1 / 330 Ω</text>
+                <text x="584" y="270">D1</text>
+                <path class="story-fault-ring" d="M485 212h112v107H485z" />
+                <text class="fault-label" x="393" y="358">
+                  D1 / POLARITY REVERSED
+                </text>
+                <text class="healthy-label" x="376" y="358">
+                  REVIEWED MODEL / CORRECTED
+                </text>
+              </svg>
+              <div class="object-caption">
+                <span>STUDY 01</span
+                ><span id="story-readout"
+                  >A circuit waiting to be understood.</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="scene-bottom">
+            <span class="story-disclosure"
+              >Synthetic explainer · illustrative observations · not live
+              inference</span
+            ><button id="story-next" class="story-next">
+              Explore the signal ↓
             </button>
           </div>
-          <p class="privacy">
-            Manual review stays local. Live AI sends the resized image to OpenAI
-            only with your consent.
-          </p>
+          <nav class="scene-navigation" aria-label="Circuit story scenes">
+            <button data-scene-target="0" aria-pressed="true">
+              01 <span>Circuit</span></button
+            ><button data-scene-target="1" aria-pressed="false">
+              02 <span>Observe</span></button
+            ><button data-scene-target="2" aria-pressed="false">
+              03 <span>Structure</span></button
+            ><button data-scene-target="3" aria-pressed="false">
+              04 <span>Diagnose</span></button
+            ><button data-scene-target="4" aria-pressed="false">
+              05 <span>Correct</span></button
+            ><button data-scene-target="5" aria-pressed="false">
+              06 <span>Try it</span>
+            </button>
+          </nav>
         </div>
-        <div
-          class="hero-art"
-          aria-label="Illustrative diagnosis of a reversed LED; synthetic demo"
-        >
-          <div class="art-label">
-            <span><i class="pulse"></i> SIGNAL TRACE / DEMO</span
-            ><span>5.00 V DC</span>
-          </div>
-          <svg
-            class="hero-scope"
-            viewBox="0 0 540 320"
-            role="img"
-            aria-label="Schematic illustration: resistor in series with reversed LED"
-          >
-            <defs>
-              <pattern
-                id="scope-grid"
-                width="24"
-                height="24"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M24 0H0V24"
-                  fill="none"
-                  stroke="#213741"
-                  stroke-width=".5"
-                />
-              </pattern>
-            </defs>
-            <rect width="540" height="320" fill="url(#scope-grid)" />
-            <path class="scope-trace" d="M60 70H230V112M230 166V238H400V180" />
-            <path class="scope-return" d="M400 126V70H335" />
-            <g class="scope-resistor">
-              <path d="M230 112l-9 5 18 9-18 9 18 9-18 9 9 5v8" />
-              <text x="254" y="140">R1</text>
-              <text x="254" y="157">330 Ω</text>
-            </g>
-            <g class="scope-led">
-              <path
-                d="M383 138h34l-17 27zM383 169h34M400 126v12m0 31v11M424 144l12-12m-5 0h5v5M430 158l12-12m-5 0h5v5"
-              />
-              <circle cx="400" cy="152" r="40" />
-              <text x="337" y="292">D1 / POLARITY REVERSED</text>
-            </g>
-            <circle class="scope-terminal" cx="60" cy="70" r="6" />
-            <circle class="scope-terminal" cx="335" cy="70" r="6" />
-            <text x="42" y="49">VCC</text>
-            <text x="316" y="49">GND</text>
-            <circle class="signal-dot" r="4">
-              <animateMotion
-                dur="4s"
-                repeatCount="indefinite"
-                path="M60 70H230V112"
-              />
-            </circle>
-          </svg>
-          <div class="scope-readout">
-            <span>FAULT ISOLATED</span
-            ><strong>Check D1 orientation <b>↗</b></strong
-            ><small>Illustrative rule result · synthetic circuit</small>
-          </div>
-          <div class="art-footer">
-            <span>OBSERVE</span><span>→</span><span>STRUCTURE</span
-            ><span>→</span><span>DIAGNOSE</span>
-          </div>
-        </div>
+        <div class="story-anchor" id="scene-circuit"></div>
+        <div class="story-anchor" id="scene-observe"></div>
+        <div class="story-anchor" id="scene-structure"></div>
+        <div class="story-anchor" id="scene-diagnose"></div>
+        <div class="story-anchor" id="scene-correct"></div>
+        <div class="story-anchor" id="scene-product"></div>
       </section>
+
       <section class="examples-section" id="examples">
         <div class="section-head">
           <div>
@@ -161,6 +212,19 @@
           <li>2 <span>Confirm connections</span></li>
           <li>3 <span>Understand & fix</span></li>
         </ol>
+        <div id="analysis-pipeline" class="analysis-pipeline" data-phase="idle">
+          <div class="pipeline-stages" aria-hidden="true">
+            <span class="phase-perception"
+              >Scan components / map candidates</span
+            ><span class="phase-review">Review observations</span
+            ><span class="phase-model">Build model</span
+            ><span class="phase-engineering">Trace paths / check rules</span
+            ><span class="phase-ready">Diagnosis</span>
+          </div>
+          <output id="pipeline-state" aria-live="polite"
+            >Ready for a generated fixture, image, or manual circuit</output
+          >
+        </div>
         <div class="bench-grid">
           <div class="visual-panel">
             <div class="panel-head">
@@ -240,9 +304,24 @@
               ><span><i class="dot fault"></i> Needs review</span>
             </div>
           </div>
+          <section class="graph-panel" aria-label="Circuit model">
+            <div class="panel-head">
+              <h3>02 / Circuit model</h3>
+              <span class="badge">EDITABLE TOPOLOGY</span>
+            </div>
+            <div class="schematic-head">
+              <span>TERMINAL TOPOLOGY</span
+              ><span id="graph-status">AWAITING INPUT</span>
+            </div>
+            <div id="live-graph" class="live-graph"></div>
+            <p class="graph-caption">
+              Select a component to edit its terminals. This view shows
+              breadboard groups before wire nets are merged.
+            </p>
+          </section>
           <div class="editor-panel">
             <div class="panel-head">
-              <h3>02 / Structured circuit</h3>
+              <h3>03 / Properties & connections</h3>
               <span class="badge">HUMAN IN THE LOOP</span>
             </div>
             <div class="form-row">
@@ -269,15 +348,7 @@
                 cathode. Resistor A/B labels are matched to the reference.
               </p>
             </details>
-            <div class="schematic-head">
-              <span>TERMINAL TOPOLOGY</span
-              ><span id="graph-status">AWAITING INPUT</span>
-            </div>
-            <div id="live-graph" class="live-graph"></div>
-            <p class="graph-caption">
-              Select a component to edit its terminals. This view shows
-              breadboard groups before wire nets are merged.
-            </p>
+
             <div class="table-wrap">
               <table>
                 <thead>
@@ -417,7 +488,7 @@
         <div class="section-head">
           <div>
             <div class="eyebrow">INSIDE THE INSTRUMENT</div>
-            <h2>AI observes. Engineering reasons.</h2>
+            <h2>AI observes.<br />Engineering rules reason.</h2>
           </div>
           <p>Every step is inspectable.</p>
         </div>
@@ -435,21 +506,33 @@
           </div>
           <b aria-hidden="true">→</b>
           <div>
-            <span>03 / YOU</span>
+            <span>03 / OBSERVATIONS</span>
+            <h3>Structured evidence</h3>
+            <p>Typed candidates, boxes, terminal proposals</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>04 / YOU</span>
             <h3>Human review</h3>
             <p>Accept, reject, correct</p>
           </div>
           <b aria-hidden="true">→</b>
           <div>
-            <span>04 / STRUCTURE</span>
+            <span>05 / STRUCTURE</span>
             <h3>Graph / netlist</h3>
             <p>Explicit electrical connections</p>
           </div>
           <b aria-hidden="true">→</b>
           <div>
-            <span>05 / ENGINEERING</span>
+            <span>06 / ENGINEERING</span>
             <h3>Rules & comparison</h3>
             <p>Trace faults. Explain the fix.</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>07 / DIAGNOSIS</span>
+            <h3>Understand the fix</h3>
+            <p>Evidence, expected behavior, actionable correction</p>
           </div>
         </div>
         <div class="architecture-note">

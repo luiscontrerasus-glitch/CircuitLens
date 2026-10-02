@@ -13,3 +13,7 @@ The separate feature commit preserves the original history. Its commit date is n
 The published event dates are September 4–October 4, 2026, encompassing this September 30/October 1 development. The page header and rules prose disagree about the October 5 deadline hour; confirm the submission time with the organizer instead of relying on this draft. [Official rules](https://csc-back-to-school.devpost.com/rules).
 
 Tailored to the current CSC Back-to-School event, not CSC Hacks at Pitt. Published eligibility is high-school students ages 13–18; the user’s age/student status has not been verified. AI assistance must be disclosed.
+
+## Subsequent presentation upgrade
+
+An October 1–2 cinematic frontend pass follows baseline 1850e5d. It adds illustration, CSS 3D/scroll storytelling, workbench presentation and two tests; the original deterministic reasoning and prior work remain intact. Browser review and new capture are incomplete due to denied browser permission. This later work must not be represented as completed before an event deadline. No organizer acceptance or eligibility is asserted.

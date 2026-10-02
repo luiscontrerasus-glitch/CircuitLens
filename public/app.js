@@ -2,6 +2,9 @@ import { initPerception } from "./perception-ui.js";
 import { colorFeatureMask } from "./vision.js";
 import { terminalPoint } from "./layout.js";
 import { schematicMarkup } from "./schematic.js";
+import { initCinematic } from "./cinematic.js";
+import { analysisPhase } from "./instrument.js";
+initCinematic();
 const $ = (id) => document.getElementById(id),
   esc = (s) =>
     String(s).replace(
@@ -33,6 +36,7 @@ function error(message) {
   $("error").hidden = !message;
 }
 function invalidate() {
+  analysisPhase("model", "Circuit model editable / confirmation required");
   document
     .querySelectorAll(".steps li")
     .forEach((li, i) => li.classList.toggle("active", i < 2));
@@ -299,8 +303,8 @@ function renderResults() {
     .join("");
   $("issue-list").innerHTML = result.issues
     .map(
-      (i) =>
-        `<article class="issue"><header><h3>${esc(i.title)}</h3><span class="severity ${i.severity}">${esc(i.severity.toUpperCase())}</span></header><dl><dt>WHERE / EVIDENCE</dt><dd>${esc(i.evidence)}</dd>${$("education").checked ? `<dt>WHY IT MATTERS</dt><dd>${esc(i.why)}</dd>` : ""}<dt>HOW TO FIX IT</dt><dd>${esc(i.fix)}</dd></dl><p>${i.components.map((id) => `<button class="issue-focus" data-focus-component="${esc(id)}">↗ Inspect ${esc(id)} </button>`).join(" · ")}</p><small>Rule confidence: ${esc(i.confidence)} · input interpretation unverified</small></article>`,
+      (i, index) =>
+        `<article class="issue"><span class="fault-index">FINDING ${String(index + 1).padStart(2, "0")} / ENGINEERING EVIDENCE</span><header><h3>${esc(i.title)}</h3><span class="severity ${i.severity}">${esc(i.severity.toUpperCase())}</span></header><dl><dt>WHERE / EVIDENCE</dt><dd>${esc(i.evidence)}</dd>${$("education").checked ? `<dt>WHY IT MATTERS</dt><dd>${esc(i.why)}</dd>` : ""}<dt>HOW TO FIX IT</dt><dd>${esc(i.fix)}</dd></dl><p>${i.components.map((id) => `<button class="issue-focus" data-focus-component="${esc(id)}">↗ Inspect ${esc(id)} </button>`).join(" · ")}</p><small>Rule confidence: ${esc(i.confidence)} · input interpretation unverified</small></article>`,
     )
     .join("");
   $("graph-view").innerHTML =
@@ -406,6 +410,10 @@ async function analyzeCircuit(scroll = true) {
   const token = version;
   $("analyze").disabled = true;
   $("analyze").textContent = "Tracing electrical nets…";
+  analysisPhase(
+    "engineering",
+    "Tracing signal paths / checking engineering rules",
+  );
   $("workbench").classList.add("analysis-busy");
   $("analyze").setAttribute("aria-busy", "true");
   error("");
@@ -422,12 +430,14 @@ async function analyzeCircuit(scroll = true) {
     if (!response.ok) throw new Error(data.error || "Analysis failed.");
     if (token !== version) return;
     result = data;
+    analysisPhase("ready", "Diagnosis ready / deterministic rule evidence");
     renderResults();
     document
       .querySelectorAll(".steps li")
       .forEach((li) => li.classList.add("active"));
     if (scroll) $("results").scrollIntoView({ behavior: motion() });
   } catch (e) {
+    analysisPhase("model", "Analysis unavailable / editable circuit retained");
     error(e.message);
   } finally {
     $("workbench").classList.remove("analysis-busy");
@@ -581,10 +591,29 @@ try {
       "Cannot load examples. Check that the local server is running.",
     );
   ({ examples: fixtures, references } = await response.json());
-  $("example-list").innerHTML = fixtures
+  const demoNames = {
+    healthy: "Healthy LED",
+    reversed: "Reversed polarity",
+    disconnected: "Open connection",
+    "no-resistor": "Missing resistor",
+    short: "Crossed rails",
+    divider: "Voltage divider",
+    button: "Push-button LED",
+  };
+  const demoOrder = [
+    "healthy",
+    "reversed",
+    "disconnected",
+    "no-resistor",
+    "short",
+    "divider",
+    "button",
+  ];
+  $("example-list").innerHTML = [...fixtures]
+    .sort((a, b) => demoOrder.indexOf(a.id) - demoOrder.indexOf(b.id))
     .map(
       (x, i) =>
-        `<button class="example-card" data-id="${x.id}"><span class="number">FIXTURE 0${i + 1}</span><span class="arrow">↗</span><strong>${esc(x.name)}</strong><p>${esc(x.description)}</p><span class="demo-state">RUN RULE CHECKS →</span></button>`,
+        `<button class="example-card" data-id="${x.id}"><span class="number example-number">0${i + 1}</span><span class="arrow">↗</span><strong>${esc(demoNames[x.id] || x.name)}</strong><p>${esc(x.description)}</p><span class="demo-state">GENERATED FIXTURE →</span></button>`,
     )
     .join("");
   $("reference").insertAdjacentHTML(

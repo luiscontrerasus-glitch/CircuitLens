@@ -13,3 +13,7 @@ The separate feature commit preserves the original history. Its commit date is n
 The published build window is September 26–October 4, 2026. This project was started September 30 and upgraded October 1. No work from older user projects was reused. Participant eligibility and final submission status remain unverified. [Official rules](https://lovhack-season-3.devpost.com/rules).
 
 Do not claim use of Lovable or deAPI: neither built nor powers this app. Sponsor-specific eligibility is not claimed. The folder is tailored to the current Season 3 edition; confirm this matches the intended event.
+
+## Subsequent presentation upgrade
+
+An October 1–2 cinematic frontend pass follows baseline 1850e5d. It adds illustration, CSS 3D/scroll storytelling, workbench presentation and two tests; the original deterministic reasoning and prior work remain intact. Browser review and new capture are incomplete due to denied browser permission. This later work must not be represented as completed before an event deadline. No organizer acceptance or eligibility is asserted.

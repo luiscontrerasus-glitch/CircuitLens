@@ -10,3 +10,5 @@
 - Codex assisted development and original programmatically generated synthetic illustrations.
 
 No React, Python backend, custom trained detector, SPICE, sponsor API, real hardware sensor or third-party image dataset is used. Python was used for development file operations only, not product runtime.
+
+The October 1–2 cinematic frontend adds an original SVG circuit assembly, layered CSS 3D transforms, scroll/pointer interactions, static reduced-motion scenes, and instrument-style graph/diagnostic presentation. No visual framework or new runtime dependency was added. Automated tests now total 44; browser approval is pending. See ../evaluation/cinematic-verification.md.

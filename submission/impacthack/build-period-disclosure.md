@@ -13,3 +13,7 @@ The separate feature commit preserves the original history. Its commit date is n
 ImpactHack starts October 1. The base project and preliminary perception/budget scaffolding existed before that date. The rules allow prior foundations only with meaningful new contributions. The October 1 upgrade must be presented as an extension, never as an entirely new October 1 codebase. Organizer acceptance has not been obtained. [Official rules](https://impacthack26.devpost.com/rules).
 
 Published rules require current high-school students; eligibility is unverified. Educational and technical categories are plausible framing, not an award claim. This is not hardware validation or an independently measured impact study.
+
+## Subsequent presentation upgrade
+
+An October 1–2 cinematic frontend pass follows baseline 1850e5d. It adds illustration, CSS 3D/scroll storytelling, workbench presentation and two tests; the original deterministic reasoning and prior work remain intact. Browser review and new capture are incomplete due to denied browser permission. This later work must not be represented as completed before an event deadline. No organizer acceptance or eligibility is asserted.

@@ -1,5 +1,7 @@
 # Final screenshot selection
 
+> These captures are from the preceding workbench design. The latest cinematic design has not been captured because browser access was denied. Its [capture queue](../screenshots-cinematic/README.md) is pending, not a replacement set of finished images.
+
 All files are actual browser captures of the redesigned CircuitLens interface. Original screenshots remain in `screenshots/`; these new captures are in `screenshots-final/`. They show no credentials, private paths, browser address bar, or debug panels. Cropping in 06 and 08 isolates the real explanation and architecture panels; no product content was fabricated or composited.
 
 ## Five selected for Devpost, in order

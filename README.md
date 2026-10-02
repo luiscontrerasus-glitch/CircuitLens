@@ -2,7 +2,9 @@
 
 **See the fault. Understand the fix.** An electronics debugging workbench with structured visual suggestions, human review and deterministic circuit reasoning.
 
-![Upgraded CircuitLens workbench](submission/gibc-v2/screenshots-final/01-hero.jpg)
+> The latest cinematic frontend is implemented and passes 44 tests. Browser review and new captures are pending because local browser access was denied. The screenshot below depicts the previous verified design, not the latest cinematic scenes. See [current verification](submission/evaluation/cinematic-verification.md).
+
+![Previous verified CircuitLens design](submission/gibc-v2/screenshots-final/01-hero.jpg)
 
 > **Current verification boundary:** The runtime OpenAI integration is implemented, but successful live recognition has not been verified. On October 1, five Responses API attempts (correct image three times, reversed once, disconnected once) returned HTTP 429; the diagnostic response identified `credit_balance_exhausted` / `insufficient_quota`. Authentication and access to the selected model were separately verified with HTTP 200 from the models endpoint. No successful model observations, recognition accuracy, or real-hardware validation are claimed. Automated/provider-simulated checks and manual graph demos are separate evidence.
 
@@ -162,7 +164,7 @@ Tailored materials: [LovHack](submission/lovhack/), [CSC](submission/csc/), [ML 
 
 [GIBC V2 Track 03 materials](submission/gibc-v2/) package the same CircuitLens build honestly, including nine new screenshots and a roughly three-minute video script. The event’s deadline text conflicts; no submission or eligibility is claimed.
 
-## Engineering workbench design
+## Previous verified engineering workbench design
 
 ![Circuit observation beside editable schematic](submission/gibc-v2/screenshots-final/02-workbench.jpg)
 
@@ -173,3 +175,9 @@ The terminal schematic shows physical breadboard group labels before ideal-condu
 The frontend has no added visual framework or external fonts. Keyboard focus, textual severity/status, responsive scrolling and system reduced-motion support are retained. A footer motion control also lets viewers disable animation. Browser checks covered desktop (1440), laptop (1280), tablet (768) and mobile (390) widths with no document overflow; schematic/table scrolling remains contained.
 
 Final verification: 42 tests, zero dependency vulnerabilities, production startup and 29 asset/route checks plus all seven demo outcomes. `node scripts/smoke-production.js` reproduces the credential-free smoke against an already-running `dist` server on port 3005; it never calls perception. See [redesign verification](submission/evaluation/redesign-verification.md) and the [final screenshot selection](submission/gibc-v2/11-screenshot-list.md).
+
+## Cinematic circuit experience
+
+The subsequent October 1–2 presentation upgrade uses an original SVG board with layered CSS 3D components, pointer/scroll motion, six continuous story scenes, and a cream graph transition. The product workbench places image, terminal topology and properties in three columns on wide screens. Seven numbered fixtures, evidence-led diagnosis, qualified confidence review and a seven-stage architecture retain the original engineering boundaries. Request-stage labels respond to actual requests; there are no artificial analysis delays.
+
+This illustration is separate from runtime perception. A static scene navigation mode respects reduced motion; no WebGL support or new visual dependency is required. Browser inspection is still blocked, so layout, animation and console results are not certified. Current automated verification is 44 passing tests, zero audit vulnerabilities, a 41-file production package, and 33 HTTP asset/route checks plus seven fixture outcomes. [Verification and remaining work](submission/evaluation/cinematic-verification.md), [capture queue](submission/screenshots-cinematic/README.md), [2:45 recording materials](submission/cinematic-demo/recording-script.md).

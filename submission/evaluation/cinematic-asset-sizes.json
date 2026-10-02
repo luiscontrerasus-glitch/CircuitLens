@@ -1,0 +1,70 @@
+{
+  "boundary": "Local static asset sizes, not a browser rendering or Web Vitals measurement. gzip is a size estimate; this server does not claim HTTP compression.",
+  "added_runtime_dependencies": 0,
+  "external_fonts": 0,
+  "webgl_required": false,
+  "assets": [
+    {
+      "file": "index.html",
+      "bytes": 23156,
+      "gzip_bytes": 6225
+    },
+    {
+      "file": "style.css",
+      "bytes": 23791,
+      "gzip_bytes": 5337
+    },
+    {
+      "file": "cinematic.css",
+      "bytes": 20029,
+      "gzip_bytes": 5004
+    },
+    {
+      "file": "app.js",
+      "bytes": 22360,
+      "gzip_bytes": 7191
+    },
+    {
+      "file": "cinematic.js",
+      "bytes": 6526,
+      "gzip_bytes": 2406
+    },
+    {
+      "file": "instrument.js",
+      "bytes": 322,
+      "gzip_bytes": 217
+    },
+    {
+      "file": "circuit-object.svg",
+      "bytes": 2077,
+      "gzip_bytes": 889
+    },
+    {
+      "file": "favicon.svg",
+      "bytes": 299,
+      "gzip_bytes": 217
+    },
+    {
+      "file": "perception-ui.js",
+      "bytes": 14122,
+      "gzip_bytes": 4446
+    },
+    {
+      "file": "vision.js",
+      "bytes": 933,
+      "gzip_bytes": 479
+    },
+    {
+      "file": "layout.js",
+      "bytes": 376,
+      "gzip_bytes": 267
+    },
+    {
+      "file": "schematic.js",
+      "bytes": 4218,
+      "gzip_bytes": 1959
+    }
+  ],
+  "total_bytes": 118209,
+  "total_gzip_bytes": 34637
+}
