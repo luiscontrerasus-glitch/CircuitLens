@@ -1,14 +1,18 @@
-# Demo shot list
+# Demo shot list — redesigned workbench
 
-1. Product homepage: explain the dark-LED problem and intended student/maker audience.
-2. Fixture review: generated-image badge, selected reference, 330-ohm resistor and D1 A/B terminals.
-3. Fault: confirm/analyze; show reversed polarity, evidence, electrical reason and specific fix.
-4. Correction: change D1 to D12/D18; confirm/analyze; show the cleared result and estimate assumptions.
-5. Open path: “One row away” fixture, confirmed analysis and disconnected-path explanation.
-6. Optional short: “Crossed rails” fixture, critical result; no physical hardware is energized.
-7. Simulated review segment: show the test-provider label before boxes or confidence. Highlight a detection, edit a terminal, show pending state and accept/reject controls.
-8. Schema/architecture: visible structured observations and the perception → review → graph → rules boundary. Never show `.env.local` or raw credentials.
-9. Verification: 39 passing tests, build and audit evidence; say these are not recognition benchmarks.
-10. Close: intended learning benefit and honest next evaluation.
+| Time      | View                         | Action                              | Truth boundary                              |
+| --------- | ---------------------------- | ----------------------------------- | ------------------------------------------- |
+| 0:00–0:08 | Generated reversed LED input | Hold on dark-circuit story          | Synthetic illustration, not a hardware test |
+| 0:08–0:20 | Hero                         | Launch dark LED demo                | Real fixture analysis                       |
+| 0:20–0:35 | Workbench                    | Point to image → schematic          | Terminal topology before conductor merging  |
+| 0:35–0:50 | Schematic / terminal editor  | Select D1                           | Editable reviewed netlist                   |
+| 0:50–1:10 | Fault report                 | Read polarity evidence              | Real deterministic result                   |
+| 1:10–1:20 | Explanation                  | Show why/fix; Inspect D1            | No language-model diagnosis                 |
+| 1:20–1:40 | Editor                       | D1 A=D12, B=D18; confirm            | Old result clears on edit                   |
+| 1:40–1:50 | Healthy report               | Hold on pass and 9.1 mA             | Simple estimate, not measurement            |
+| 1:50–2:20 | Simulated review             | Show boxes, acceptance, uncertainty | Visible SIMULATED label stays on screen     |
+| 2:20–2:40 | Architecture                 | Trace review → graph → rules        | Live extraction still unverified            |
+| 2:40–2:50 | Demo library                 | Briefly show seven circuits         | Generated fixture inputs                    |
+| 2:50–3:00 | Hero / wordmark              | End on learning purpose             | No adoption or impact statistics            |
 
-No raw provider errors, fabricated recognitions or downloaded stock photos. Existing PNG shots provide a visual storyboard; they are not a recorded demo video. A capture-ready narrative is in 09-demo-video-script.md.
+Use the actual application at a laptop/desktop viewport. Pause just long enough to read each result. Keep the cursor deliberate. The app's animations are optional and can be reduced from its footer. No terminal/debug panels or personal paths in the recording. Record/upload has not yet occurred; this is a prepared shot plan.

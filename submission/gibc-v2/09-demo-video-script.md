@@ -1,20 +1,53 @@
-# Demo video script — 3 minutes 30 seconds
+# Demo video — three-minute story
 
-Track 03: Open / General Technical Invention. English narration. The prepared script is not an already recorded video. Keep the product on screen for most of the recording.
+Target: approximately 3:00 at a natural pace, with short pauses while the circuit changes. English narration. No hardware footage is required or implied. All circuit inputs shown here are original synthetic diagrams. Perception footage uses the explicitly labeled development test provider; do not relabel it as live AI.
 
-| Time      | Show                                                             | Narration                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| --------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0:00–0:20 | Homepage, then practice bench                                    | “An LED that stays dark can turn a simple lesson into guesswork. CircuitLens helps beginners inspect the connections and understand why a change matters.”                                                                                                                                                                                                                                                                         |
-| 0:20–0:45 | “A light that stays dark” fixture; image beside editable netlist | “This is a generated teaching example with a known netlist. We confirm the components and terminals, then the real engineering engine analyzes that graph.”                                                                                                                                                                                                                                                                        |
-| 0:45–1:15 | Confirm, analyze, reversed-LED result                            | “The cathode reaches power and the anode reaches ground through the passive network. The finding shows the evidence, explains reverse bias and suggests a specific correction. It is based on confirmed terminals, not a hardware measurement.”                                                                                                                                                                                    |
-| 1:15–1:45 | Edit D1 A to D12, B to D18; re-confirm and analyze               | “Changing the terminals clears the old result. After confirmation, the same rules find no supported fault. The 9.1 milliamp estimate assumes a 2 volt LED drop and a simple series path. The original drawing stays fixed; we changed the netlist.”                                                                                                                                                                                |
-| 1:45–2:05 | “One row away,” confirm and analyze                              | “Here one jumper lands on a separate row. The graph reports an open path. Seven fixtures let us explore errors without inference credits or hardware.”                                                                                                                                                                                                                                                                             |
-| 2:05–2:45 | Separate labeled simulated-provider app; review/overlay controls | “We added an image-perception adapter that asks OpenAI for structured components, boxes, endpoints, values and confidence. It never receives the intended design. All five live tests were blocked by API credits, so this review demonstration uses the visible simulated test provider. It is not a live recognition result. Here I can inspect confidence, reject a candidate, or edit a terminal before constructing a graph.” |
-| 2:45–3:05 | Architecture diagram / structured JSON and test summary          | “Visual suggestions go through a strict schema and human review before deterministic graph analysis. The prototype passes 39 automated tests and a production startup smoke, and manual entry still works when AI fails.”                                                                                                                                                                                                          |
-| 3:05–3:30 | Working results or homepage                                      | “Our intended impact is educational: help students learn to reason about a circuit, instead of trusting an opaque answer. Next we need successful live evaluations and consented real-photo tests. We have not measured learning gains or recognition accuracy.”                                                                                                                                                                   |
+## 0:00–0:20 — A light that stays dark
 
-## Recording guardrails
+“This circuit should light an LED. It has power, a resistor, and a return wire. But the LED stays dark. Something is wrong. Where do you start when every connection looks almost right?
 
-Use the normal app for fixture analysis. Use `scripts/mock-vision-server.js` only for the explicitly labeled review segment; it does not consume API credits. Do not trigger live quota failures again for the video. Keep simulation, generated-image and confidence labels visible. Avoid credentials, environment files and hosting-account pages. Do not claim the application is publicly deployed. Trim transition pauses to retain the stated duration.
+CircuitLens turns that question into a circuit you can inspect.”
 
-If genuine inference later succeeds, update attempt records and disclosures before replacing the simulated segment. Do not relabel the present footage or screenshots.
+Show the reversed-LED generated diagram, then the new landing screen. Launch “Diagnose a dark LED.” The demo loads a disclosed fixture and runs the actual rule engine in one click.
+
+## 0:20–0:50 — Make the connections explicit
+
+“Here is the observation. Beside it is the structure: power, breadboard groups, components, and ground. This is an editable terminal graph. The generated diagram is labeled; we are analyzing its fixture netlist, not pretending a model recognized hardware.
+
+Select the LED and CircuitLens takes you straight to its anode and cathode. Every connection is something you can inspect and change.”
+
+Select D1 in the schematic. Show its two terminal fields. Return to the workbench, then use the diagnostics shortcut.
+
+## 0:50–1:20 — Reveal the evidence
+
+“The engine finds reversed polarity. The cathode reaches power; the anode reaches ground through the passive network. An LED normally conducts in the opposite direction.
+
+The report shows the evidence, the electrical reason, and the fix: disconnect power and swap the leads. It also compares these connections with the intended design. These explanations come from deterministic rules.”
+
+Keep the first polarity finding readable. Briefly toggle “Explain the why.” Select “Inspect D1.”
+
+## 1:20–1:50 — Fix, then re-check
+
+“Let's correct the model. The anode goes to D12; the cathode goes to D18. Editing immediately clears the old result. After checking the terminals, I run the analysis again.
+
+Now the supported checks pass. The simple series-path estimate is 9.1 milliamps. That's a calculated estimate, not a physical measurement. We have gone from a dark LED to an explanation we can verify.”
+
+Edit D1, confirm, analyze. Pause on the healthy banner and estimate. Show the corrected schematic if time permits.
+
+## 1:50–2:20 — Make uncertainty visible
+
+“For uploaded images, the vision adapter proposes components, boxes, terminals, and confidence. This review footage is explicitly simulated. Successful live extraction is still unverified because our previous OpenAI requests ran out of credits.
+
+The review interface works: inspect the overlay, accept or reject a part, and correct its terminal candidates. Unknown connections block graph construction. Manual entry remains available when the API fails.”
+
+Cut to the labeled simulated review. Show accepted and pending states beside the image. Never show credentials, access codes, terminal windows, or private paths.
+
+## 2:20–3:00 — Explain the architecture and impact
+
+“AI observes. A person reviews. The engineering engine reasons about the resulting netlist. CircuitLens separates those jobs so an uncertain visual guess cannot silently become an electrical fact.
+
+Seven one-click examples cover polarity, missing jumpers, shorts, current limiting, dividers, and switches. The project passes 42 automated tests and its production smoke checks. The workbench also works on smaller screens and supports reduced motion.
+
+For students, makers, and robotics teams, the opportunity is to learn how to debug, rather than blindly copy a fix. Real-photo evaluation and classroom testing come next. CircuitLens: see the fault, understand the fix.”
+
+Show the architecture section, then the demo library. End on the wordmark/hero. Record the actual app; no fake console output, inference success, learning outcomes, or public URL.

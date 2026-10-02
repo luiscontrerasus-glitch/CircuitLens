@@ -38,6 +38,10 @@ export function initPerception({
     $("observation-json").textContent = JSON.stringify(response, null, 2);
   }
   function render() {
+    document
+      .querySelector(".visual-panel")
+      .classList.toggle("processing", busy);
+    $("vision-run").setAttribute("aria-busy", String(busy));
     const obs = response?.observations;
     $("detection-review").hidden = !obs;
     $("vision-run").disabled = busy || !getImage() || !config?.configured;
@@ -58,7 +62,7 @@ export function initPerception({
           Math.min(p.confidence, p.a.confidence, p.b.confidence) < 0.8 ||
           !p.a.hole ||
           !p.b.hole;
-        return `<article class="detection ${p.review} ${low ? "uncertain" : ""}" data-detection="${i}"><div class="detection-title"><button class="text-button" data-focus="${i}">${esc(p.id)} · highlight</button><span>${low ? "REVIEW CAREFULLY" : "REVIEW REQUIRED"} · ${Math.round(p.confidence * 100)}%*</span><strong>${esc(p.review)}</strong></div><p>${esc(p.evidence)}</p><div class="detection-fields"><label>ID<input data-key="id" value="${esc(p.id)}" aria-label="Detection ${i + 1} ID"></label><label>Type<select data-key="type" aria-label="${esc(p.id)} detected type">${["wire", "resistor", "led", "button", "unknown"].map((t) => `<option ${p.type === t ? "selected" : ""}>${t}</option>`).join("")}</select></label><label>A / anode (${Math.round(p.a.confidence * 100)}%*)<input data-key="a" placeholder="Unknown" value="${esc(p.a.hole ?? "")}" aria-label="${esc(p.id)} detected terminal A"></label><label>B / cathode (${Math.round(p.b.confidence * 100)}%*)<input data-key="b" placeholder="Unknown" value="${esc(p.b.hole ?? "")}" aria-label="${esc(p.id)} detected terminal B"></label>${p.type === "resistor" ? `<label>Resistance (Ω)<input type="number" data-key="value" placeholder="Unknown" value="${p.value ?? ""}" aria-label="${esc(p.id)} detected resistance"></label>` : ""}${p.type === "button" ? `<label>Switch state<select data-key="closed" aria-label="${esc(p.id)} detected state"><option value="" ${p.closed === null ? "selected" : ""}>Unknown</option><option value="true" ${p.closed === true ? "selected" : ""}>Closed</option><option value="false" ${p.closed === false ? "selected" : ""}>Open</option></select></label>` : ""}</div><div class="detection-actions"><button class="secondary small" data-review="accepted" data-i="${i}">Accept ${esc(p.id)}</button><button class="text-button" data-review="rejected" data-i="${i}">Reject ${esc(p.id)}</button></div></article>`;
+        return `<article class="detection ${p.review} ${low ? "uncertain" : ""}" data-detection="${i}"><div class="detection-title"><button class="text-button" data-focus="${i}">${esc(p.id)} · highlight</button><span>${low ? "REVIEW CAREFULLY" : "REVIEW REQUIRED"} · ${Math.round(p.confidence * 100)}%*</span><strong>${esc(p.review)}${p.edited ? " · edited" : ""}</strong></div><p>${esc(p.evidence)}</p><div class="detection-fields"><label>ID<input data-key="id" value="${esc(p.id)}" aria-label="Detection ${i + 1} ID"></label><label>Type<select data-key="type" aria-label="${esc(p.id)} detected type">${["wire", "resistor", "led", "button", "unknown"].map((t) => `<option ${p.type === t ? "selected" : ""}>${t}</option>`).join("")}</select></label><label>A / anode (${Math.round(p.a.confidence * 100)}%*)<input data-key="a" placeholder="Unknown" value="${esc(p.a.hole ?? "")}" aria-label="${esc(p.id)} detected terminal A"></label><label>B / cathode (${Math.round(p.b.confidence * 100)}%*)<input data-key="b" placeholder="Unknown" value="${esc(p.b.hole ?? "")}" aria-label="${esc(p.id)} detected terminal B"></label>${p.type === "resistor" ? `<label>Resistance (Ω)<input type="number" data-key="value" placeholder="Unknown" value="${p.value ?? ""}" aria-label="${esc(p.id)} detected resistance"></label>` : ""}${p.type === "button" ? `<label>Switch state<select data-key="closed" aria-label="${esc(p.id)} detected state"><option value="" ${p.closed === null ? "selected" : ""}>Unknown</option><option value="true" ${p.closed === true ? "selected" : ""}>Closed</option><option value="false" ${p.closed === false ? "selected" : ""}>Open</option></select></label>` : ""}</div><div class="detection-actions"><button class="secondary small" data-review="accepted" data-i="${i}">Accept ${esc(p.id)}</button><button class="text-button" data-review="rejected" data-i="${i}">Reject ${esc(p.id)}</button></div></article>`;
       })
       .join("");
     $("vision-apply").disabled =
@@ -83,6 +87,8 @@ export function initPerception({
     }
     const token = ++generation;
     busy = true;
+    document.querySelector(".visual-panel").classList.add("processing");
+    $("vision-run").setAttribute("aria-busy", "true");
     status(
       recorded
         ? "Loading recorded observations…"
@@ -129,7 +135,13 @@ export function initPerception({
       );
       render();
       redraw();
-      $("detection-review").scrollIntoView({ behavior: "smooth" });
+      $("detection-review").scrollIntoView({
+        behavior:
+          document.body.classList.contains("reduced-motion") ||
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "instant"
+            : "smooth",
+      });
     } catch (e) {
       if (token === generation)
         status(
@@ -164,8 +176,16 @@ export function initPerception({
     $("vision-apply").disabled = true;
     if (key === "type") render();
     else {
-      card.querySelector(".detection-title strong").textContent = "pending";
+      card.querySelector(".detection-title strong").textContent =
+        "pending · edited";
       card.classList.remove("accepted", "rejected");
+      const low =
+        Math.min(p.confidence, p.a.confidence, p.b.confidence) < 0.8 ||
+        !p.a.hole ||
+        !p.b.hole;
+      card.classList.toggle("uncertain", low);
+      card.querySelector(".detection-title > span").textContent =
+        `${low ? "REVIEW CAREFULLY" : "REVIEW REQUIRED"} · ${Math.round(p.confidence * 100)}%*`;
     }
     updateReviewSummary();
     redraw();
@@ -175,7 +195,14 @@ export function initPerception({
     if (focus) {
       selected = +focus.dataset.focus;
       redraw();
-      $("image-stage").scrollIntoView({ behavior: "smooth" });
+      $("review-photo").scrollIntoView({
+        block: "nearest",
+        behavior:
+          document.body.classList.contains("reduced-motion") ||
+          matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "instant"
+            : "smooth",
+      });
       return;
     }
     const b = e.target.closest("[data-review]");
@@ -298,7 +325,7 @@ export function initPerception({
         ctx.fillStyle = ctx.strokeStyle;
         ctx.font = "bold 12px Segoe UI";
         ctx.fillText(
-          `${p.id} ${Math.round(p.confidence * 100)}%*`,
+          `${p.id} ${Math.round(p.confidence * 100)}%*${p.edited ? " / EDITED" : ""}`,
           b.x * w,
           Math.max(14, b.y * h - 6),
         );

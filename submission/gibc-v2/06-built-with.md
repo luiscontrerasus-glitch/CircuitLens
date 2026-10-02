@@ -24,3 +24,7 @@ Original CircuitLens source is MIT licensed. Ajv/Prettier use MIT; Sharp uses Ap
 **Data and assets:** no external circuit-photo dataset, stock imagery or training data. Seven original generated SVG fixtures and three labeled synthetic PNG visual inputs were created by code. Simulated observations come from known netlists only in test support/development harnesses, which are excluded from the production artifact.
 
 **Hardware:** development/test computer only. No physical breadboard, camera capture, sensors, measurements, GPU training or tested circuit hardware. No React, Next.js, Python backend, SPICE or sponsor API is part of the runtime.
+
+## Design upgrade tools and assets
+
+SVG supplies the original CircuitLens lens/trace mark, favicon, hero schematic and selectable terminal diagram. CSS supplies the laboratory palette, grid motifs, focus/fault/status treatments, transitions and reduced-motion rules. System Segoe UI/Arial and Cascadia Code/Consolas fallbacks avoid external font downloads. No new runtime dependencies or copied logo/stock assets were introduced. Browser captures in `screenshots-final/` show the actual product; one uses an explicitly simulated perception provider. Native Node tests also verify that the diagram agrees with the engine's terminal mapping and safely escapes labels.

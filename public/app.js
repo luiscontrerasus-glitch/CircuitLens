@@ -1,6 +1,7 @@
 import { initPerception } from "./perception-ui.js";
 import { colorFeatureMask } from "./vision.js";
 import { terminalPoint } from "./layout.js";
+import { schematicMarkup } from "./schematic.js";
 const $ = (id) => document.getElementById(id),
   esc = (s) =>
     String(s).replace(
@@ -38,12 +39,64 @@ function invalidate() {
   version++;
   result = null;
   $("results").hidden = true;
+  $("findings-jump").hidden = true;
   $("export-preview").hidden = true;
   $("confirmed").checked = false;
   $("analyze").disabled = true;
   error("");
   renderImage();
+  renderGraph();
 }
+function renderGraph() {
+  $("live-graph").innerHTML = schematicMarkup(
+    circuit,
+    result?.issues,
+    result?.status,
+  );
+  $("graph-status").textContent = result
+    ? result.status === "pass"
+      ? "RULE CHECKS PASSED"
+      : "FINDINGS HIGHLIGHTED"
+    : circuit.components.length
+      ? "UNVERIFIED / EDITABLE"
+      : "AWAITING INPUT";
+}
+function focusComponent(index) {
+  const row = $("components").querySelector(`[data-index="${index}"]`);
+  if (!row) return;
+  document
+    .querySelectorAll("tr.selected, .schematic-part.selected")
+    .forEach((el) => el.classList.remove("selected"));
+  row.classList.add("selected");
+  $("live-graph")
+    .querySelector(`[data-component="${index}"]`)
+    ?.classList.add("selected");
+  row.querySelector('[data-field="a"]').focus();
+  row.scrollIntoView({ block: "center", behavior: motion() });
+}
+function motion() {
+  return document.body.classList.contains("reduced-motion") ||
+    matchMedia("(prefers-reduced-motion: reduce)").matches
+    ? "instant"
+    : "smooth";
+}
+$("reduce-motion").onclick = () => {
+  const reduced = document.body.classList.toggle("reduced-motion");
+  $("reduce-motion").setAttribute("aria-pressed", String(reduced));
+  $("reduce-motion").textContent = reduced ? "Motion reduced" : "Reduce motion";
+};
+$("live-graph").addEventListener("click", (e) => {
+  const part = e.target.closest("[data-component]");
+  if (part) focusComponent(+part.dataset.component);
+});
+$("live-graph").addEventListener("keydown", (e) => {
+  if (!["Enter", " "].includes(e.key)) return;
+  const part = e.target.closest("[data-component]");
+  if (part) {
+    e.preventDefault();
+    focusComponent(+part.dataset.component);
+  }
+});
 function referencePreview() {
   const ref = references[$("reference").value];
   $("reference-preview").textContent = ref
@@ -57,6 +110,7 @@ function referencePreview() {
     : "Safety checks only. No expected-vs-observed comparison.";
 }
 function renderEditor() {
+  renderGraph();
   $("empty-components").hidden = circuit.components.length > 0;
   $("components").innerHTML = circuit.components
     .map(
@@ -109,6 +163,10 @@ function renderImage() {
     ctx.font = "12px Segoe UI";
     ctx.fillText(p.id, x + 2, y - 5);
   }
+  const reviewCanvas = $("review-photo");
+  reviewCanvas.width = canvas.width;
+  reviewCanvas.height = canvas.height;
+  reviewCanvas.getContext("2d").drawImage(canvas, 0, 0);
 }
 async function setImage(url, demo) {
   const token = ++photoVersion;
@@ -126,7 +184,9 @@ async function setImage(url, demo) {
   if (token !== photoVersion) return;
   image = img;
   isDemo = demo;
-  const scale = Math.min(1, 1000 / img.naturalWidth, 1000 / img.naturalHeight);
+  const scale = demo
+    ? 1000 / img.naturalWidth
+    : Math.min(1, 1000 / img.naturalWidth, 1000 / img.naturalHeight);
   canvas.width = Math.round(img.naturalWidth * scale);
   canvas.height = Math.round(img.naturalHeight * scale);
   canvas.hidden = false;
@@ -141,7 +201,7 @@ async function setImage(url, demo) {
   renderImage();
 }
 function scrollBench() {
-  $("workbench").scrollIntoView({ behavior: "smooth" });
+  $("workbench").scrollIntoView({ behavior: motion() });
 }
 async function loadExample(id) {
   const example = fixtures.find((x) => x.id === id);
@@ -164,6 +224,7 @@ async function loadExample(id) {
     error(e.message);
   }
   scrollBench();
+  await analyzeCircuit(false);
 }
 function reset() {
   perception?.reset();
@@ -205,7 +266,13 @@ function download(name, data) {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 10000);
-  $("export-preview").scrollIntoView({ behavior: "smooth" });
+  $("export-preview").scrollIntoView({
+    behavior:
+      document.body.classList.contains("reduced-motion") ||
+      matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+  });
 }
 $("select-export").onclick = () => {
   $("export-data").focus();
@@ -215,11 +282,15 @@ function renderResults() {
   if (!result) return;
   const n = result.issues.length;
   $("results").hidden = false;
+  $("findings-jump").hidden = false;
+  $("findings-jump").textContent = n
+    ? `${n} findings / read diagnostics ↓`
+    : "Checks passed / view report ↓";
   $("result-heading").textContent = n
     ? `${n} finding${n === 1 ? "" : "s"}. A clearer next step.`
     : "The connections check out.";
   $("result-summary").innerHTML =
-    `<div class="summary-banner ${result.status}"><span class="summary-icon">${n ? "◎" : "✓"}</span><div><strong>${result.status === "critical" ? "Disconnect power before making changes" : n ? "Review the highlighted connections" : "No supported-rule faults found"}</strong><p>${result.summary.components} components · ${result.summary.nets} electrical nets · ${$("reference").value ? "Compared with intended circuit" : "Safety checks only — no reference selected"}</p></div></div>`;
+    `<div class="summary-banner ${result.status}"><span class="summary-icon">${n ? "◎" : "✓"}</span><div><strong>${result.status === "critical" ? "Disconnect power before making changes" : n ? "Review the highlighted connections" : "No supported-rule faults found"}</strong><p>${isDemo ? "Generated fixture / editable netlist" : "Reviewed / entered netlist"} · ${result.summary.components} components · ${result.summary.nets} electrical nets · ${$("reference").value ? "Compared with intended circuit" : "Safety checks only — no reference selected"}</p></div></div>`;
   $("measurements").innerHTML = result.measurements
     .map(
       (m) =>
@@ -229,7 +300,7 @@ function renderResults() {
   $("issue-list").innerHTML = result.issues
     .map(
       (i) =>
-        `<article class="issue"><header><h3>${esc(i.title)}</h3><span class="severity ${i.severity}">${esc(i.severity.toUpperCase())}</span></header><dl><dt>EVIDENCE</dt><dd>${esc(i.evidence)}</dd>${$("education").checked ? `<dt>WHY IT MATTERS</dt><dd>${esc(i.why)}</dd>` : ""}<dt>HOW TO FIX IT</dt><dd>${esc(i.fix)}</dd></dl><small>Confidence: ${esc(i.confidence)} · photo interpretation unverified</small></article>`,
+        `<article class="issue"><header><h3>${esc(i.title)}</h3><span class="severity ${i.severity}">${esc(i.severity.toUpperCase())}</span></header><dl><dt>WHERE / EVIDENCE</dt><dd>${esc(i.evidence)}</dd>${$("education").checked ? `<dt>WHY IT MATTERS</dt><dd>${esc(i.why)}</dd>` : ""}<dt>HOW TO FIX IT</dt><dd>${esc(i.fix)}</dd></dl><p>${i.components.map((id) => `<button class="issue-focus" data-focus-component="${esc(id)}">↗ Inspect ${esc(id)} </button>`).join(" · ")}</p><small>Rule confidence: ${esc(i.confidence)} · input interpretation unverified</small></article>`,
     )
     .join("");
   $("graph-view").innerHTML =
@@ -331,10 +402,12 @@ $("reference").onchange = () => {
 $("confirmed").onchange = () => {
   $("analyze").disabled = !$("confirmed").checked || !circuit.components.length;
 };
-$("analyze").onclick = async () => {
+async function analyzeCircuit(scroll = true) {
   const token = version;
   $("analyze").disabled = true;
   $("analyze").textContent = "Tracing electrical nets…";
+  $("workbench").classList.add("analysis-busy");
+  $("analyze").setAttribute("aria-busy", "true");
   error("");
   try {
     const response = await fetch("/api/analyze", {
@@ -353,14 +426,28 @@ $("analyze").onclick = async () => {
     document
       .querySelectorAll(".steps li")
       .forEach((li) => li.classList.add("active"));
-    $("results").scrollIntoView({ behavior: "smooth" });
+    if (scroll) $("results").scrollIntoView({ behavior: motion() });
   } catch (e) {
     error(e.message);
   } finally {
+    $("workbench").classList.remove("analysis-busy");
+    $("analyze").removeAttribute("aria-busy");
     $("analyze").innerHTML = "Analyze connections <span>→</span>";
     $("analyze").disabled =
       !$("confirmed").checked || !circuit.components.length;
   }
+}
+$("analyze").onclick = () => analyzeCircuit();
+$("findings-jump").onclick = () =>
+  $("results").scrollIntoView({ behavior: motion() });
+$("issue-list").onclick = (e) => {
+  const button = e.target.closest("[data-focus-component]");
+  if (button)
+    focusComponent(
+      circuit.components.findIndex(
+        (p) => p.id === button.dataset.focusComponent,
+      ),
+    );
 };
 $("education").onchange = renderResults;
 $("features").onchange = () => {
@@ -469,7 +556,13 @@ perception = initPerception({
       }));
     renderEditor();
     renderImage();
-    $("components").scrollIntoView({ behavior: "smooth" });
+    $("components").scrollIntoView({
+      behavior:
+        document.body.classList.contains("reduced-motion") ||
+        matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "instant"
+          : "smooth",
+    });
   },
   onImage: async (demo) => {
     reset();
@@ -491,7 +584,7 @@ try {
   $("example-list").innerHTML = fixtures
     .map(
       (x, i) =>
-        `<button class="example-card" data-id="${x.id}"><span class="number">EXPERIMENT 0${i + 1}</span><span class="arrow">↗</span><strong>${esc(x.name)}</strong><p>${esc(x.description)}</p></button>`,
+        `<button class="example-card" data-id="${x.id}"><span class="number">FIXTURE 0${i + 1}</span><span class="arrow">↗</span><strong>${esc(x.name)}</strong><p>${esc(x.description)}</p><span class="demo-state">RUN RULE CHECKS →</span></button>`,
     )
     .join("");
   $("reference").insertAdjacentHTML(

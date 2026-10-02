@@ -9,3 +9,7 @@ No fine-tuning, custom model weights or external labeled image dataset was used.
 Live analysis requires consent and sends resized image pixels through the server to OpenAI. The app does not persist user photos; `store:false` does not promise zero provider retention. Intended references never enter the perception request. Server secrets are excluded from browser files, builds and Git. A named CircuitLens key was provisioned in the selected Default project with a 30-day expiry; a separate dedicated project, restricted key permissions and provider spend cap were not configured. The application cap is 20 attempts/day and does not replace a billing cap.
 
 AI assistance does not establish authorship dates or eligibility. The base workbench was committed September 30; preliminary uncommitted perception work also began that evening. The October 1 upgrade completed review/integration, validation, tests and packaging. See the shared build-period disclosure and the GIBC checklist for the conflicting deadline and post-cutoff commit concern.
+
+## Design/presentation disclosure
+
+Codex assisted the original SVG identity, CSS instrument design, interactive schematic presentation, browser verification, screenshots and revised narration. Visual motifs and signal motion illustrate circuit structure and software status; they are not oscilloscope measurements. The hero diagnosis is labeled illustrative/synthetic. The final review capture is explicitly simulated. No additional live provider requests were made during the redesign; successful extraction remains unverified.

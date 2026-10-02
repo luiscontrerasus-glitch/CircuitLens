@@ -25,3 +25,7 @@ flowchart LR
   G --> D
   D --> E[Evidence + explanation + fix]
 ```
+
+## Redesigned review experience
+
+The observation pane, selectable terminal schematic and diagnostic report use a consistent laboratory visual language. Select a schematic component or an evidence link to reach its editable terminals. One-click fixtures immediately run the engine on labeled netlists. The image review keeps boxes and confidence beside decisions; edited observations return to pending. Reduced motion is available through system preference and the footer control. None of these presentation changes decide electrical validity.

@@ -1,37 +1,13 @@
-# CircuitLens — Make the right connection
+# CircuitLens — See the fault. Understand the fix.
 
-## Inspiration
+A dark LED. A missing jumper. A connection that almost works. CircuitLens gives students and makers an electronics debugging workbench that makes each connection inspectable.
 
-An LED that stays dark can turn a beginner electronics exercise into trial and error. A breadboard photograph shows the parts, but it does not make the electrical nets underneath obvious. CircuitLens helps a builder inspect the assumptions, identify a supported wiring fault and understand why a correction matters.
+The instrument-inspired interface puts a circuit observation beside an editable terminal schematic. Select a component to edit it. Run electrical checks, read the evidence and explanation, correct the connection, and watch the old finding resolve. Seven one-click fixtures make the core dependable to demonstrate without API credits.
 
-## What it does
+For images, the runtime vision adapter proposes structured parts, boxes, terminal candidates, values and confidence. A person accepts, rejects or edits those observations. Only reviewed observations enter the circuit graph. The deterministic engine then checks polarity, conductor paths, shorts, current limiting and differences from an intended design. It produces the educational explanation.
 
-CircuitLens is a working web workbench for small breadboard circuits. It combines an editable circuit model, image review, deterministic graph checks and educational explanations. A user can choose a reference design, confirm component types and terminals, analyze connections, read the evidence and proposed fix, then edit and re-analyze the same circuit.
+The model proposes observations; it does not supply the electrical diagnosis. The graph, rule findings and manual correction path remain useful when perception is uncertain or unavailable.
 
-The upgrade adds an optional structured visual-perception path. A consented image goes to OpenAI with a strict observation schema. The intended circuit is never included. The visual layer is asked for component types, bounding boxes, terminal candidates, LED orientation, visible values, evidence and confidence. Every proposed detection begins pending. Users can accept, reject, edit or add missing information before converting the observations into the existing netlist.
+The redesigned interface includes an original lens/trace mark, schematic grids, restrained cyan/copper signals, visible uncertainty states, evidence-to-component navigation, side-by-side perception review, motion reduction and responsive layouts. Its visual accents express circuit structure without adding heavy dependencies.
 
-## The hybrid invention
-
-Image → structured visual observations → human confirmation → circuit graph → deterministic rules → educational explanation.
-
-The model handles visual suggestions. The electrical engine maps breadboard strips, merges ideal conductor connections, compares the confirmed topology with a reference and applies supported fault rules. Diagnoses and explanations are reproducible code outputs tied to confirmed terminals. A wrong visual suggestion can be corrected without replacing the engineering engine.
-
-## What works today
-
-Seven guided fixtures demonstrate a correct LED circuit, reversed LED, missing current limiter, disconnected jumper, supply short, resistor divider and pushbutton circuit. These examples load disclosed fixture netlists; their results are computed by the real engine. Manual polarity correction clears the reversed-LED finding. Findings include evidence, an electrical explanation, a specific fix, severity and a qualitative confidence statement.
-
-The detection-review interface is verified end to end using an explicitly simulated provider, including overlays, per-detection decisions, pending state after edits and graph conversion. Manual entry remains usable after a simulated quota failure. The full automated suite passes 39 tests, the dependency audit reports zero vulnerabilities, and a production package starts cleanly without credentials and passes all seven fixture analyses.
-
-## Live AI verification boundary
-
-The runtime OpenAI vision request path is implemented, but successful live recognition is unverified. Five prior live requests on the synthetic inputs (correct three times, reversed once, disconnected once) returned HTTP 429; the provider diagnostic identified `credit_balance_exhausted` / `insufficient_quota`. No additional live requests were made during finalization. There are no saved successful model observations. Simulated perception is labeled explicitly in the development harness and its screenshots.
-
-The three visual inputs are original labeled synthetic teaching diagrams, not hardware photographs. We do not claim photo-recognition accuracy, physical continuity sensing, component measurements, user adoption or learning gains. The project is locally functional and prepared for Node hosting; no public deployment has been completed.
-
-## Why Track 03
-
-CircuitLens combines visual software, graph algorithms, circuit concepts and interface design in a functioning prototype. The creative contribution is the reviewable boundary between uncertain perception and deterministic explanation. Its intended educational value is to help beginners reason about mistakes instead of receiving an unsupported answer.
-
-## Next steps
-
-Complete live image evaluations after usable credits are confirmed, then evaluate consented real photographs with terminal ground truth and correction-rate measurements. Improve grid alignment, split-rail representation and passive-pin matching before expanding component scope. Educational impact should be tested with students rather than assumed.
+Verification: 42 automated tests pass; zero audit vulnerabilities; production smoke checks 29 assets/routes and all seven fixture outcomes. Real browser checks cover correction, simulated review/failure, uploads, exports, four screen widths and reduced motion. No successful live extraction is claimed: five earlier OpenAI requests failed with exhausted credits, and no additional live requests were made during the redesign. All illustrated inputs are synthetic, not hardware photographs. Educational benefit remains a goal to evaluate, not a measured result.

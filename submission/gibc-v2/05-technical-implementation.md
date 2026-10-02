@@ -20,6 +20,14 @@ The provider path uses a 60-second timeout, bounded requests and sanitized error
 
 ## Evidence and deployment
 
-Upgrade commit: `5b5b8c6`, preserving base `e3f6275`. Full suite: 39 passed, zero failed. Audit: zero vulnerabilities. Production startup without credentials, seven route/asset checks and seven fixture results passed. Browser review/correction and simulated quota fallback passed. Live inference successes: zero.
+Upgrade commit: `5b5b8c6`, preserving base `e3f6275`. Full suite: 42 passed, zero failed. Audit: zero vulnerabilities. Production startup without credentials, seven route/asset checks and seven fixture results passed. Browser review/correction and simulated quota fallback passed. Live inference successes: zero.
 
 Dockerfile and Node Render blueprint are prepared. Container execution is unverified because Docker was unavailable. Render reached login; no public service or public repository exists. Original source is MIT licensed, with separate dependency/API terms.
+
+## Instrument interface and schematic view
+
+The design upgrade preserves all engineering/API behavior. `public/schematic.js` is a presentation layer: it maps the same 300 breadboard holes as `nodeOf`, draws each component between labeled terminal groups, and links selections to the existing editor. This view shows conductor edges before union-find merging; the result's inspectable JSON graph remains the authoritative merged graph. Fault colors are driven only by actual engine findings. Dashed movement after a pass is a visual status cue, not a physical current animation or measurement.
+
+The responsive CSS uses system fonts, SVG/Canvas and small native animations. The original lens/trace SVG mark doubles as a favicon. Review overlays are mirrored into a dedicated canvas beside the cards; rejected observations remain visible in the review list, accepted boxes become solid, edits return to pending and carry an EDITED label. Graph/table scrolling is contained on small screens. System reduced-motion preferences and an explicit footer control disable motion without disabling any workflow.
+
+Final redesign evidence: 42/42 tests; zero vulnerabilities; 29 production assets/routes and all seven demos pass. Browser checks covered 1440×1000, 1280×900, 768×1024 and 390×844, correction, uploads, export/copy, explanation toggling, review, rejection, unresolved parts, simulated quota fallback, clean logs and reduced motion. `submission/evaluation/redesign-production-smoke.json` records the production check. No new provider inference was invoked.

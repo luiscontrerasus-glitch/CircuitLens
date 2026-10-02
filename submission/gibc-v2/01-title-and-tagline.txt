@@ -1,5 +1,5 @@
-CircuitLens — Make the right connection
+CircuitLens — See the fault. Understand the fix.
 
-Understand your circuit, one confirmed connection at a time.
+An inspectable circuit graph. Electrical evidence. A fix you can learn from.
 
 GIBC V2 · Track 03: Open / General Technical Invention

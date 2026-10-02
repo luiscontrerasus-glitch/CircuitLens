@@ -1,8 +1,8 @@
 # CircuitLens
 
-**Make the right connection.** An electronics debugging workbench with structured visual suggestions, human review and deterministic circuit reasoning.
+**See the fault. Understand the fix.** An electronics debugging workbench with structured visual suggestions, human review and deterministic circuit reasoning.
 
-![Upgraded CircuitLens workbench](submission/screenshots/vision-home-desktop.png)
+![Upgraded CircuitLens workbench](submission/gibc-v2/screenshots-final/01-hero.jpg)
 
 > **Current verification boundary:** The runtime OpenAI integration is implemented, but successful live recognition has not been verified. On October 1, five Responses API attempts (correct image three times, reversed once, disconnected once) returned HTTP 429; the diagnostic response identified `credit_balance_exhausted` / `insufficient_quota`. Authentication and access to the selected model were separately verified with HTTP 200 from the models endpoint. No successful model observations, recognition accuracy, or real-hardware validation are claimed. Automated/provider-simulated checks and manual graph demos are separate evidence.
 
@@ -96,7 +96,7 @@ Node 22.8+ is required; verified here with Node 24.14.1. Run `npm ci`, then `npm
 
 ## Usage
 
-The fastest dependable demo uses “A light that stays dark”: confirm, analyze, change D1 from D18/D12 to D12/D18, confirm again, analyze. The image remains the original reference while its netlist changes. The live vision route instead requires usable API credits and image-sharing consent. Every proposal must be reviewed.
+The fastest dependable demo uses “A light that stays dark”: launch its one-click rule check, change D1 from D18/D12 to D12/D18, confirm again, analyze. The image remains the original reference while its netlist changes. The live vision route instead requires usable API credits and image-sharing consent. Every proposal must be reviewed.
 
 | Endpoint                       | Purpose                                                     |
 | ------------------------------ | ----------------------------------------------------------- |
@@ -120,7 +120,7 @@ npm run build
 npm run security:check
 ```
 
-Current suite: **39 passed, zero failures**. Automated tests never call OpenAI. The explicitly simulated UI harness is `node scripts/mock-vision-server.js` on port 3003, labeled as such and excluded from the production artifact. The opt-in evaluation command is `npm run evaluate:vision`; `node scripts/evaluate-vision.js --live --record --one` limits a diagnostic recheck to one image. These consume the same daily attempt ledger. Do not run concurrently with another server process using that ledger. Genuine observations are recorded only after successful model responses; none currently exist. See [verification](submission/verification.md).
+Current suite: **42 passed, zero failures**. Automated tests never call OpenAI. The explicitly simulated UI harness is `node scripts/mock-vision-server.js` on port 3003, labeled as such and excluded from the production artifact. The opt-in evaluation command is `npm run evaluate:vision`; `node scripts/evaluate-vision.js --live --record --one` limits a diagnostic recheck to one image. These consume the same daily attempt ledger. Do not run concurrently with another server process using that ledger. Genuine observations are recorded only after successful model responses; none currently exist. See [verification](submission/verification.md).
 
 ## Production and Deployment
 
@@ -160,4 +160,16 @@ Started September 30, 2026. Base commit `e3f6275` is preserved. Early uncommitte
 
 Tailored materials: [LovHack](submission/lovhack/), [CSC](submission/csc/), [ML Empowerment](submission/ml-empowerment/), [ImpactHack](submission/impacthack/). They are draft submission copy, not submitted entries or eligibility certifications. No demo video or public repository link has been fabricated.
 
-[GIBC V2 Track 03 materials](submission/gibc-v2/) package the same CircuitLens build honestly, including seven fresh screenshots and a 3:30 video script. The event’s deadline text conflicts; no submission or eligibility is claimed.
+[GIBC V2 Track 03 materials](submission/gibc-v2/) package the same CircuitLens build honestly, including nine new screenshots and a roughly three-minute video script. The event’s deadline text conflicts; no submission or eligibility is claimed.
+
+## Engineering workbench design
+
+![Circuit observation beside editable schematic](submission/gibc-v2/screenshots-final/02-workbench.jpg)
+
+The original lens-and-trace identity and cyan/copper lab palette carry through image review, terminal topology and fault reports. Select any schematic component to edit its terminals; select an evidence link to inspect the implicated part. Editing invalidates the old result. Seven fixture buttons run checks immediately, with generated inputs labeled. Uploaded/AI-proposed builds still require review and confirmation.
+
+The terminal schematic shows physical breadboard group labels before ideal-conductor merging. The merged electrical graph remains inspectable in the report. Healthy-state moving dashes are a status cue, not measured current. The perception review places the image/overlays beside decisions and marks edited observations. Unknown accepted terminals still block conversion.
+
+The frontend has no added visual framework or external fonts. Keyboard focus, textual severity/status, responsive scrolling and system reduced-motion support are retained. A footer motion control also lets viewers disable animation. Browser checks covered desktop (1440), laptop (1280), tablet (768) and mobile (390) widths with no document overflow; schematic/table scrolling remains contained.
+
+Final verification: 42 tests, zero dependency vulnerabilities, production startup and 29 asset/route checks plus all seven demo outcomes. `node scripts/smoke-production.js` reproduces the credential-free smoke against an already-running `dist` server on port 3005; it never calls perception. See [redesign verification](submission/evaluation/redesign-verification.md) and the [final screenshot selection](submission/gibc-v2/11-screenshot-list.md).

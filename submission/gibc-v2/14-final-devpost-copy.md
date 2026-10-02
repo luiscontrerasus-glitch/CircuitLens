@@ -1,53 +1,65 @@
-# Final Devpost copy — CircuitLens
+# Final Devpost copy
 
-**Project name:** CircuitLens — Make the right connection
+## Project name
 
-**Tagline:** Understand your circuit, one confirmed connection at a time.
+CircuitLens — See the fault. Understand the fix.
 
-**Track:** 03 — Open / General Technical Invention
+## Tagline
+
+An inspectable circuit graph. Electrical evidence. A fix you can learn from.
 
 ## Inspiration
 
-An LED that stays dark can turn a beginner electronics exercise into trial and error. A breadboard photograph shows the parts, but it does not make the electrical nets underneath obvious. CircuitLens helps a builder inspect the assumptions, identify a supported wiring fault and understand why a correction matters.
+A breadboard circuit can look complete and still fail because one lead is backwards or one jumper lands a row away. A beginner needs more than a generic answer: they need to see which connection caused the problem and understand the electrical consequence.
 
 ## What it does
 
-CircuitLens is a working web workbench for small breadboard circuits. It combines an editable circuit model, image review, deterministic graph checks and educational explanations. A user can choose a reference design, confirm component types and terminals, analyze connections, read the evidence and proposed fix, then edit and re-analyze the same circuit.
+CircuitLens is an electronics debugging workbench. An observation pane sits beside an editable terminal schematic. Select a component to reach its terminal fields. The deterministic engine checks the reviewed circuit and compares it with an intended design. Findings identify evidence, severity, the electrical reason, and a specific fix. Editing immediately clears stale results; checking again reveals the corrected state.
 
-The upgrade adds an optional structured visual-perception path. A consented image goes to OpenAI with a strict observation schema. The intended circuit is never included. The visual layer is asked for component types, bounding boxes, terminal candidates, LED orientation, visible values, evidence and confidence. Every proposed detection begins pending. Users can accept, reject, edit or add missing information before converting the observations into the existing netlist.
+Seven one-click fixtures demonstrate correct LED wiring, reversed polarity, a missing current limiter, a disconnected jumper, a supply short, an ideal resistor divider and a closed pushbutton. These are disclosed generated diagrams with fixture netlists. They run the real analysis engine without needing a vision request.
 
-## The hybrid invention
+The runtime vision adapter takes consented image pixels and proposes structured component observations, boxes, terminal candidates, values and confidence. The review interface places the overlay beside accept/reject/edit controls. All proposals require review; unknown accepted terminals or values block conversion. Manual entry remains available after API failure. Circuit and report JSON can be exported and copied.
 
-Image → structured visual observations → human confirmation → circuit graph → deterministic rules → educational explanation.
+## How we built it
 
-The model handles visual suggestions. The electrical engine maps breadboard strips, merges ideal conductor connections, compares the confirmed topology with a reference and applies supported fault rules. Diagnoses and explanations are reproducible code outputs tied to confirmed terminals. A wrong visual suggestion can be corrected without replacing the engineering engine.
+Visual perception → structured observations → human review → circuit graph/netlist → deterministic engineering analysis → educational explanation.
 
-## What works today
+The Node server validates and strips image metadata with Sharp. The OpenAI Responses request uses image input and a strict JSON schema; Ajv validates returned observations. The intended circuit is never included in the perception request. The engineering layer maps breadboard row groups, merges ideal conductor nets, traverses passive paths and compares labeled pin connections. Its rule-based explanations remain independent of visual inference.
 
-Seven guided fixtures demonstrate a correct LED circuit, reversed LED, missing current limiter, disconnected jumper, supply short, resistor divider and pushbutton circuit. These examples load disclosed fixture netlists; their results are computed by the real engine. Manual polarity correction clears the reversed-LED finding. Findings include evidence, an electrical explanation, a specific fix, severity and a qualitative confidence statement.
+The original frontend uses HTML, CSS, JavaScript, SVG and Canvas. The redesign treats it as a lab instrument: an original lens-and-trace identity, schematic grids, cyan signal paths, copper evidence accents, component focus states, a healthy-state transition, and inspectable architecture. No large visual framework or stock logo was added. Motion respects system preferences and a user control; smaller screens retain contained graph/table scrolling.
 
-The detection-review interface is verified end to end using an explicitly simulated provider, including overlays, per-detection decisions, pending state after edits and graph conversion. Manual entry remains usable after a simulated quota failure. The full automated suite passes 39 tests, the dependency audit reports zero vulnerabilities, and a production package starts cleanly without credentials and passes all seven fixture analyses.
+## Challenges and what we learned
 
-## Live AI verification boundary
+Perception uncertainty must stay explicit. A confident-looking box is not proof of continuity. Review changes invalidate both graph construction and prior findings. Rendering the terminal topology also requires matching the engine's breadboard grouping exactly and respecting the production security policy.
 
-The runtime OpenAI vision request path is implemented, but successful live recognition is unverified. Five prior live requests on the synthetic inputs (correct three times, reversed once, disconnected once) returned HTTP 429; the provider diagnostic identified `credit_balance_exhausted` / `insufficient_quota`. No additional live requests were made during finalization. There are no saved successful model observations. Simulated perception is labeled explicitly in the development harness and its screenshots.
+API credits were exhausted during earlier live testing. We kept the deterministic core and manual review useful, verified the perception integration with a clearly labeled simulated provider, and never substituted simulated success for a real inference result.
 
-The three visual inputs are original labeled synthetic teaching diagrams, not hardware photographs. We do not claim photo-recognition accuracy, physical continuity sensing, component measurements, user adoption or learning gains. The project is locally functional and prepared for Node hosting; no public deployment has been completed.
+## What works and what is verified
+
+42 automated tests pass, including all 300 terminal-label mappings, safe schematic rendering, original circuit rules and perception integration. The audit reports zero vulnerabilities. The production build starts without credentials and passes 29 asset/route checks plus all seven circuit outcomes. Browser verification covers four viewport widths, uploads, schematic selection, manual correction, education toggling, report copying, simulated perception review, unresolved/rejected detections, quota fallback, reduced motion and clean console checks.
+
+Nine new browser screenshots are packaged. Five are selected for Devpost. A roughly three-minute spoken demo script and shot list tell the reversed-LED → evidence → correction story.
+
+## Exact AI and hardware boundary
+
+Runtime OpenAI vision is implemented but successful live recognition remains unverified. Five prior synthetic-input requests returned HTTP 429, diagnosed as `credit_balance_exhausted` / `insufficient_quota`; there are zero successful saved observations. No additional live calls were made during this redesign. The simulated review screenshot is labeled NOT AI INFERENCE.
+
+All demo illustrations are original synthetic inputs, not hardware photographs. Circuit results describe supplied netlists, not measured continuity. The 9.1 mA LED result is a simple-path estimate, and 2.50 V is an ideal unloaded divider estimate. Scores are uncalibrated. Hidden contacts, split rails, obscured values and unsupported parts still require human judgment. There is no general SPICE solver, recognition benchmark, user study, adoption count or measured learning benefit.
 
 ## Why Track 03
 
-CircuitLens combines visual software, graph algorithms, circuit concepts and interface design in a functioning prototype. The creative contribution is the reviewable boundary between uncertain perception and deterministic explanation. Its intended educational value is to help beginners reason about mistakes instead of receiving an unsupported answer.
+The creative contribution is a reviewable boundary between uncertain visual observations and reproducible circuit reasoning. The execution is a functioning, tested workbench. The intended impact is to help students, makers and robotics teams learn a debugging method instead of blindly copying a fix. The interface makes that story visible through the circuit itself.
 
-## Next steps
+## Built With
 
-Complete live image evaluations after usable credits are confirmed, then evaluate consented real photographs with terminal ground truth and correction-rate measurements. Improve grid alignment, split-rail representation and passive-pin matching before expanding component scope. Educational impact should be tested with students rather than assumed.
-
-## Built with
-
-JavaScript, HTML, CSS, Canvas 2D, Node.js, OpenAI Responses API, gpt-4.1-mini-2025-04-14, Sharp 0.35.5, Ajv 8.20.0, Prettier 3.6.2, npm, Git, Codex, browser verification tools, PowerShell/Python development utilities, Docker/Node deployment recipe, Render blueprint. Original programmatically generated SVG/PNG teaching assets; no external circuit dataset or physically tested hardware. Complete roles and licensing are in 06-built-with.md.
+JavaScript, HTML, CSS, SVG, Canvas 2D, Node.js, OpenAI Responses API, gpt-4.1-mini-2025-04-14, Sharp 0.35.5, Ajv 8.20.0, Prettier 3.6.2, npm, Git and Codex. Original code-generated teaching assets and lens/trace mark. Docker and Render deployment recipes are prepared; no public deployment is claimed. Full tool roles/licensing are in 06-built-with.md.
 
 ## Build and AI disclosure
 
-The base workbench was created and committed September 30 as `e3f6275`. Preliminary perception/API/budget scaffolding also began that evening. The October 1 upgrade completed structured validation, confidence-aware overlays/review, reviewed-netlist conversion, guarded requests, fallbacks, tests and production packaging; commit `5b5b8c6` preserves the prior history. Codex assisted implementation, tests, documentation and code-generated illustrations. Runtime AI perception is implemented but successful recognition remains unverified because every prior provider request failed for exhausted credits.
+The original base commit `e3f6275` and early perception scaffolding began September 30. The October 1 perception/review upgrade `5b5b8c6` and package `1576695` are preserved. The current design/presentation upgrade is a separate commit; dates are not backdated. Codex assisted implementation, debugging, tests, copy and original code-generated visuals. No model training or external image dataset was used.
 
-No public deployment, public repository URL, demo video URL, measured learning benefit or hardware validation is claimed. The actual source/video/team fields must be completed truthfully in Devpost; their unresolved status and the conflicting deadline are documented in 13-submission-checklist.md. This copy is prepared for submission review, not a claim that an entry has already been accepted.
+The repository is locally prepared under MIT, but no public source URL, uploaded video, team identity or eligibility certification is fabricated. Confirm the conflicting event deadline and accepted build state before submitting. This is prepared copy, not an accepted event entry.
+
+## What's next
+
+Once usable credits are established, evaluate consented real circuit photos with component/terminal ground truth and correction rates. Improve grid localization, split-rail handling and passive-pin matching. Test learning outcomes with students before making educational-impact claims.

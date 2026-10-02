@@ -3,32 +3,49 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#102e2b" />
-    <title>CircuitLens — Make the connection</title>
+    <meta name="theme-color" content="#09161c" />
+    <meta
+      name="description"
+      content="Trace circuit connections, find electrical faults, and understand the fix. A reviewable vision and deterministic engineering workbench."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>CircuitLens — See the fault. Understand the fix.</title>
     <link rel="stylesheet" href="/style.css" />
     <script src="/app.js" type="module"></script>
   </head>
   <body>
+    <a class="skip-link" href="#workbench">Skip to workbench</a>
     <header>
       <a class="brand" href="/" aria-label="CircuitLens home"
-        ><span class="logo">⌘</span>Circuit<span>Lens</span></a
-      ><span class="header-label">THE ELECTRONICS DEBUGGING WORKBENCH</span
-      ><span class="local"><i></i> AI + circuit reasoning</span>
+        ><img class="logo" src="/favicon.svg" alt="" />Circuit<span
+          >Lens</span
+        ></a
+      ><span class="header-label">THE ELECTRONICS DEBUGGING WORKBENCH</span>
+      <nav aria-label="Main navigation">
+        <a href="#examples">Demo library</a
+        ><a href="#architecture">Inside the engine</a
+        ><a class="nav-bench" href="#workbench">Workbench ↗</a>
+      </nav>
     </header>
     <main>
       <section class="hero">
         <div>
-          <div class="eyebrow">LESS GUESSWORK. MORE LIGHTBULB MOMENTS.</div>
-          <h1>Make the<br /><em>right connection.</em></h1>
+          <div class="eyebrow">
+            <i class="pulse"></i> CIRCUIT DIAGNOSTICS / WORKBENCH 02
+          </div>
+          <h1>
+            See the fault.<br /><em>Understand<br />the fix.</em>
+          </h1>
           <p>
-            Turn a confusing breadboard into a circuit you understand. Review
-            the connections. Find the fault. Learn the why.
+            A dark LED. A missing jumper. A connection that almost works. Trace
+            your build into an editable circuit graph. Find the evidence. Learn
+            what to change.
           </p>
           <div class="hero-actions">
             <button id="start" class="primary">
               Open a circuit photo <span>↗</span></button
             ><button id="try-demo" class="secondary">
-              Try a guided example →
+              Diagnose a dark LED →
             </button>
           </div>
           <p class="privacy">
@@ -36,24 +53,78 @@
             only with your consent.
           </p>
         </div>
-        <div class="hero-art">
+        <div
+          class="hero-art"
+          aria-label="Illustrative diagnosis of a reversed LED; synthetic demo"
+        >
           <div class="art-label">
-            <span>01 / THE FIRST LIGHT</span><span>5.0 V DC</span>
+            <span><i class="pulse"></i> SIGNAL TRACE / DEMO</span
+            ><span>5.00 V DC</span>
           </div>
-          <img
-            src="/examples/healthy.svg"
-            alt="Generated breadboard illustration of a resistor and LED circuit"
-          />
+          <svg
+            class="hero-scope"
+            viewBox="0 0 540 320"
+            role="img"
+            aria-label="Schematic illustration: resistor in series with reversed LED"
+          >
+            <defs>
+              <pattern
+                id="scope-grid"
+                width="24"
+                height="24"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M24 0H0V24"
+                  fill="none"
+                  stroke="#213741"
+                  stroke-width=".5"
+                />
+              </pattern>
+            </defs>
+            <rect width="540" height="320" fill="url(#scope-grid)" />
+            <path class="scope-trace" d="M60 70H230V112M230 166V238H400V180" />
+            <path class="scope-return" d="M400 126V70H335" />
+            <g class="scope-resistor">
+              <path d="M230 112l-9 5 18 9-18 9 18 9-18 9 9 5v8" />
+              <text x="254" y="140">R1</text>
+              <text x="254" y="157">330 Ω</text>
+            </g>
+            <g class="scope-led">
+              <path
+                d="M383 138h34l-17 27zM383 169h34M400 126v12m0 31v11M424 144l12-12m-5 0h5v5M430 158l12-12m-5 0h5v5"
+              />
+              <circle cx="400" cy="152" r="40" />
+              <text x="337" y="292">D1 / POLARITY REVERSED</text>
+            </g>
+            <circle class="scope-terminal" cx="60" cy="70" r="6" />
+            <circle class="scope-terminal" cx="335" cy="70" r="6" />
+            <text x="42" y="49">VCC</text>
+            <text x="316" y="49">GND</text>
+            <circle class="signal-dot" r="4">
+              <animateMotion
+                dur="4s"
+                repeatCount="indefinite"
+                path="M60 70H230V112"
+              />
+            </circle>
+          </svg>
+          <div class="scope-readout">
+            <span>FAULT ISOLATED</span
+            ><strong>Check D1 orientation <b>↗</b></strong
+            ><small>Illustrative rule result · synthetic circuit</small>
+          </div>
           <div class="art-footer">
-            <span class="pulse"></span>A small circuit. A clearer understanding.
+            <span>OBSERVE</span><span>→</span><span>STRUCTURE</span
+            ><span>→</span><span>DIAGNOSE</span>
           </div>
         </div>
       </section>
       <section class="examples-section" id="examples">
         <div class="section-head">
           <div>
-            <div class="eyebrow">THE PRACTICE BENCH</div>
-            <h2>Small circuits. Real lessons.</h2>
+            <div class="eyebrow">01 / DEMO LIBRARY</div>
+            <h2>Pick a circuit. Trace the problem.</h2>
           </div>
           <p>Generated diagrams • editable fixtures • live rule engine</p>
         </div>
@@ -67,7 +138,7 @@
         <div class="section-head">
           <div>
             <div class="eyebrow">PIXELS TO OBSERVATIONS TO ENGINEERING</div>
-            <h2>Let vision take the first look.</h2>
+            <h2>Start with pixels.</h2>
           </div>
           <p>Three synthetic images - no diagnoses supplied to the model</p>
         </div>
@@ -76,10 +147,14 @@
       <section id="workbench" class="workbench">
         <div class="section-head">
           <div>
-            <div class="eyebrow">YOUR WORKBENCH</div>
-            <h2>Look closer. Trace the path.</h2>
+            <div class="eyebrow">02 / ENGINEERING WORKBENCH</div>
+            <h2>From observation to understanding.</h2>
           </div>
-          <button id="reset" class="text-button">New analysis ↗</button>
+          <div class="bench-navigation">
+            <button id="findings-jump" class="secondary small" hidden>
+              Read diagnostics ↓</button
+            ><button id="reset" class="text-button">New analysis ↗</button>
+          </div>
         </div>
         <ol class="steps">
           <li class="active">1 <span>Capture</span></li>
@@ -89,7 +164,7 @@
         <div class="bench-grid">
           <div class="visual-panel">
             <div class="panel-head">
-              <h3 id="image-title">Your circuit, in focus</h3>
+              <h3 id="image-title">01 / Input & observation</h3>
               <span id="source-badge" class="badge">NO IMAGE</span>
             </div>
             <div id="image-stage" class="image-stage">
@@ -167,7 +242,7 @@
           </div>
           <div class="editor-panel">
             <div class="panel-head">
-              <h3>Confirm the build</h3>
+              <h3>02 / Structured circuit</h3>
               <span class="badge">HUMAN IN THE LOOP</span>
             </div>
             <div class="form-row">
@@ -194,6 +269,15 @@
                 cathode. Resistor A/B labels are matched to the reference.
               </p>
             </details>
+            <div class="schematic-head">
+              <span>TERMINAL TOPOLOGY</span
+              ><span id="graph-status">AWAITING INPUT</span>
+            </div>
+            <div id="live-graph" class="live-graph"></div>
+            <p class="graph-caption">
+              Select a component to edit its terminals. This view shows
+              breadboard groups before wire nets are merged.
+            </p>
             <div class="table-wrap">
               <table>
                 <thead>
@@ -242,7 +326,7 @@
       <section id="detection-review" class="detection-review" hidden>
         <div class="section-head">
           <div>
-            <div class="eyebrow">SEE WHAT THE MODEL SAW</div>
+            <div class="eyebrow">03 / PERCEPTION REVIEW</div>
             <h2>Review the observations.</h2>
           </div>
           <span id="review-count" class="helper"></span>
@@ -255,7 +339,28 @@
           A = LED anode; B = cathode. Dashed boxes need review. Accept only what
           you can verify.
         </p>
-        <div id="detection-list" class="detection-list"></div>
+        <div class="review-grid">
+          <aside class="review-visual">
+            <div class="panel-head">
+              <h3>Image + observations</h3>
+              <span class="badge">REVIEW EVERY TERMINAL</span>
+            </div>
+            <canvas
+              id="review-photo"
+              aria-label="Circuit image with confidence and review overlays"
+            ></canvas>
+            <p class="helper">
+              Select “highlight” on a detection to locate it. Boxes are
+              observations; a confirmed terminal label determines the electrical
+              connection.
+            </p>
+            <div class="review-legend">
+              <span>◇ Pending / uncertain</span><span>✓ Accepted</span
+              ><span>× Rejected</span>
+            </div>
+          </aside>
+          <div id="detection-list" class="detection-list"></div>
+        </div>
         <div class="editor-actions">
           <button id="detection-add" class="secondary">
             + Missing detection</button
@@ -271,7 +376,7 @@
       <section id="results" hidden aria-live="polite">
         <div class="section-head">
           <div>
-            <div class="eyebrow">FOLLOW THE EVIDENCE</div>
+            <div class="eyebrow">04 / ENGINEERING DIAGNOSTICS</div>
             <h2 id="result-heading"></h2>
           </div>
           <label class="education"
@@ -308,6 +413,54 @@
           Select JSON to copy
         </button>
       </section>
+      <section id="architecture" class="architecture">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">INSIDE THE INSTRUMENT</div>
+            <h2>AI observes. Engineering reasons.</h2>
+          </div>
+          <p>Every step is inspectable.</p>
+        </div>
+        <div class="architecture-flow">
+          <div>
+            <span>01 / INPUT</span>
+            <h3>Circuit image</h3>
+            <p>Photo or labeled synthetic demo</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>02 / PERCEPTION</span>
+            <h3>Visual observations</h3>
+            <p>Parts, terminals, confidence</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>03 / YOU</span>
+            <h3>Human review</h3>
+            <p>Accept, reject, correct</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>04 / STRUCTURE</span>
+            <h3>Graph / netlist</h3>
+            <p>Explicit electrical connections</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>05 / ENGINEERING</span>
+            <h3>Rules & comparison</h3>
+            <p>Trace faults. Explain the fix.</p>
+          </div>
+        </div>
+        <div class="architecture-note">
+          <strong>An explanation you can trace back to a connection.</strong>
+          <p>
+            The vision model proposes what it sees. The rule engine checks the
+            reviewed netlist against electrical rules and your intended design.
+            Unknown terminals stay unknown until you resolve them.
+          </p>
+        </div>
+      </section>
       <section class="principles">
         <div>
           <span>01</span>
@@ -332,6 +485,9 @@
       <a class="brand" href="/">CircuitLens</a
       ><span>Built for curious minds and messy breadboards.</span
       ><span>Structured vision · Deterministic engineering</span>
+      <button id="reduce-motion" class="text-button" aria-pressed="false">
+        Reduce motion
+      </button>
     </footer>
   </body>
 </html>
