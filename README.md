@@ -159,3 +159,5 @@ Node/browser built-ins; Ajv (MIT); Sharp (Apache-2.0 and its bundled native depe
 Started September 30, 2026. Base commit `e3f6275` is preserved. Early uncommitted perception scaffolding also predates October 1; the October 1 upgrade completes review/integration, validation, tests and deployment packaging. [Build-period disclosure](submission/build-period-disclosure.md) separates these accurately.
 
 Tailored materials: [LovHack](submission/lovhack/), [CSC](submission/csc/), [ML Empowerment](submission/ml-empowerment/), [ImpactHack](submission/impacthack/). They are draft submission copy, not submitted entries or eligibility certifications. No demo video or public repository link has been fabricated.
+
+[GIBC V2 Track 03 materials](submission/gibc-v2/) package the same CircuitLens build honestly, including seven fresh screenshots and a 3:30 video script. The event’s deadline text conflicts; no submission or eligibility is claimed.

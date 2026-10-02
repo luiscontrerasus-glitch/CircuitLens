@@ -7,3 +7,5 @@ Shared authoritative evidence: [verification](verification.md), [live attempt re
 The files are prepared copy, not a submitted application. Participant eligibility, team identities, public repository URL and required demo video are not fabricated. ML Empowerment and CSC pages contained conflicting deadline text; their folders call this out. Check the official current forms when submitting.
 
 Original CircuitLens source is MIT licensed; dependency/API terms remain separate. A public repository is prepared locally but has not been published.
+
+[GIBC V2 Track 03 package](gibc-v2/) includes all fourteen requested documents and seven fresh screenshots. Public source, video link, team identities and deadline confirmation remain external submission requirements.
