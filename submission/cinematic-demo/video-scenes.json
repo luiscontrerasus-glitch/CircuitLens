@@ -1,0 +1,126 @@
+[
+  {
+    "image": "01-hero.png",
+    "duration": 8,
+    "title": "SOMETHING IS WRONG.",
+    "caption": "A dark LED. One wrong connection.",
+    "kind": "opening",
+    "label": "SYNTHETIC CIRCUIT ILLUSTRATION"
+  },
+  {
+    "image": "01-hero.png",
+    "duration": 12,
+    "title": "SEE WHAT’S WRONG\nWITH YOUR CIRCUIT.",
+    "caption": "CircuitLens turns connections into explanations.",
+    "kind": "opening",
+    "label": "ACTUAL BROWSER CAPTURES"
+  },
+  {
+    "image": "12-demo-library.png",
+    "duration": 10,
+    "title": "Choose a circuit. Trace the problem.",
+    "caption": "Seven generated fixtures. The real deterministic rule engine.",
+    "crop": [110, 120, 1810, 705],
+    "label": "GENERATED FIXTURE DEMOS"
+  },
+  {
+    "image": "04-workbench.png",
+    "duration": 10,
+    "title": "One workbench. Three connected views.",
+    "caption": "Circuit image → editable topology → component properties.",
+    "label": "REVERSED-LED FIXTURE"
+  },
+  {
+    "image": "13-led-properties-before.png",
+    "duration": 10,
+    "title": "Every connection is inspectable.",
+    "caption": "Select D1 in the topology to inspect its anode and cathode.",
+    "crop": [690, 90, 1795, 735],
+    "label": "ACTUAL EDITABLE CIRCUIT MODEL"
+  },
+  {
+    "image": "03-cream-schematic.png",
+    "duration": 10,
+    "title": "From wires to reasoning.",
+    "caption": "The opening schematic illustrates the model behind the checks.",
+    "label": "ILLUSTRATIVE STORY SCENE · NOT LIVE INFERENCE"
+  },
+  {
+    "image": "06-fault-diagnosis.png",
+    "duration": 10,
+    "title": "REVERSED LED POLARITY",
+    "caption": "Observed: cathode toward power. Anode toward ground.",
+    "crop": [112, 115, 1805, 677],
+    "label": "DETERMINISTIC ENGINEERING EVIDENCE"
+  },
+  {
+    "image": "06-fault-diagnosis.png",
+    "duration": 8,
+    "title": "Why the LED stays dark.",
+    "caption": "Reverse bias prevents normal illumination.",
+    "crop": [112, 365, 1150, 675],
+    "label": "RULE EXPLANATION · CONFIRMED TERMINALS"
+  },
+  {
+    "image": "06-fault-diagnosis.png",
+    "duration": 7,
+    "title": "A specific, inspectable fix.",
+    "caption": "Disconnect power. Swap the LED leads. Confirm the model again.",
+    "crop": [112, 365, 1150, 675],
+    "label": "EXPECTED: ANODE TOWARD RESISTOR / VCC"
+  },
+  {
+    "image": "05-perception-review.png",
+    "duration": 12,
+    "title": "A person reviews every observation.",
+    "caption": "Accept, reject, or correct each proposed component and terminal.",
+    "label": "SIMULATED TEST RESPONSE · NOT LIVE AI INFERENCE"
+  },
+  {
+    "image": "05-perception-review.png",
+    "duration": 13,
+    "title": "Uncertainty cannot become a fact silently.",
+    "caption": "Unknown accepted terminals block conversion. Live extraction remains unverified.",
+    "label": "SIMULATED TEST RESPONSE · NOT LIVE AI INFERENCE"
+  },
+  {
+    "image": "14-led-properties-corrected.png",
+    "duration": 10,
+    "title": "Correct. Confirm. Recheck.",
+    "caption": "D1: A = D12, B = D18. Editing clears the old result.",
+    "crop": [690, 90, 1795, 970],
+    "label": "ACTUAL EDITED MODEL · NEW CONFIRMATION REQUIRED"
+  },
+  {
+    "image": "07-healthy-circuit.png",
+    "duration": 10,
+    "title": "The connections check out.",
+    "caption": "9.1 mA is a simple series estimate, not a physical measurement.",
+    "crop": [112, 115, 1805, 655],
+    "label": "FRESH DETERMINISTIC ANALYSIS"
+  },
+  {
+    "image": "08-architecture.png",
+    "duration": 10,
+    "title": "VISUAL OBSERVATION → STRUCTURED CIRCUIT",
+    "caption": "Visual proposals pass through human review before becoming a netlist.",
+    "crop": [110, 175, 1810, 720],
+    "label": "IMPLEMENTED PIPELINE · LIVE RECOGNITION UNVERIFIED"
+  },
+  {
+    "image": "08-architecture.png",
+    "duration": 10,
+    "title": "ENGINEERING RULES → DIAGNOSIS",
+    "caption": "Evidence, explanation, and a fix you can trace to a connection.",
+    "crop": [110, 175, 1810, 720],
+    "label": "44 AUTOMATED TESTS · SEVEN VERIFIED FIXTURE FLOWS"
+  },
+  {
+    "image": "01-hero.png",
+    "duration": 15,
+    "title": "AI OBSERVES.\nENGINEERING RULES REASON.",
+    "caption": "CircuitLens. See the fault. Understand the fix.",
+    "kind": "closing",
+    "label": "SCREENSHOT WALKTHROUGH · NO LIVE-AI SUCCESS CLAIM"
+  }
+]

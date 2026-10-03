@@ -18,14 +18,14 @@ body > header {
   right: 0;
   z-index: 12;
   height: 76px;
-  background: #111210ed;
+  background: #111210;
   border-color: #ffffff14;
   transition:
     background 0.5s,
     color 0.5s;
 }
 body[data-story-scene="model"] > header {
-  background: #ece7dced;
+  background: #ece7dc;
   color: #282923;
   border-color: #28292320;
 }
@@ -186,6 +186,12 @@ main > section:not(.cinema) {
   transition:
     transform 0.45s ease-out,
     opacity 0.6s;
+}
+@media (min-width: 1500px) {
+  .circuit-assembly {
+    width: 85%;
+    left: 7.5%;
+  }
 }
 .object-board {
   position: absolute;
@@ -578,7 +584,9 @@ main > section:not(.cinema) {
   border: 0;
 }
 .graph-panel #live-graph svg {
-  min-width: 600px;
+  width: 100%;
+  min-width: 0;
+  flex: 0 0 100%;
 }
 .graph-caption {
   color: #9f998e;

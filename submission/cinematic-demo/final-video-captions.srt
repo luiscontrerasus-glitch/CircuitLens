@@ -1,0 +1,79 @@
+1
+00:00:00,000 --> 00:00:08,000
+SOMETHING IS WRONG.
+A dark LED. One wrong connection.
+
+2
+00:00:08,000 --> 00:00:20,000
+SEE WHAT’S WRONG WITH YOUR CIRCUIT.
+CircuitLens turns connections into explanations.
+
+3
+00:00:20,000 --> 00:00:30,000
+Choose a circuit. Trace the problem.
+Seven generated fixtures. The real deterministic rule engine.
+
+4
+00:00:30,000 --> 00:00:40,000
+One workbench. Three connected views.
+Circuit image → editable topology → component properties.
+
+5
+00:00:40,000 --> 00:00:50,000
+Every connection is inspectable.
+Select D1 in the topology to inspect its anode and cathode.
+
+6
+00:00:50,000 --> 00:01:00,000
+From wires to reasoning.
+The opening schematic illustrates the model behind the checks.
+
+7
+00:01:00,000 --> 00:01:10,000
+REVERSED LED POLARITY
+Observed: cathode toward power. Anode toward ground.
+
+8
+00:01:10,000 --> 00:01:18,000
+Why the LED stays dark.
+Reverse bias prevents normal illumination.
+
+9
+00:01:18,000 --> 00:01:25,000
+A specific, inspectable fix.
+Disconnect power. Swap the LED leads. Confirm the model again.
+
+10
+00:01:25,000 --> 00:01:37,000
+A person reviews every observation.
+Accept, reject, or correct each proposed component and terminal.
+
+11
+00:01:37,000 --> 00:01:50,000
+Uncertainty cannot become a fact silently.
+Unknown accepted terminals block conversion. Live extraction remains unverified.
+
+12
+00:01:50,000 --> 00:02:00,000
+Correct. Confirm. Recheck.
+D1: A = D12, B = D18. Editing clears the old result.
+
+13
+00:02:00,000 --> 00:02:10,000
+The connections check out.
+9.1 mA is a simple series estimate, not a physical measurement.
+
+14
+00:02:10,000 --> 00:02:20,000
+VISUAL OBSERVATION → STRUCTURED CIRCUIT
+Visual proposals pass through human review before becoming a netlist.
+
+15
+00:02:20,000 --> 00:02:30,000
+ENGINEERING RULES → DIAGNOSIS
+Evidence, explanation, and a fix you can trace to a connection.
+
+16
+00:02:30,000 --> 00:02:45,000
+AI OBSERVES. ENGINEERING RULES REASON.
+CircuitLens. See the fault. Understand the fix.

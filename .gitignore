@@ -7,5 +7,6 @@ test-results/
 .runtime/
 dist/
 .vercel/
+submission/cinematic-demo/rendered/
 
 .env.local
