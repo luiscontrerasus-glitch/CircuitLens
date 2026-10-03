@@ -1,0 +1,49 @@
+1
+00:00:00,000 --> 00:00:12,000
+One circuit. One continuous story.
+A physical circuit becomes an inspectable model.
+
+2
+00:00:12,000 --> 00:00:28,000
+Look closer. Keep uncertainty visible.
+Bounds and terminal candidates require human review.
+
+3
+00:00:28,000 --> 00:00:48,000
+From wires to reasoning.
+The surface disappears. Components and connections remain.
+
+4
+00:00:48,000 --> 00:01:08,000
+The signal stops here.
+Reversed LED polarity interrupts the illustrated path.
+
+5
+00:01:08,000 --> 00:01:24,000
+One correction. A clear path.
+Disconnect power. Swap the LED terminals. Check again.
+
+6
+00:01:24,000 --> 00:01:44,000
+Now, it is your circuit.
+Generated observation, editable topology, engineering evidence.
+
+7
+00:01:44,000 --> 00:02:04,000
+Trace the evidence everywhere.
+Select D1 to connect the image, graph, properties and findings.
+
+8
+00:02:04,000 --> 00:02:19,000
+Review before reasoning.
+Accept, reject and correct observations before building the graph.
+
+9
+00:02:19,000 --> 00:02:33,000
+AI observes. Engineering rules reason.
+An inspectable process, from image to diagnosis.
+
+10
+00:02:33,000 --> 00:02:45,000
+See the fault. Understand the fix.
+Try CircuitLens. Follow the path to understanding.

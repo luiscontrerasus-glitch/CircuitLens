@@ -38,7 +38,7 @@
           <div class="scene-grain" aria-hidden="true"></div>
           <div class="scene-topline">
             <span>CIRCUITLENS / ENGINEERING, IN FOCUS</span
-            ><span id="story-position">01 / 06</span>
+            ><span id="story-position">01 / 07</span>
           </div>
           <div class="cinema-layout">
             <div class="story-type">
@@ -63,74 +63,159 @@
               <div class="object-orbit" aria-hidden="true"></div>
               <div class="object-shadow" aria-hidden="true"></div>
               <div class="circuit-assembly">
-                <div class="board-edge" aria-hidden="true"></div>
-                <img
-                  class="object-board"
-                  src="/circuit-object.svg"
-                  alt="Stylized metal circuit board with resistor, LED and copper traces; synthetic illustration"
-                />
-                <div class="component-resistor" aria-hidden="true">
-                  <i></i><i></i><i></i><i></i>
-                </div>
-                <div class="component-led" aria-hidden="true">
-                  <span></span>
-                </div>
-                <div class="story-overlays" aria-hidden="true">
-                  <span class="candidate candidate-r">R1 / TYPE CANDIDATE</span
-                  ><span class="candidate candidate-d">D1 / VERIFY A & K</span
-                  ><span class="candidate candidate-w">TERMINAL / REVIEW</span>
-                </div>
-              </div>
-              <svg
-                class="story-schematic"
-                viewBox="0 0 720 500"
-                role="img"
-                aria-label="Illustrative resistor and LED topology, before and after polarity correction"
-              >
-                <defs>
-                  <pattern
-                    id="story-dot-grid"
-                    width="24"
-                    height="24"
-                    patternUnits="userSpaceOnUse"
-                  >
-                    <circle
-                      cx="1"
-                      cy="1"
-                      r="1"
-                      fill="currentColor"
-                      opacity=".13"
+                <svg
+                  class="evolving-circuit"
+                  viewBox="0 0 900 600"
+                  role="img"
+                  aria-label="The same circuit transforms into topology; illustrative flow stops at reversed D1 and completes after correction"
+                >
+                  <defs>
+                    <linearGradient id="board-metal" x2="1" y2="1">
+                      <stop stop-color="#474a42" />
+                      <stop offset="1" stop-color="#171b17" />
+                    </linearGradient>
+                    <pattern
+                      id="board-holes"
+                      width="24"
+                      height="24"
+                      patternUnits="userSpaceOnUse"
+                    >
+                      <circle cx="12" cy="12" r="2" fill="#080b08" />
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="4"
+                        fill="none"
+                        stroke="#6b715d"
+                        stroke-width=".5"
+                      />
+                    </pattern>
+                  </defs>
+                  <g class="physical-surface">
+                    <rect
+                      x="35"
+                      y="60"
+                      width="830"
+                      height="480"
+                      rx="24"
+                      fill="url(#board-metal)"
+                      stroke="#817865"
                     />
-                  </pattern>
-                </defs>
-                <rect width="720" height="500" fill="url(#story-dot-grid)" />
-                <path
-                  class="story-wire"
-                  d="M100 130H246M330 130H540V226M540 306V390H100V130"
-                />
-                <path
-                  class="story-resistor"
-                  d="M246 130h9l6-14 12 28 12-28 12 28 12-28 6 14h15"
-                />
-                <g class="story-diode">
-                  <path
-                    d="M540 226v12m-17 0h34l-17 30zM523 273h34m-17 0v33M573 248l14-14m-5 0h5v5M578 264l14-14m-5 0h5v5"
-                  />
-                </g>
-                <circle class="schematic-node" cx="100" cy="130" r="9" />
-                <circle class="schematic-node" cx="100" cy="390" r="9" />
-                <text x="64" y="103">+5 V</text>
-                <text x="70" y="429">GND</text>
-                <text x="255" y="97">R1 / 330 Ω</text>
-                <text x="584" y="270">D1</text>
-                <path class="story-fault-ring" d="M485 212h112v107H485z" />
-                <text class="fault-label" x="393" y="358">
-                  D1 / POLARITY REVERSED
-                </text>
-                <text class="healthy-label" x="376" y="358">
-                  REVIEWED MODEL / CORRECTED
-                </text>
-              </svg>
+                    <rect
+                      x="55"
+                      y="80"
+                      width="790"
+                      height="440"
+                      fill="url(#board-holes)"
+                    />
+                    <path
+                      d="M35 520v20q0 20 24 20h782q24 0 24-20v-20"
+                      fill="#292d24"
+                      stroke="#817865"
+                    />
+                  </g>
+                  <g class="circuit-paths">
+                    <path
+                      class="trace-base"
+                      d="M112 160H202V240H252M373 240H480V335H568M673 335H766V447H112V160"
+                    />
+                    <path
+                      class="energy upstream"
+                      d="M112 160H202V240H252H373H480V335H568"
+                    />
+                    <path
+                      class="energy downstream"
+                      d="M673 335H766V447H112V160"
+                    />
+                  </g>
+                  <g class="physical-parts">
+                    <path
+                      d="M252 240h121M568 335h105"
+                      stroke="#e4d4b1"
+                      stroke-width="5"
+                    />
+                    <rect
+                      x="272"
+                      y="220"
+                      width="80"
+                      height="40"
+                      rx="14"
+                      fill="#cfb180"
+                      stroke="#eee0b9"
+                    />
+                    <path
+                      d="M287 221v38m15-38v38m16-38v38"
+                      stroke="#78442a"
+                      stroke-width="7"
+                    />
+                    <path
+                      class="led-body"
+                      d="M593 337v-33a26 26 0 0 1 52 0v33z"
+                      fill="#ac825438"
+                      stroke="#d6ae73"
+                    />
+                    <path d="M604 310h30" stroke="#e4c494" stroke-width="3" />
+                  </g>
+                  <g class="abstract-parts">
+                    <path
+                      d="M252 240h12l9-18 15 36 15-36 15 36 15-36 9 18h31"
+                    />
+                    <g class="story-diode">
+                      <path
+                        d="M568 335h24m0-22v44l35-22zM634 313v44m0-22h39M635 299l13-13m-6 0h6v6M648 310l13-13m-6 0h6v6"
+                      />
+                    </g>
+                  </g>
+                  <g class="terminal-nodes">
+                    <circle cx="112" cy="160" r="9" />
+                    <circle cx="252" cy="240" r="7" />
+                    <circle cx="373" cy="240" r="7" />
+                    <circle cx="568" cy="335" r="7" />
+                    <circle cx="673" cy="335" r="7" />
+                    <circle cx="766" cy="447" r="9" />
+                  </g>
+                  <g class="circuit-labels">
+                    <text x="88" y="230">VCC / +5 V</text>
+                    <text x="269" y="290">R1 / 330 Ω</text>
+                    <text x="594" y="390">D1</text>
+                    <text x="735" y="482">GND</text>
+                    <text class="polarity-label" x="568" y="420">
+                      K → A / REVERSED
+                    </text>
+                    <text class="healthy-label" x="530" y="420">
+                      A → K / PATH RESTORED
+                    </text>
+                  </g>
+                  <g class="perception-bounds">
+                    <rect x="255" y="205" width="112" height="70" />
+                    <rect x="578" y="266" width="81" height="92" />
+                    <path d="M252 240h-20m336 95h-20m125 0h20" />
+                    <text x="255" y="188">R1 / CONFIDENCE 96%</text>
+                    <text x="575" y="249">D1 / VERIFY TERMINALS</text>
+                    <text x="89" y="505">
+                      ILLUSTRATIVE CANDIDATES · HUMAN REVIEW
+                    </text>
+                  </g>
+                  <g class="story-fault-ring">
+                    <rect x="568" y="277" width="105" height="84" rx="8" />
+                    <path d="M622 282v-30h75" />
+                    <text x="703" y="256">PATH INTERRUPTED</text>
+                  </g>
+                </svg>
+              </div>
+              <div class="fault-evidence">
+                <b>REVERSED LED POLARITY</b>
+                <dl>
+                  <dt>OBSERVED</dt>
+                  <dd>Cathode toward VCC</dd>
+                  <dt>EXPECTED</dt>
+                  <dd>Anode toward VCC</dd>
+                  <dt>WHY IT FAILS</dt>
+                  <dd>Reverse bias blocks this path</dd>
+                  <dt>FIX</dt>
+                  <dd>Disconnect power. Swap A / K.</dd>
+                </dl>
+              </div>
               <div class="object-caption">
                 <span>STUDY 01</span
                 ><span id="story-readout"
@@ -168,22 +253,28 @@
               03 <span>Structure</span></button
             ><button
               data-scene-target="3"
-              aria-label="04 Diagnose"
+              aria-label="04 Signal"
               aria-pressed="false"
             >
-              04 <span>Diagnose</span></button
+              04 <span>Signal</span></button
             ><button
               data-scene-target="4"
-              aria-label="05 Correct"
+              aria-label="05 Diagnose"
               aria-pressed="false"
             >
-              05 <span>Correct</span></button
+              05 <span>Diagnose</span></button
             ><button
               data-scene-target="5"
-              aria-label="06 Try it"
+              aria-label="06 Correct"
               aria-pressed="false"
             >
-              06 <span>Try it</span>
+              06 <span>Correct</span></button
+            ><button
+              data-scene-target="6"
+              aria-label="07 Workbench"
+              aria-pressed="false"
+            >
+              07 <span>Workbench</span>
             </button>
           </nav>
         </div>
@@ -195,30 +286,6 @@
         <div class="story-anchor" id="scene-product"></div>
       </section>
 
-      <section class="examples-section" id="examples">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">01 / DEMO LIBRARY</div>
-            <h2>Pick a circuit. Trace the problem.</h2>
-          </div>
-          <p>Generated diagrams • editable fixtures • live rule engine</p>
-        </div>
-        <div
-          id="example-list"
-          class="example-list"
-          aria-label="Example circuits"
-        ></div>
-      </section>
-      <section class="vision-experiments">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">PIXELS TO OBSERVATIONS TO ENGINEERING</div>
-            <h2>Start with pixels.</h2>
-          </div>
-          <p>Three synthetic images - no diagnoses supplied to the model</p>
-        </div>
-        <div id="vision-demos" class="editor-actions"></div>
-      </section>
       <section id="workbench" class="workbench">
         <div class="section-head">
           <div>
@@ -249,6 +316,9 @@
             >Ready for a generated fixture, image, or manual circuit</output
           >
         </div>
+        <output id="focus-readout" class="focus-readout" aria-live="polite"
+          >SELECT A COMPONENT / link observation, topology and evidence</output
+        >
         <div class="bench-grid">
           <div class="visual-panel">
             <div class="panel-head">
@@ -338,6 +408,9 @@
               ><span id="graph-status">AWAITING INPUT</span>
             </div>
             <div id="live-graph" class="live-graph"></div>
+            <div id="bench-evidence" class="bench-evidence" aria-live="polite">
+              ENGINEERING / confirm connections to trace evidence
+            </div>
             <p class="graph-caption">
               Select a component to edit its terminals. This view shows
               breadboard groups before wire nets are merged.
@@ -508,6 +581,30 @@
           Select JSON to copy
         </button>
       </section>
+      <section class="examples-section" id="examples">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">01 / DEMO LIBRARY</div>
+            <h2>Pick a circuit. Trace the problem.</h2>
+          </div>
+          <p>Generated diagrams • editable fixtures • live rule engine</p>
+        </div>
+        <div
+          id="example-list"
+          class="example-list"
+          aria-label="Example circuits"
+        ></div>
+      </section>
+      <section class="vision-experiments">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">PIXELS TO OBSERVATIONS TO ENGINEERING</div>
+            <h2>Start with pixels.</h2>
+          </div>
+          <p>Three synthetic images - no diagnoses supplied to the model</p>
+        </div>
+        <div id="vision-demos" class="editor-actions"></div>
+      </section>
       <section id="architecture" class="architecture">
         <div class="section-head">
           <div>
@@ -516,6 +613,16 @@
           </div>
           <p>Every step is inspectable.</p>
         </div>
+        <div class="process-instrument" aria-hidden="true">
+          <div class="process-track"></div>
+          <span class="process-packet">OBSERVATION / DATA</span>
+        </div>
+        <output
+          id="architecture-state"
+          class="architecture-state"
+          aria-live="polite"
+          >01 / Circuit image → reviewable visual evidence</output
+        >
         <div class="architecture-flow">
           <div>
             <span>01 / INPUT</span>
@@ -568,24 +675,18 @@
           </p>
         </div>
       </section>
-      <section class="principles">
-        <div>
-          <span>01</span>
-          <h3>Evidence, before answers.</h3>
-          <p>Every finding points to the connections that triggered it.</p>
+      <section class="film-ending" aria-label="Circuit story conclusion">
+        <div class="ending-circuit" aria-hidden="true">
+          <svg viewBox="0 0 900 150">
+            <path
+              d="M30 75H310l12-20 18 40 18-40 18 40 12-20H580m0-20v40l35-20zM620 55v40m0-20h250"
+            />
+          </svg>
         </div>
-        <div>
-          <span>02</span>
-          <h3>You're in the loop.</h3>
-          <p>
-            Correct the build model before checking its electrical behavior.
-          </p>
-        </div>
-        <div>
-          <span>03</span>
-          <h3>Understand the why.</h3>
-          <p>Learn what a component does, not just which wire to move.</p>
-        </div>
+        <p class="eyebrow">CIRCUITLENS / THE PATH IS CLEAR</p>
+        <h2>See the fault.<br />Understand the fix.</h2>
+        <a class="primary" href="#workbench">Try CircuitLens ↗</a>
+        <p class="helper">AI observes. Engineering rules reason.</p>
       </section>
     </main>
     <footer>

@@ -2,8 +2,8 @@ export const storyScenes = [
   {
     id: "physical",
     label: "The circuit",
-    heading: "See<br>what’s wrong.",
-    copy: "A dark LED. One wrong connection.<br>Make the invisible understandable.",
+    heading: "See what’s<br><em>wrong.</em>",
+    copy: "A dark LED. One wrong connection.",
     note: "01 / PHYSICAL CIRCUIT",
     readout: "A circuit waiting to be understood.",
     action: "Explore the signal ↓",
@@ -12,7 +12,7 @@ export const storyScenes = [
     id: "perception",
     label: "Observe",
     heading: "First,<br>look closer.",
-    copy: "Parts. Terminals. Uncertainty.<br>Observations you can inspect and correct.",
+    copy: "Look closer. Keep uncertainty visible.",
     note: "02 / VISUAL PERCEPTION",
     readout: "Illustrative candidates / human review required.",
     action: "Continue to the model ↓",
@@ -20,36 +20,45 @@ export const storyScenes = [
   {
     id: "model",
     label: "Structure",
-    heading: "From wires<br>to reasoning.",
-    copy: "An explicit circuit model.<br>Every terminal. Every connection.",
+    heading: "From wires<br>to <em>reasoning.</em>",
+    copy: "The same circuit. An explicit model.",
     note: "03 / STRUCTURED MODEL",
     readout: "Reviewed terminals → inspectable netlist.",
     action: "Trace the failure ↓",
   },
   {
+    id: "signal",
+    label: "Signal",
+    heading: "Follow<br>the <em>signal.</em>",
+    copy: "One path. Every connection counts.",
+    note: "04 / TRACE THE PATH",
+    readout: "Illustrative directional flow / not an analog simulation.",
+    action: "Find the interruption ↓",
+  },
+  {
     id: "diagnosis",
     label: "Diagnose",
-    heading: "Don’t guess.<br>Trace it.",
-    copy: "The cathode reaches power.<br>The anode reaches ground. Reverse bias.",
-    note: "04 / DETERMINISTIC DIAGNOSIS",
+    heading: "The signal<br><em>stops here.</em>",
+    copy: "D1 / reverse bias. The path is interrupted.",
+    note: "05 / DETERMINISTIC DIAGNOSIS",
     readout: "D1 / reversed polarity / disconnect power before correcting.",
     action: "See the correction ↓",
   },
   {
     id: "fix",
     label: "Correct",
-    heading: "Understand<br>the circuit.",
-    copy: "Swap the reviewed LED terminals.<br>Check again. Learn why it works.",
-    note: "05 / CORRECTED MODEL",
+    heading: "One correction.<br><em>A clear path.</em>",
+    copy: "Power off. Swap A / K. Check again.",
+    note: "06 / CORRECTED MODEL",
     readout: "Illustrative corrected netlist / supported checks pass.",
     action: "Enter the workbench ↓",
   },
   {
     id: "product",
     label: "Try it",
-    heading: "Your circuit.<br>Your next step.",
-    copy: "Now use the real workbench.<br>Seven fixtures. Editable graphs. Engineering evidence.",
-    note: "06 / REAL PRODUCT",
+    heading: "Now, it’s<br><em>your circuit.</em>",
+    copy: "Observe. Edit. Trace. Understand.",
+    note: "07 / REAL PRODUCT",
     readout: "Try a generated fixture or review your own image.",
     action: "Try CircuitLens →",
   },
@@ -88,7 +97,7 @@ export function initCinematic() {
       button.setAttribute("aria-pressed", String(i === index));
       button.classList.toggle("current", i === index);
     });
-    root.querySelector("#story-position").textContent = `0${index + 1} / 06`;
+    root.querySelector("#story-position").textContent = `0${index + 1} / 07`;
   };
   const update = () => {
     frame = 0;
@@ -109,12 +118,19 @@ export function initCinematic() {
   };
   const navigate = (next) => {
     if (next >= storyScenes.length) {
+      document.dispatchEvent(new Event("cinematic-enter"));
       document
         .querySelector("#workbench")
         .scrollIntoView({ behavior: reduced() ? "instant" : "smooth" });
       return;
     }
     show(next);
+    if (reduced()) {
+      window.scrollTo({
+        top: scrollY + root.getBoundingClientRect().top,
+        behavior: "instant",
+      });
+    }
     if (!reduced()) {
       manual = false;
       // Exact segment start keeps the chosen scene stable at the threshold.
@@ -172,6 +188,18 @@ export function initCinematic() {
   queue();
   // Architecture reveals by visibility; no autoplay timer or artificial delay.
   const stages = document.querySelectorAll(".architecture-flow > div");
+  const process = document.querySelector(".process-instrument");
+  stages.forEach((stage, i) => {
+    stage.tabIndex = 0;
+    const activate = () => {
+      process.style.setProperty("--process-step", i);
+      document.querySelector("#architecture-state").textContent =
+        `${stage.querySelector("span").textContent} / ${stage.querySelector("h3").textContent} → ${stage.querySelector("p").textContent}`;
+      stages.forEach((s, j) => s.classList.toggle("process-active", i === j));
+    };
+    stage.addEventListener("pointerenter", activate);
+    stage.addEventListener("focus", activate);
+  });
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
       (entries) =>
@@ -180,6 +208,9 @@ export function initCinematic() {
         ),
       { threshold: 0.2 },
     );
-    stages.forEach((stage) => observer.observe(stage));
+    stages.forEach((stage, i) => {
+      stage.style.setProperty("--stage-index", i);
+      observer.observe(stage);
+    });
   } else stages.forEach((stage) => stage.classList.add("in-view"));
 }

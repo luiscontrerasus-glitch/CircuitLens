@@ -28,7 +28,8 @@ let fixtures = [],
   result = null,
   mark = null,
   version = 0,
-  photoVersion = 0;
+  photoVersion = 0,
+  focusedId = null;
 const canvas = $("photo"),
   ctx = canvas.getContext("2d", { willReadFrequently: true });
 function error(message) {
@@ -40,6 +41,11 @@ function invalidate() {
   document
     .querySelectorAll(".steps li")
     .forEach((li, i) => li.classList.toggle("active", i < 2));
+  focusedId = null;
+  $("focus-readout").textContent =
+    "SELECT A COMPONENT / link observation, topology and evidence";
+  $("bench-evidence").textContent =
+    "ENGINEERING / confirm connections to trace evidence";
   version++;
   result = null;
   $("results").hidden = true;
@@ -65,19 +71,38 @@ function renderGraph() {
       ? "UNVERIFIED / EDITABLE"
       : "AWAITING INPUT";
 }
-function focusComponent(index) {
+function focusComponent(index, navigate = true) {
   const row = $("components").querySelector(`[data-index="${index}"]`);
   if (!row) return;
   document
     .querySelectorAll("tr.selected, .schematic-part.selected")
     .forEach((el) => el.classList.remove("selected"));
+  focusedId = circuit.components[index].id;
   row.classList.add("selected");
+  document
+    .querySelectorAll(".issue")
+    .forEach((el) =>
+      el.classList.toggle(
+        "focused",
+        el.dataset.evidenceComponents?.split("|").includes(focusedId),
+      ),
+    );
+  $("focus-readout").textContent =
+    `${focusedId} / linked observation · topology · evidence`;
+  renderImage();
   $("live-graph")
     .querySelector(`[data-component="${index}"]`)
     ?.classList.add("selected");
-  row.querySelector('[data-field="a"]').focus();
-  row.scrollIntoView({ block: "center", behavior: motion() });
+  if (navigate) {
+    row.querySelector('[data-field="a"]').focus();
+    row.scrollIntoView({ block: "center", behavior: motion() });
+  }
 }
+$("components").addEventListener("focusin", (e) => {
+  const row = e.target.closest("tr[data-index]");
+  if (row && circuit.components[+row.dataset.index]?.id !== focusedId)
+    focusComponent(+row.dataset.index, false);
+});
 function motion() {
   return document.body.classList.contains("reduced-motion") ||
     matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -146,8 +171,9 @@ function renderImage() {
       : annotations[p.id];
     if (!points || points.length < 2) continue;
     const faulty = result?.issues.some((x) => x.components.includes(p.id));
-    ctx.strokeStyle = faulty ? "#e67d26" : "#317f69";
-    ctx.lineWidth = faulty ? 5 : 2;
+    const focused = p.id === focusedId;
+    ctx.strokeStyle = focused ? "#ffe0a0" : faulty ? "#e67d26" : "#317f69";
+    ctx.lineWidth = focused ? 8 : faulty ? 5 : 2;
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     ctx.lineTo(points[1].x, points[1].y);
@@ -301,10 +327,18 @@ function renderResults() {
         `<div class="measurement"><span>${esc(m.label)}</span><strong>${esc(m.value)}</strong><p>${esc(m.note)}</p></div>`,
     )
     .join("");
+  $("bench-evidence").innerHTML = result.issues.length
+    ? result.issues
+        .map(
+          (i) =>
+            `<button class="docked-finding" data-focus-component="${esc(i.components[0] || "")}"><span>${esc(i.title)}</span><small>${esc(i.components.join(" / "))} ↗</small></button>`,
+        )
+        .join("")
+    : `<strong class="healthy-readout">✓ SUPPORTED RULE CHECKS PASSED</strong><p>Reviewed model / ${result.summary.components} components / ${result.summary.nets} nets</p>`;
   $("issue-list").innerHTML = result.issues
     .map(
       (i, index) =>
-        `<article class="issue"><span class="fault-index">FINDING ${String(index + 1).padStart(2, "0")} / ENGINEERING EVIDENCE</span><header><h3>${esc(i.title)}</h3><span class="severity ${i.severity}">${esc(i.severity.toUpperCase())}</span></header><dl><dt>WHERE / EVIDENCE</dt><dd>${esc(i.evidence)}</dd>${$("education").checked ? `<dt>WHY IT MATTERS</dt><dd>${esc(i.why)}</dd>` : ""}<dt>HOW TO FIX IT</dt><dd>${esc(i.fix)}</dd></dl><p>${i.components.map((id) => `<button class="issue-focus" data-focus-component="${esc(id)}">↗ Inspect ${esc(id)} </button>`).join(" · ")}</p><small>Rule confidence: ${esc(i.confidence)} · input interpretation unverified</small></article>`,
+        `<article class="issue" data-evidence-components="${esc(i.components.join("|"))}"><span class="fault-index">FINDING ${String(index + 1).padStart(2, "0")} / ENGINEERING EVIDENCE</span><header><h3>${esc(i.title)}</h3><span class="severity ${i.severity}">${esc(i.severity.toUpperCase())}</span></header><dl><dt>WHERE / EVIDENCE</dt><dd>${esc(i.evidence)}</dd>${$("education").checked ? `<dt>WHY IT MATTERS</dt><dd>${esc(i.why)}</dd>` : ""}<dt>HOW TO FIX IT</dt><dd>${esc(i.fix)}</dd></dl><p>${i.components.map((id) => `<button class="issue-focus" data-focus-component="${esc(id)}">↗ Inspect ${esc(id)} </button>`).join(" · ")}</p><small>Rule confidence: ${esc(i.confidence)} · input interpretation unverified</small></article>`,
     )
     .join("");
   $("graph-view").innerHTML =
@@ -374,8 +408,39 @@ $("components").addEventListener("click", (e) => {
   }
 });
 canvas.addEventListener("click", (e) => {
-  if (!mark) return;
   const rect = canvas.getBoundingClientRect();
+  if (!mark) {
+    const x = ((e.clientX - rect.left) / rect.width) * canvas.width,
+      y = ((e.clientY - rect.top) / rect.height) * canvas.height;
+    let nearest = -1,
+      distance = 32;
+    circuit.components.forEach((p, i) => {
+      const pts = isDemo
+        ? [terminalPoint(p.a), terminalPoint(p.b)].map((q) => ({
+            x: (q.x / 700) * canvas.width,
+            y: (q.y / 440) * canvas.height,
+          }))
+        : annotations[p.id];
+      if (!pts || pts.length < 2) return;
+      const [a, b] = pts,
+        dx = b.x - a.x,
+        dy = b.y - a.y;
+      const t = Math.max(
+        0,
+        Math.min(
+          1,
+          ((x - a.x) * dx + (y - a.y) * dy) / (dx * dx + dy * dy || 1),
+        ),
+      );
+      const d = Math.hypot(x - a.x - t * dx, y - a.y - t * dy);
+      if (d < distance) {
+        nearest = i;
+        distance = d;
+      }
+    });
+    if (nearest >= 0) focusComponent(nearest);
+    return;
+  }
   mark.points.push({
     x: ((e.clientX - rect.left) / rect.width) * canvas.width,
     y: ((e.clientY - rect.top) / rect.height) * canvas.height,
@@ -626,3 +691,15 @@ try {
 } catch (e) {
   error(e.message);
 }
+
+$("bench-evidence").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-focus-component]");
+  if (b)
+    focusComponent(
+      circuit.components.findIndex((p) => p.id === b.dataset.focusComponent),
+    );
+});
+
+document.addEventListener("cinematic-enter", () => {
+  if (!circuit.components.length) loadExample("healthy");
+});

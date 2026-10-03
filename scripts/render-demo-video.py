@@ -3,6 +3,7 @@
 Requires Python 3, Pillow, and imageio-ffmpeg. No browser automation is used.
 Intermediate files stay in .runtime/demo-video; final media stays in submission.
 """
+import sys
 import json
 import subprocess
 from pathlib import Path
@@ -10,11 +11,14 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 import imageio_ffmpeg
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / 'submission/cinematic-demo'
-SHOTS = ROOT / 'submission/screenshots-cinematic/final'
-WORK = ROOT / '.runtime/demo-video'
+V2 = '--v2' in sys.argv
+OUT = ROOT / ('submission/cinematic-demo/final-v2' if V2 else 'submission/cinematic-demo')
+OUT.mkdir(parents=True, exist_ok=True)
+SHOTS = ROOT / ('submission/screenshots-cinematic/final-v2' if V2 else 'submission/screenshots-cinematic/final')
+WORK = ROOT / ('.runtime/demo-video-v2' if V2 else '.runtime/demo-video')
 WORK.mkdir(parents=True, exist_ok=True)
 SCENES = json.loads((OUT / 'video-scenes.json').read_text(encoding='utf-8-sig'))
+TOTAL = sum(s['duration'] for s in SCENES)
 FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 FONT = 'C:/Windows/Fonts/segoeui.ttf'
 BOLD = 'C:/Windows/Fonts/segoeuib.ttf'
@@ -75,7 +79,7 @@ for i, scene in enumerate(SCENES):
         canvas.paste(shot,(64+(1792-shot.width)//2,122+(820-shot.height)//2))
         text(draw,(64,972),scene['caption'],28,width=1760)
     draw.line((64,1050,1856,1050),fill='#393631',width=2)
-    draw.line((64,1050,64+int(1792*(elapsed+scene['duration'])/165),1050),fill='#c9a46d',width=2)
+    draw.line((64,1050,64+int(1792*(elapsed+scene['duration'])/TOTAL),1050),fill='#c9a46d',width=2)
     frame = WORK / f'{i:02}.png'
     canvas.save(frame)
     duration=scene['duration']
@@ -83,8 +87,12 @@ for i, scene in enumerate(SCENES):
     # A 1% slow push stays inside the editorial safe margins; UI edges remain.
     vf=(f"zoompan=z='1+0.01*on/{frames}':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=1:s=1920x1080:fps={FPS},"
         f"fade=t=in:st=0:d=0.3,fade=t=out:st={duration-0.3}:d=0.3,format=yuv420p")
-    run(['-loop','1','-framerate',str(FPS),'-i',str(frame),'-vf',vf,'-frames:v',str(frames),
-         '-c:v','libx264','-preset','fast','-crf','18','-an',str(WORK/f'{i:02}.mp4')])
+    if V2:
+        previous = WORK / f'{max(0,i-1):02}.png'
+        run(['-loop','1','-framerate',str(FPS),'-i',str(previous),'-loop','1','-framerate',str(FPS),'-i',str(frame),'-filter_complex','[0:v][1:v]xfade=transition=fade:duration=0.6:offset=0,format=yuv420p','-frames:v',str(frames),'-c:v','libx264','-preset','fast','-crf','18','-an',str(WORK/f'{i:02}.mp4')])
+    else:
+        run(['-loop','1','-framerate',str(FPS),'-i',str(frame),'-vf',vf,'-frames:v',str(frames),
+             '-c:v','libx264','-preset','fast','-crf','18','-an',str(WORK/f'{i:02}.mp4')])
     subtitles.append(f"{i+1}\n{stamp(elapsed,True)} --> {stamp(elapsed+duration,True)}\n{scene['title'].replace(chr(10),' ')}\n{scene['caption']}\n")
     timeline.append(f"| {stamp(elapsed)}–{stamp(elapsed+duration)} | {scene['image']} | {scene['title'].replace(chr(10),' ')} |")
     elapsed+=duration

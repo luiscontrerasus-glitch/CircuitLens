@@ -5,14 +5,14 @@ import { sceneAt, storyScenes } from "../public/cinematic.js";
 
 test("cinematic scroll selects stable scenes at boundaries and clamps invalid input", () => {
   assert.equal(sceneAt(-0.1), 0);
-  assert.equal(sceneAt(1.1), 5);
+  assert.equal(sceneAt(1.1), 6);
   for (const p of [NaN, Infinity, -Infinity, undefined])
     assert.equal(sceneAt(p), 0);
-  for (let i = 0; i < 6; i++) {
-    assert.equal(sceneAt((i + 0.001) / 6), i);
-    assert.equal(sceneAt((i + 0.999) / 6), i);
+  for (let i = 0; i < 7; i++) {
+    assert.equal(sceneAt((i + 0.001) / 7), i);
+    assert.equal(sceneAt((i + 0.999) / 7), i);
   }
-  assert.equal(sceneAt(1), 5);
+  assert.equal(sceneAt(1), 6);
 });
 
 test("every story scene has an accessible direct control and preserves product entry points", async () => {
@@ -43,7 +43,7 @@ test("every story scene has an accessible direct control and preserves product e
     (html.match(/data-scene-target=/g) || []).length,
     storyScenes.length,
   );
-  assert.equal(new Set(storyScenes.map((s) => s.id)).size, 6);
+  assert.equal(new Set(storyScenes.map((s) => s.id)).size, 7);
   assert.ok(html.includes("Synthetic explainer"));
   assert.ok(html.replace(/\s+/g, " ").includes("not live inference"));
   assert.ok(

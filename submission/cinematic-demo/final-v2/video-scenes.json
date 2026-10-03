@@ -1,0 +1,76 @@
+[
+  {
+    "image": "01-hero.jpg",
+    "duration": 12,
+    "title": "One circuit. One continuous story.",
+    "caption": "A physical circuit becomes an inspectable model.",
+    "label": "SYNTHETIC CIRCUIT / ACTUAL BROWSER CAPTURES"
+  },
+  {
+    "image": "02-perception.jpg",
+    "duration": 16,
+    "title": "Look closer. Keep uncertainty visible.",
+    "caption": "Bounds and terminal candidates require human review.",
+    "label": "ILLUSTRATIVE OBSERVATIONS / NOT LIVE INFERENCE"
+  },
+  {
+    "image": "03-cream-transformation.jpg",
+    "duration": 20,
+    "title": "From wires to reasoning.",
+    "caption": "The surface disappears. Components and connections remain.",
+    "label": "SAME CIRCUIT / SHARED TERMINAL GEOMETRY"
+  },
+  {
+    "image": "04-fault-climax.jpg",
+    "duration": 20,
+    "title": "The signal stops here.",
+    "caption": "Reversed LED polarity interrupts the illustrated path.",
+    "label": "DIRECTIONAL VISUAL EXPLAINER / NOT ANALOG SIMULATION"
+  },
+  {
+    "image": "05-corrected-circuit.jpg",
+    "duration": 16,
+    "title": "One correction. A clear path.",
+    "caption": "Disconnect power. Swap the LED terminals. Check again.",
+    "label": "ILLUSTRATIVE CORRECTION"
+  },
+  {
+    "image": "06-workbench.jpg",
+    "duration": 20,
+    "title": "Now, it is your circuit.",
+    "caption": "Generated observation, editable topology, engineering evidence.",
+    "label": "REAL WORKBENCH / DETERMINISTIC FIXTURE",
+    "crop": [45, 370, 1375, 990]
+  },
+  {
+    "image": "07-linked-evidence.jpg",
+    "duration": 20,
+    "title": "Trace the evidence everywhere.",
+    "caption": "Select D1 to connect the image, graph, properties and findings.",
+    "label": "REAL COMPONENT FOCUS / ENGINEERING RULES",
+    "crop": [45, 370, 1375, 990]
+  },
+  {
+    "image": "10-simulated-review.jpg",
+    "duration": 15,
+    "title": "Review before reasoning.",
+    "caption": "Accept, reject and correct observations before building the graph.",
+    "label": "SIMULATED TEST RESPONSE / NOT AI INFERENCE",
+    "crop": [40, 110, 1220, 745]
+  },
+  {
+    "image": "08-architecture.jpg",
+    "duration": 14,
+    "title": "AI observes. Engineering rules reason.",
+    "caption": "An inspectable process, from image to diagnosis.",
+    "label": "HUMAN REVIEW / EXPLICIT CONNECTIONS",
+    "crop": [45, 170, 1375, 825]
+  },
+  {
+    "image": "09-ending.jpg",
+    "duration": 12,
+    "title": "See the fault. Understand the fix.",
+    "caption": "Try CircuitLens. Follow the path to understanding.",
+    "label": "CIRCUITLENS / RESOLVED STATE"
+  }
+]
