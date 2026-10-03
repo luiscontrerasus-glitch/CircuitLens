@@ -6,12 +6,11 @@ import { analyze } from "./src/engine.js";
 import { examples, references } from "./src/examples.js";
 import {
   prepareImage,
-  perceiveImage,
   normalizeObservations,
   observationsToCircuit,
   PerceptionError,
-  MODEL,
 } from "./src/perception.js";
+import { visionSettings } from "./src/vision-provider.js";
 import { createVisionBudget } from "./src/vision-budget.js";
 import { timingSafeEqual } from "node:crypto";
 import { existsSync } from "node:fs";
@@ -82,15 +81,23 @@ function json(res, status, data) {
   res.end(JSON.stringify(data));
 }
 export function createServer(options = {}) {
-  const apiKey = options.apiKey ?? process.env.OPENAI_API_KEY;
-  const model = options.model ?? process.env.OPENAI_VISION_MODEL ?? MODEL;
+  const {
+    apiKey,
+    model,
+    provider,
+    providerLabel,
+    configured,
+    liveEnabled: liveVisionEnabled,
+    freeTierConfirmed,
+    unavailableReason,
+    perception,
+  } = visionSettings(options);
   const limit = Number(process.env.VISION_DAILY_LIMIT || 20);
   if (!Number.isInteger(limit) || limit < 1 || limit > 20)
     throw Error("VISION_DAILY_LIMIT must be 1–20.");
   const budget =
     options.budget ??
     createVisionBudget({ limit, file: process.env.VISION_USAGE_FILE });
-  const perception = options.perception ?? perceiveImage;
   return http.createServer(async (req, res) => {
     res.setHeader("Cache-Control", "no-store");
     res.setHeader("X-Content-Type-Options", "nosniff");
@@ -119,10 +126,19 @@ export function createServer(options = {}) {
       }
       if (req.method === "GET" && url.pathname === "/api/vision-config")
         return json(res, 200, {
-          configured: !!apiKey,
+          configured,
+          provider,
+          provider_label: providerLabel,
+          free_tier_confirmed: provider === "gemini" && freeTierConfirmed,
+          data_notice:
+            provider === "gemini"
+              ? "Google's unpaid Gemini service may use submitted images and responses to improve its products. Do not upload confidential or personal information."
+              : "This image will be sent to OpenAI. Its API may incur charges; this alternative is outside the $0 launch.",
+          live_enabled: liveVisionEnabled,
+          unavailable_reason: configured ? null : unavailableReason,
           model,
           daily_limit: limit,
-          requires_access_code: !isLocal(req),
+          requires_access_code: configured && !isLocal(req),
           demos: visionDemos.map((d) => ({
             ...d,
             recorded: existsSync(
@@ -131,6 +147,12 @@ export function createServer(options = {}) {
           })),
         });
       if (req.method === "POST" && url.pathname === "/api/perceive") {
+        if (!configured)
+          throw new PerceptionError(
+            liveVisionEnabled ? "not_configured" : "live_disabled",
+            unavailableReason,
+            503,
+          );
         if (
           !isLocal(req) &&
           (!process.env.VISION_ACCESS_CODE ||
@@ -144,17 +166,11 @@ export function createServer(options = {}) {
             "Enter the deployment demo access code to use live AI. Manual analysis remains open.",
             403,
           );
-        if (!apiKey)
-          throw new PerceptionError(
-            "not_configured",
-            "Live AI is not configured. Use manual review or a recorded demo.",
-            503,
-          );
         const data = await readJson(req, 4600000);
         if (data.consent !== true)
           throw new PerceptionError(
             "consent_required",
-            "Confirm that this image may be sent to OpenAI.",
+            `Confirm that this image may be sent to ${providerLabel}.`,
           );
         const image = await prepareImage(data.image);
         const output = await budget.run(() =>
@@ -228,7 +244,9 @@ export function createServer(options = {}) {
         return json(res, 200, {
           ok: true,
           version: "2.0.0",
-          mode: "reviewed visual perception + deterministic analysis",
+          mode: configured
+            ? "reviewed visual perception + deterministic analysis"
+            : "free deterministic demos + manual circuit review",
         });
       if (req.method === "GET" && url.pathname === "/api/examples")
         return json(res, 200, { examples, references });

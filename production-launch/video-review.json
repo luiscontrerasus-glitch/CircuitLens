@@ -1,0 +1,19 @@
+{
+  "file": "CircuitLens_Zero_Cost_Demo.mp4",
+  "durationSeconds": 150,
+  "encodedFrames": 4500,
+  "encodedFps": 30,
+  "resolution": [1920, 1080],
+  "audioStreams": 0,
+  "completeDecodePassed": true,
+  "visuallyReviewedDecodedSamples": 55,
+  "allChapterTransitionsSampled": true,
+  "fullResolutionEvidenceAndCorrectedViewsReviewed": true,
+  "graphFullyVisible": true,
+  "captionsReadable": true,
+  "unexpectedClippingOrOverlapFound": false,
+  "privatePathsSecretsDebugOrTerminalFound": false,
+  "generatedCircuitDisclosure": "persistent burned-in caption",
+  "liveVisionClaimed": false,
+  "reviewMethod": "full decode plus frame-based inspection across the entire timeline; no physical-device playback test"
+}

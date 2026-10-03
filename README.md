@@ -4,7 +4,7 @@
 
 The editorial website and application are separate pages. The homepage links an actual generated assembly with its connection schematic and a working polarity-correction preview. Locally hosted Archivo and Georgia italic define the typography. `/workbench.html` opens a useful circuit immediately: a collapsible example library, fitted physical/schematic/source canvas, zoom controls and contextual inspector. Connections, image review, and full reports use accessible dialogs. Tablet uses an adapted schematic; phone adds an independently scrolling inspector sheet. Reduced motion removes transitions and defaults to the schematic.
 
-The refinement passes **51 automated tests**, a production build and smoke check, and browser interaction checks for all seven demos. See [refinement direction and prototypes](submission/refinement/DESIGN.md), [verification and limitations](submission/refinement/VERIFICATION.md), and [selected screenshots](submission/refinement/final/SELECTED.md). Earlier official screenshots, videos and Git history are preserved.
+The current **$0 launch passes 64 automated tests**. All seven examples, manual photo review, circuit editing, deterministic diagnosis, and import/export work without an API key. Live recognition is disabled by default, even when an old key exists locally. Gemini 2.5 Flash image recognition is integrated into the existing review interface and is the default provider. It remains disabled until a Free Tier key and billing-disabled confirmation are configured. OpenAI remains an explicitly selected alternative, with no automatic fallback. Actual Gemini recognition awaits key setup; no successful live recognition is claimed. See [Gemini setup](production-launch/GEMINI_SETUP.md). See [deployment](production-launch/DEPLOYMENT.md), [functional verification](production-launch/FUNCTIONAL_TEST_RESULTS.md), and the [launch checklist](production-launch/FINAL_CHECKLIST.md). Earlier official screenshots, videos and Git history are preserved.
 
 ![CircuitLens circuit workspace](submission/refinement/final/workbench-1440.jpg)
 
@@ -21,7 +21,7 @@ Vision proposes observations, a person corrects them, and deterministic engineer
 ## How It Works
 
 1. Upload JPEG/PNG/WebP or choose a clearly labeled synthetic vision image.
-2. Consent to image sharing and run AI analysis. Without API access, use manual entry or a fixture example.
+2. Use manual entry or a fixture example for the $0 launch. Optional Gemini recognition requires explicit server enablement, a Free Tier key, billing-disabled confirmation, and consent; it is unavailable by default.
 3. Review component boxes, terminal candidates, type, value, LED orientation and confidence. Accept, reject, edit or add missing parts.
 4. Build the netlist from accepted observations. Unknown accepted terminals/values block conversion.
 5. Check voltage and reference, confirm the netlist and analyze. Read evidence, why it matters, and a specific fix.
@@ -34,7 +34,7 @@ flowchart TD
     I[Uploaded photo or labeled synthetic image] --> P[Browser resize + consent]
     P --> S[Node: validate image, strip metadata]
     S --> Q[Protected access + persistent request budget]
-    Q --> V[OpenAI image input + strict JSON schema]
+    Q --> V[Gemini image input + JSON schema / optional OpenAI]
     V --> O[Ajv-validated observations + provenance]
     O --> H[Overlay and human accept / reject / edit]
     H --> N[Confirmed netlist]
@@ -48,7 +48,7 @@ flowchart TD
 
 ## Computer Vision / AI Pipeline
 
-The server uses the OpenAI Responses API with `gpt-4.1-mini-2025-04-14`, `input_image`, `store:false`, and a strict JSON schema. It receives image pixels only, never the intended circuit. The model proposes component IDs/types, normalized boxes, A/B terminal candidates and points, values, polarity orientation, visible evidence, warnings and confidence. Terminal A is an LED's anode; B is its cathode. Unknown holes and values stay unresolved.
+The default Gemini adapter uses GenerateContent with fixed `gemini-2.5-flash`, inline image bytes and JSON-schema output. It has no tools, grounding, retries or paid fallback. The optional alternative uses the OpenAI Responses API with `gpt-4.1-mini-2025-04-14`, `input_image`, `store:false`, and a strict JSON schema. It receives image pixels only, never the intended circuit. The model proposes component IDs/types, normalized boxes, A/B terminal candidates and points, values, polarity orientation, visible evidence, warnings and confidence. Terminal A is an LED's anode; B is its cathode. Unknown holes and values stay unresolved.
 
 Sharp validates JPEG/PNG/WebP, rejects invalid/oversized input, rotates, resizes to at most 1600 pixels and re-encodes without original metadata. Ajv independently validates returned JSON. There is no learned local object detector, training step, custom model, perspective calibration or general schematic parser.
 
@@ -56,7 +56,7 @@ Every detection begins pending. The browser overlays boxes and endpoints, marks 
 
 The unchanged electrical reasoning maps A–E and F–J row strips separately (rows 1–30), merges wires and closed switches using union-find, traverses passive paths, and compares labeled pin-net signatures with a reference. It detects reversed LEDs, missing current limiters, open paths, rail shorts, bypasses and reference differences. Explanations are deterministic templates, not model diagnoses. Simple series LED current uses an assumed 2 V drop; divider voltage assumes no load. This is not SPICE or a continuity measurement.
 
-Requests are serialized within one server process, capped at 20 attempts per UTC day including failures, with a ten-second cooldown and no automatic retries. The ledger must be persistent and the deployment must use exactly one process/replica. This application limit is not an OpenAI spend cap. Non-loopback live requests require a private access code. Provider failures are sanitized, and manual analysis remains available.
+If live recognition is explicitly enabled, requests are serialized within one server process, capped at 20 attempts per UTC day including failures, with a ten-second cooldown and no automatic retries. Use exactly one process/replica. On a free ephemeral host, the local ledger resets on restart; Google's unbilled project quota remains authoritative. Gemini activation requires operator confirmation of billing status; the app cannot inspect Google billing. This application limit is not an OpenAI spend cap. Non-loopback live requests require a private access code. Provider failures are sanitized, and manual analysis remains available. The recipe leaves live mode disabled until key setup; no paid persistent disk is required for Gemini Free Tier.
 
 API documentation: [image input](https://developers.openai.com/api/docs/guides/images-vision), [structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs), [selected model](https://developers.openai.com/api/docs/models/gpt-4.1-mini).
 
@@ -124,15 +124,15 @@ npm run build
 npm run security:check
 ```
 
-Current suite: **42 passed, zero failures**. Automated tests never call OpenAI. The explicitly simulated UI harness is `node scripts/mock-vision-server.js` on port 3003, labeled as such and excluded from the production artifact. The opt-in evaluation command is `npm run evaluate:vision`; `node scripts/evaluate-vision.js --live --record --one` limits a diagnostic recheck to one image. These consume the same daily attempt ledger. Do not run concurrently with another server process using that ledger. Genuine observations are recorded only after successful model responses; none currently exist. See [verification](submission/verification.md).
+Current suite: **64 passed, zero failures**. Automated tests never contact either provider. The explicitly simulated UI harness is `node scripts/mock-vision-server.js` on port 3003, or add `--gemini` for Gemini-shaped mocks on port 3007, labeled as such and excluded from the production artifact. The evaluation CLI refuses provider requests unless `LIVE_VISION_ENABLED=true`; Gemini additionally requires Free Tier confirmation and never falls back to OpenAI. Genuine observations are recorded only after successful model responses; none currently exist. See [current verification](production-launch/FUNCTIONAL_TEST_RESULTS.md). Older verification sections below document earlier milestones.
 
 ## Production and Deployment
 
 `npm run build` creates an allowlisted `dist` package; it excludes environment files, usage state and test/provider mocks. `npm ci --omit=dev --prefix dist` installs clean runtime dependencies; `node dist/server.js` starts it. Production startup requires host-provided secrets because `.env.local` is deliberately not copied.
 
-A multi-stage Dockerfile and `render.yaml` are included. Set `HOST=0.0.0.0`, host-assigned `PORT`, server `OPENAI_API_KEY`, private `VISION_ACCESS_CODE`, and persistent `VISION_USAGE_FILE`. Run **one process/replica**. Use HTTPS termination. Render's recipe includes a persistent disk and a paid service tier: nothing has been provisioned or purchased. Blueprint configuration follows [Render's specification](https://render.com/docs/blueprint-spec).
+A multi-stage Dockerfile and a **free Node web-service** `render.yaml` are included. The recipe sets `HOST=0.0.0.0` and `LIVE_VISION_ENABLED=false`, uses the host-assigned port, and provisions no disk, database, or API credentials. Use a free workspace without a payment method and do not enable paid overages or add-ons. Follow the [exact deployment steps](production-launch/DEPLOYMENT.md).
 
-Deployment probe reached Render's sign-in page. No configured Git remote or authenticated Node hosting account was available. Local production build and HTTP smoke passed; Docker execution and public deployment were not performed. Do not publish a static-only frontend as if the server AI path were running.
+The repository has a GitHub remote. Render's dashboard currently shows its sign-in page; no authenticated hosting account was available. Local production build, startup, and HTTP smoke passed. Public deployment and Docker execution were not performed. No public URL is claimed.
 
 ## Limitations
 
@@ -142,7 +142,7 @@ Deployment probe reached Render's sign-in page. No configured Git remote or auth
 - No SPICE solver; parallel networks can invalidate simple current estimates. Correct inputs are essential.
 - Reference IDs and pin labels matter; no general graph-isomorphism solver.
 - Review state is in browser memory; refresh clears it. Exports preserve netlists, not uploaded images.
-- The usage guard is single-process and needs persistent storage. It is not a dollar-denominated provider cap.
+- The usage guard is single-process. Ephemeral hosting resets its ledger; Google's free project quota remains authoritative. It is not a dollar-denominated provider cap.
 
 ## Future Work
 

@@ -3,16 +3,23 @@ import { existsSync } from "node:fs";
 import { parseEnv } from "node:util";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
-const secret = existsSync(".env.local")
-  ? parseEnv(await readFile(".env.local", "utf8")).OPENAI_API_KEY
-  : process.env.OPENAI_API_KEY;
+const localEnv = existsSync(".env.local")
+  ? parseEnv(await readFile(".env.local", "utf8"))
+  : {};
+const secrets = [
+  localEnv.OPENAI_API_KEY,
+  localEnv.GEMINI_API_KEY,
+  process.env.OPENAI_API_KEY,
+  process.env.GEMINI_API_KEY,
+].filter(Boolean);
 let checked = 0;
 function check(bytes) {
   const text = bytes.toString("utf8");
   checked++;
   if (
-    (secret && text.includes(secret)) ||
-    /sk-(?:proj-)?[A-Za-z0-9_-]{30,}/.test(text)
+    secrets.some((secret) => text.includes(secret)) ||
+    /sk-(?:proj-)?[A-Za-z0-9_-]{30,}/.test(text) ||
+    /AIza[A-Za-z0-9_-]{35}/.test(text)
   )
     throw Error(
       "Secret-like content detected; details intentionally suppressed.",

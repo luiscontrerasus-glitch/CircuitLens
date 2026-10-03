@@ -56,6 +56,22 @@ const canvas = $("photo"),
 function error(message) {
   $("error").textContent = message;
   $("error").hidden = !message;
+  document.querySelectorAll(".dialog-error").forEach((node) => {
+    node.textContent = "";
+    node.hidden = true;
+  });
+  const dialog = document.querySelector("dialog[open]");
+  if (message && dialog) {
+    let notice = dialog.querySelector(".dialog-error");
+    if (!notice) {
+      notice = document.createElement("p");
+      notice.className = "dialog-error";
+      notice.setAttribute("role", "alert");
+      dialog.querySelector(".dialog-head").after(notice);
+    }
+    notice.textContent = message;
+    notice.hidden = false;
+  }
 }
 function invalidate() {
   analysisPhase("model", "Circuit model editable / confirmation required");
@@ -763,6 +779,7 @@ $("import").onclick = () => $("netlist").click();
 $("netlist").onchange = async (e) => {
   const file = e.target.files[0];
   if (!file) return;
+  error("");
   try {
     if (file.size > 131072)
       throw new Error("Netlist must be smaller than 128 KB.");

@@ -1,19 +1,21 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import {
-  prepareImage,
-  perceiveImage,
-  observationsToCircuit,
-  MODEL,
-} from "../src/perception.js";
+import { prepareImage, observationsToCircuit } from "../src/perception.js";
+import { visionSettings } from "../src/vision-provider.js";
 import { createVisionBudget } from "../src/vision-budget.js";
 import { analyze } from "../src/engine.js";
 import { references } from "../src/examples.js";
 if (!process.argv.includes("--live"))
   throw Error(
-    "Use --live to authorize up to three billed model requests for bundled synthetic images.",
+    "Use --live to authorize up to three model requests for bundled synthetic images. Keep Gemini project billing disabled.",
   );
 if (existsSync(".env.local")) process.loadEnvFile(".env.local");
+if (process.env.LIVE_VISION_ENABLED !== "true")
+  throw Error(
+    "Live evaluation is disabled in $0 mode. No model requests were made.",
+  );
+const vision = visionSettings();
+if (!vision.configured) throw Error(vision.unavailableReason);
 const limit = Number(process.env.VISION_DAILY_LIMIT || 20);
 if (!Number.isInteger(limit) || limit < 1 || limit > 20)
   throw Error("VISION_DAILY_LIMIT must be 1–20.");
@@ -32,9 +34,9 @@ for (const id of process.argv.includes("--one")
   );
   try {
     const record = await budget.run(() =>
-      perceiveImage(image, {
-        apiKey: process.env.OPENAI_API_KEY,
-        model: process.env.OPENAI_VISION_MODEL || MODEL,
+      vision.perception(image, {
+        apiKey: vision.apiKey,
+        model: vision.model,
         fetchImpl: async (...args) => {
           const r = await fetch(...args);
           if (process.argv.includes("--diagnostic") && !r.ok) {

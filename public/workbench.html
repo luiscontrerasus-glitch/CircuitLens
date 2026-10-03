@@ -126,8 +126,11 @@
                 hidden
               />
               <p id="image-help" class="helper">
-                Run live vision to propose components and terminals. Review each
-                detection before constructing the circuit graph.
+                Review your photo and enter components and terminals manually.
+                The seven examples work without API credits.
+              </p>
+              <p id="vision-availability" class="helper" role="status">
+                Live AI photo recognition is optional and disabled by default.
               </p>
               <details class="vision-control">
                 <summary>AI observations · availability & consent</summary>
@@ -137,7 +140,10 @@
                 </p>
                 <label class="confirm"
                   ><input type="checkbox" id="vision-consent" /> Send this
-                  resized image to OpenAI for visual analysis.</label
+                  <span id="vision-consent-copy"
+                    >resized image to the configured AI provider for visual
+                    analysis.</span
+                  ></label
                 >
                 <label id="vision-access-label" hidden
                   >Demo access code<input

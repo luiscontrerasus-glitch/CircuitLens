@@ -9,7 +9,9 @@ test("vision HTTP integration validates consent, conversion, origins and fallbac
   let calls = 0,
     fail = false;
   const server = createServer({
+    provider: "openai",
     apiKey: "test-only-key",
+    liveVisionEnabled: true,
     budget: { run: (fn) => fn() },
     perception: async (image) => {
       calls++;
@@ -116,7 +118,9 @@ test("public live requests require deployment access code; manual engine stays o
   });
   let calls = 0;
   const server = createServer({
+    provider: "openai",
     apiKey: "test-only-key",
+    liveVisionEnabled: true,
     budget: { run: (fn) => fn() },
     perception: async () => {
       calls++;

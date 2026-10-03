@@ -1,0 +1,73 @@
+{
+  "durationSeconds": 150,
+  "encodedFps": 30,
+  "resolution": [1920, 1080],
+  "narrationIncluded": false,
+  "source": "actual browser viewport samples",
+  "editing": "reading holds and 0.2s chapter fades; no fabricated interactions",
+  "chapters": [
+    {
+      "start": 0,
+      "end": 15,
+      "caption": "CircuitLens: follow the connection, understand the fault.",
+      "scene": "01-homepage",
+      "actualViewportSamples": 35
+    },
+    {
+      "start": 15,
+      "end": 30,
+      "caption": "Select D1. Both views follow the same component.",
+      "scene": "02-linked-views",
+      "actualViewportSamples": 48
+    },
+    {
+      "start": 30,
+      "end": 45,
+      "caption": "Open the engineering workspace. Start with a known circuit.",
+      "scene": "03-workbench",
+      "actualViewportSamples": 47
+    },
+    {
+      "start": 45,
+      "end": 60,
+      "caption": "Choose Reversed polarity. Select the highlighted LED.",
+      "scene": "04-select-example",
+      "actualViewportSamples": 48
+    },
+    {
+      "start": 60,
+      "end": 80,
+      "caption": "Inspect the schematic and the deterministic rule evidence.",
+      "scene": "05-diagnostic-evidence",
+      "actualViewportSamples": 48
+    },
+    {
+      "start": 80,
+      "end": 95,
+      "caption": "Zoom, fit, and select components without losing context.",
+      "scene": "06-zoom-selection",
+      "actualViewportSamples": 49
+    },
+    {
+      "start": 95,
+      "end": 115,
+      "caption": "Swap A / K. Review the terminals, confirm, and analyze.",
+      "scene": "07-correct-model",
+      "actualViewportSamples": 59
+    },
+    {
+      "start": 115,
+      "end": 135,
+      "caption": "Supported checks pass. Inspect the corrected assembly.",
+      "scene": "08-corrected-physical",
+      "actualViewportSamples": 48
+    },
+    {
+      "start": 135,
+      "end": 150,
+      "caption": "Seven editable examples. No API credits required.",
+      "scene": "09-finish",
+      "actualViewportSamples": 24
+    }
+  ]
+}

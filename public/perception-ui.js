@@ -34,6 +34,15 @@ const $ = (id) => document.getElementById(id),
           "'": "&#39;",
         })[c],
     );
+export function perceptionLabel(provenance) {
+  if (provenance.mode === "recorded")
+    return "RECORDED MODEL OUTPUT · NOT A LIVE REQUEST";
+  if (provenance.mode === "simulated")
+    return "SIMULATED TEST RESPONSE · NOT AI INFERENCE";
+  return provenance.provider === "Google Gemini"
+    ? "LIVE GEMINI OBSERVATIONS · HUMAN REVIEW REQUIRED"
+    : "LIVE OPENAI OBSERVATIONS · HUMAN REVIEW REQUIRED";
+}
 export function initPerception({
   getImage,
   getVoltage,
@@ -73,7 +82,7 @@ export function initPerception({
       !config?.demos.find((d) => d.id === currentDemo)?.recorded;
     if (!obs) return;
     $("vision-provenance").textContent =
-      `${response.provenance.mode === "recorded" ? "RECORDED MODEL OUTPUT · NOT A LIVE REQUEST" : response.provenance.mode === "simulated" ? "SIMULATED TEST RESPONSE · NOT AI INFERENCE" : "LIVE OPENAI VISION"} · ${response.provenance.model} · ${new Date(response.provenance.generated_at).toLocaleString()}`;
+      `${perceptionLabel(response.provenance)} · ${response.provenance.model} · ${new Date(response.provenance.generated_at).toLocaleString()}`;
     $("vision-summary").textContent = obs.summary;
     $("vision-warnings").textContent = [
       ...obs.warnings,
@@ -82,6 +91,9 @@ export function initPerception({
     $("detection-list").innerHTML = obs.components
       .map((p, i) => {
         const low =
+          p.type === "unknown" ||
+          (p.type === "resistor" && p.value === null) ||
+          (p.type === "button" && p.closed === null) ||
           Math.min(p.confidence, p.a.confidence, p.b.confidence) < 0.8 ||
           !p.a.hole ||
           !p.b.hole;
@@ -314,8 +326,17 @@ export function initPerception({
     .then((r) => r.json())
     .then((c) => {
       config = c;
-      $("vision-model").textContent =
-        `${c.configured ? "Configured" : "Not configured"} · ${c.model} · ${c.daily_limit} attempts/day`;
+      $("vision-model").textContent = c.configured
+        ? `Configured · ${c.provider_label} · ${c.model} · ${c.daily_limit} attempts/day`
+        : c.unavailable_reason;
+      $("vision-consent").disabled = !c.configured;
+      $("vision-availability").textContent = c.configured
+        ? c.provider === "gemini"
+          ? `Gemini Free Tier recognition is configured. Every observation needs your review. ${c.data_notice}`
+          : "Optional OpenAI recognition is configured and may incur API charges. Image sharing requires consent. Manual editing and examples remain free."
+        : c.unavailable_reason;
+      $("vision-consent-copy").textContent =
+        `resized image to ${c.provider_label} for visual analysis. ${c.data_notice}`;
       $("vision-access-label").hidden = !c.requires_access_code;
       $("vision-demos").innerHTML = c.demos
         .map(
@@ -338,7 +359,12 @@ export function initPerception({
       response = null;
       currentDemo = null;
       selected = null;
-      status("Choose live analysis, or enter connections manually.");
+      status(
+        config?.configured
+          ? "Choose optional live analysis, or enter connections manually."
+          : config?.unavailable_reason ||
+              "Enter connections manually. Examples need no API credits.",
+      );
       render();
     },
     reset() {

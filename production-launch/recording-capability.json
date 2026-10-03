@@ -1,0 +1,6 @@
+{
+  "cdpStartStopSupported": true,
+  "captureMethod": "actual viewport samples at approximately 5 fps",
+  "uninterrupted30FpsRecording": false,
+  "localCaptionedVideoRendererAvailable": true
+}

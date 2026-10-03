@@ -1,0 +1,228 @@
+{
+  "demos": [
+    {
+      "demo": "Healthy LED",
+      "physical": 4,
+      "schematic": 4,
+      "result": "Checks passed"
+    },
+    {
+      "demo": "Reversed polarity",
+      "physical": 4,
+      "schematic": 4,
+      "result": "4 findings"
+    },
+    {
+      "demo": "Open connection",
+      "physical": 4,
+      "schematic": 4,
+      "result": "2 findings"
+    },
+    {
+      "demo": "Missing resistor",
+      "physical": 4,
+      "schematic": 4,
+      "result": "3 findings"
+    },
+    {
+      "demo": "Crossed rails",
+      "physical": 5,
+      "schematic": 5,
+      "result": "3 findings"
+    },
+    {
+      "demo": "Voltage divider",
+      "physical": 4,
+      "schematic": 4,
+      "result": "Checks passed"
+    },
+    {
+      "demo": "Push-button LED",
+      "physical": 5,
+      "schematic": 5,
+      "result": "Checks passed"
+    }
+  ],
+  "componentSynchronization": true,
+  "desktopCorrection": true,
+  "mobileCorrection": true,
+  "zoomButtons": true,
+  "keyboardZoomFit": true,
+  "exportJsonFallback": true,
+  "importRoundtrip": true,
+  "reset": true,
+  "photoUploadDesktop": true,
+  "photoUploadMobile": true,
+  "invalidImport": "handled visibly in connections dialog",
+  "reducedMotion": {
+    "view": "schematic",
+    "transition": "0s"
+  },
+  "layoutWidths": [1440, 768, 390],
+  "physicalDeviceTesting": false,
+  "touchEmulationSupported": false,
+  "accessibility": {
+    "h1s": 1,
+    "lang": "en",
+    "main": true,
+    "overflow": false,
+    "skip": true,
+    "unnamedButtons": 0
+  },
+  "performance": {
+    "metrics": [
+      {
+        "name": "Timestamp",
+        "value": 7332.997557
+      },
+      {
+        "name": "AudioHandlers",
+        "value": 0
+      },
+      {
+        "name": "AudioWorkletProcessors",
+        "value": 0
+      },
+      {
+        "name": "Documents",
+        "value": 3
+      },
+      {
+        "name": "Frames",
+        "value": 3
+      },
+      {
+        "name": "JSEventListeners",
+        "value": 209
+      },
+      {
+        "name": "LayoutObjects",
+        "value": 1293
+      },
+      {
+        "name": "MediaKeySessions",
+        "value": 0
+      },
+      {
+        "name": "MediaKeys",
+        "value": 0
+      },
+      {
+        "name": "Nodes",
+        "value": 1470
+      },
+      {
+        "name": "Resources",
+        "value": 2
+      },
+      {
+        "name": "ContextLifecycleStateObservers",
+        "value": 16
+      },
+      {
+        "name": "V8PerContextDatas",
+        "value": 6
+      },
+      {
+        "name": "WorkerGlobalScopes",
+        "value": 0
+      },
+      {
+        "name": "UACSSResources",
+        "value": 0
+      },
+      {
+        "name": "RTCPeerConnections",
+        "value": 0
+      },
+      {
+        "name": "ResourceFetchers",
+        "value": 3
+      },
+      {
+        "name": "AdSubframes",
+        "value": 0
+      },
+      {
+        "name": "DetachedScriptStates",
+        "value": 18
+      },
+      {
+        "name": "ArrayBufferContents",
+        "value": 0
+      },
+      {
+        "name": "LayoutCount",
+        "value": 0
+      },
+      {
+        "name": "RecalcStyleCount",
+        "value": 1
+      },
+      {
+        "name": "LayoutDuration",
+        "value": 0
+      },
+      {
+        "name": "RecalcStyleDuration",
+        "value": 0.000078
+      },
+      {
+        "name": "DevToolsCommandDuration",
+        "value": 0.00003
+      },
+      {
+        "name": "ScriptDuration",
+        "value": 0
+      },
+      {
+        "name": "V8CompileDuration",
+        "value": 0
+      },
+      {
+        "name": "TaskDuration",
+        "value": 0.001697
+      },
+      {
+        "name": "TaskOtherDuration",
+        "value": 0.001589
+      },
+      {
+        "name": "ThreadTime",
+        "value": 0.001918
+      },
+      {
+        "name": "ProcessTime",
+        "value": 7.663361
+      },
+      {
+        "name": "JSHeapUsedSize",
+        "value": 6524236
+      },
+      {
+        "name": "JSHeapTotalSize",
+        "value": 22151168
+      },
+      {
+        "name": "FirstMeaningfulPaint",
+        "value": 7331.593764
+      },
+      {
+        "name": "DomContentLoaded",
+        "value": 7331.594153
+      },
+      {
+        "name": "NavigationStart",
+        "value": 7331.479256
+      }
+    ]
+  },
+  "network": {
+    "events": 128,
+    "truncated": false,
+    "hasMore": false,
+    "failures": []
+  },
+  "consoleWarningsAndErrors": [],
+  "liveOpenAIRequests": 0
+}
