@@ -1,6 +1,6 @@
 # CircuitLens: $0 deployment
 
-Prepared October 3, 2026, preserving history through `60c827c` and `89fef5f`. Render is authenticated; the dashboard shows Hobby, no card on file, no pending charges and no invoices. Actual Gemini photo assessment is complete and documented in `REAL_PHOTO_EVALUATION.md`. Google Free Tier/no billing is owner-confirmed, not independently established through the API. Deployment verification will be appended once the service is live.
+Prepared October 3, 2026, preserving history through `60c827c`, `89fef5f`, and `2db3896`. Render is authenticated; the dashboard shows Hobby/Free, no card on file, no pending charges and no invoices. Actual Gemini photo assessment is complete and documented in `REAL_PHOTO_EVALUATION.md`. Google Free Tier/no billing is owner-confirmed, not independently established through the API. The public service is live at https://circuitlens-free.onrender.com and passed the 49-route/seven-demo smoke check.
 
 ## Prepared configuration
 
@@ -8,15 +8,15 @@ Use a native Node web service on Render's **Free** instance in a free workspace 
 
 Render's free services sleep after 15 minutes of inactivity and can take about a minute to wake. The workspace allowance is 750 free instance hours per month. Storage is ephemeral. Free bandwidth/build allowances have limits: with no payment method, exceeding them suspends services or disables builds instead of charging overages. Free instances lack production reliability guarantees; this is appropriate for a hobby/hackathon demonstration, not an always-on commercial service. See [Render free-service documentation](https://render.com/docs/free) and [Node web-service instructions](https://render.com/docs/web-services).
 
-## Exact steps requiring your account
+## Deployment record
 
-1. Publish the final commit: `git push origin main`. The configured remote is `https://github.com/luiscontrerasus-glitch/CircuitLens.git`. Preserve the existing history; do not force-push.
-2. Sign into [Render](https://dashboard.render.com/). Choose a free/Hobby workspace with **no card or payment method**. Stop if a payment method or paid plan is required.
-3. Select **New → Web Service**, connect the GitHub repository above, and choose branch `main`. Name the new service `circuitlens-free`; do not upgrade or repurpose an existing paid service.
-4. Select **Node**, root directory blank, build command `npm ci && npm run build`, start command `node dist/server.js`, and instance type **Free**. Set the health check to `/api/health`. Add no database, persistent disk, or other add-on.
-5. Set `NODE_VERSION=24.14.1`, `NODE_ENV=production`, `HOST=0.0.0.0`, and `LIVE_VISION_ENABLED=false`. Let Render supply `PORT`. Do **not** configure `OPENAI_API_KEY`, `VISION_ACCESS_CODE`, or provider credentials. Review the final plan and billing settings before creating the service.
-6. Deploy, then copy the actual assigned HTTPS URL into your submission. A URL must not be inferred from the service name.
-7. At that URL, check `/api/health` returns the free deterministic mode and `/api/vision-config` returns `configured:false`, `live_enabled:false`, and the unavailable explanation. Open all seven examples and repeat the reversed-LED correction in `RECORDING_GUIDE.md`.
+The repository was published to the public GitHub `main` branch without force-pushing. Render service `circuitlens-free` deployed commit `2db3896` on the Free Node plan. Public verification passed health/configuration checks, all seven deterministic analyses, the homepage linked demonstration, the reversed-LED path, a 390px mobile layout with no horizontal overflow, and a browser log check with zero warnings/errors. Public Gemini remains disabled (`LIVE_VISION_ENABLED=false`); no API key was transmitted to Render.
+
+## Exact steps requiring your account for optional live Gemini
+
+1. Keep the existing service on the Free plan with no card or payment method.
+2. If optional public Gemini is later approved, add server-side `GEMINI_API_KEY`, a private `VISION_ACCESS_CODE`, `VISION_PROVIDER=gemini`, `GEMINI_FREE_TIER_CONFIRMED=true`, and `LIVE_VISION_ENABLED=true` through Render environment settings. Never use OpenAI as a fallback.
+3. Recheck `/api/vision-config`, the access-code gate, the six-photo assessment boundary, and deterministic seven-demo smoke tests before enabling live recognition.
 
 Alternatively, use `render.yaml` as a [Blueprint](https://render.com/docs/blueprint-spec) after reviewing the same Free plan and no-payment-method conditions. Do not enable paid overages, upgrade to avoid cold starts, or add an artificial keep-alive service.
 

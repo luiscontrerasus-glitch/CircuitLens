@@ -27,5 +27,15 @@
     "durationSeconds": 150.0,
     "audio": false
   },
-  "publicDeployment": "pending Free service creation"
+  "publicDeployment": {
+    "url": "https://circuitlens-free.onrender.com",
+    "verified": true,
+    "service": "circuitlens-free",
+    "plan": "Free",
+    "commit": "2db3896b046a7fcf5ee202f2748750537f001fca",
+    "smoke": "49 assets/routes and seven demos passed",
+    "mobile": "390px, no horizontal overflow",
+    "consoleWarningsErrors": 0,
+    "liveGemini": false
+  }
 }
