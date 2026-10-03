@@ -7,6 +7,7 @@
     <title>CircuitLens — Workbench</title>
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/workbench.css" />
+    <link rel="stylesheet" href="/refinement.css" />
     <script type="module" src="/app.js"></script>
     <script type="module" src="/workbench-shell.js"></script>
   </head>
@@ -72,7 +73,12 @@
             <span id="graph-status">AWAITING INPUT</span>
           </div>
           <div class="canvas-content">
-            <div id="live-graph" class="live-graph"></div>
+            <div
+              id="live-graph"
+              class="live-graph"
+              tabindex="0"
+              aria-label="Circuit canvas. Plus and minus zoom; zero fits the circuit."
+            ></div>
             <div class="visual-panel" hidden>
               <div class="panel-head">
                 <h3 id="image-title">01 / Input & observation</h3>
@@ -165,6 +171,14 @@
               </div>
             </div>
           </div>
+          <div class="viewport-controls" role="group" aria-label="Circuit zoom">
+            <button id="zoom-out" aria-label="Zoom out">−</button>
+            <output id="zoom-status" aria-live="polite">Fit</output>
+            <button id="zoom-in" aria-label="Zoom in">+</button>
+            <button id="zoom-fit" aria-label="Fit circuit to canvas">
+              Fit ↺
+            </button>
+          </div>
           <div id="bench-evidence" class="bench-evidence" aria-live="polite">
             ENGINEERING / confirm connections to trace evidence
           </div>
@@ -190,8 +204,13 @@
           >SELECT A COMPONENT / link observation, topology and evidence</output
         >
       </section>
-      <div class="editor-panel">
-        <div class="inspector-title">Component inspector</div>
+      <div class="editor-panel" id="inspector-panel">
+        <div class="inspector-title">
+          Component inspector
+          <button id="close-inspector" aria-label="Close component inspector">
+            ×
+          </button>
+        </div>
         <div
           id="component-inspector"
           class="component-inspector"
@@ -220,6 +239,14 @@
         <div id="error" role="alert" hidden></div>
       </div>
     </main>
+    <button
+      id="mobile-inspect"
+      class="mobile-inspect"
+      aria-expanded="false"
+      aria-controls="inspector-panel"
+    >
+      Select a component to inspect
+    </button>
     <dialog id="connections-dialog">
       <div class="dialog-head">
         <h2>Circuit connections</h2>

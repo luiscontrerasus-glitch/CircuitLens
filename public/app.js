@@ -4,10 +4,12 @@ import { terminalPoint } from "./layout.js";
 import { schematicMarkup } from "./schematic.js";
 import { initCinematic } from "./cinematic.js";
 import { analysisPhase } from "./instrument.js";
-import { openPanel } from "./workbench-shell.js";
+import { openPanel, setInspectorOpen } from "./workbench-shell.js";
+import { initGraphViewport } from "./graph-viewport.js";
 import { mountAssembly, initSpatialStory } from "./assembly.js";
 initCinematic();
 const resizeAssembly = initSpatialStory();
+const viewport = initGraphViewport();
 let circuitView = matchMedia(
   "(max-width: 1000px), (prefers-reduced-motion: reduce)",
 ).matches
@@ -140,6 +142,7 @@ function applyView() {
     "aria-pressed",
     String(circuitView === "source"),
   );
+  viewport.refresh();
 }
 for (const view of ["assembly", "schematic", "source"])
   $(`view-${view}`).onclick = () => {
@@ -228,17 +231,11 @@ function focusComponent(index, navigate = true) {
     .querySelectorAll(`[data-component="${index}"]`)
     .forEach((part) => part.classList.add("selected"));
   if (navigate) {
-    $("component-inspector")
-      .querySelector("input")
-      ?.focus({ preventScroll: true });
-    if (
-      matchMedia("(max-width: 1000px)").matches &&
-      !document.querySelector("dialog[open]")
-    )
-      $("component-inspector").scrollIntoView({
-        block: "nearest",
-        behavior: motion(),
-      });
+    if (matchMedia("(max-width: 700px)").matches) setInspectorOpen(true);
+    else
+      $("component-inspector")
+        .querySelector("input")
+        ?.focus({ preventScroll: true });
   }
 }
 $("components").addEventListener("focusin", (e) => {
@@ -388,8 +385,8 @@ async function setImage(url, demo) {
   renderImage();
 }
 function scrollBench() {
-  if (matchMedia("(max-width: 700px)").matches)
-    $("workbench").scrollIntoView({ behavior: motion() });
+  viewport.fit();
+  setInspectorOpen(false);
 }
 async function loadExample(id) {
   const example = fixtures.find((x) => x.id === id);
@@ -424,6 +421,7 @@ async function loadExample(id) {
   if (index >= 0) focusComponent(index, false);
 }
 function reset() {
+  setInspectorOpen(false);
   perception?.reset();
   invalidate();
   photoVersion++;

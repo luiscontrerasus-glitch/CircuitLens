@@ -1,4 +1,5 @@
 import { terminalPoint } from "./layout.js";
+import { fitScale } from "./graph-viewport.js";
 
 const terminal = /^(VCC|GND|[A-J](?:[1-9]|[12]\d|30))$/;
 // The model uses logical breadboard coordinates, never inferred photo geometry.
@@ -134,7 +135,10 @@ export function initSpatialStory() {
       document.querySelectorAll(".model-stage").forEach((stage) => {
         stage.style.setProperty(
           "--model-scale",
-          Math.min(1.35, stage.clientWidth / 800, stage.clientHeight / 520),
+          Math.min(
+            2,
+            fitScale(stage.clientWidth, stage.clientHeight, 820, 510, 24),
+          ),
         );
       });
       if (assembly)

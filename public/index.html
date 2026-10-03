@@ -3,98 +3,130 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#edf1f5" />
     <meta
       name="description"
-      content="Explore circuits, review their connections, and understand faults with inspectable engineering evidence."
+      content="Inspect circuit connections, understand diagnostic evidence, and correct an editable model in CircuitLens."
     />
-    <meta name="theme-color" content="#f3f0e9" />
-    <title>CircuitLens — See beyond the schematic.</title>
+    <title>CircuitLens — Every connection, a clearer picture.</title>
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/editorial.css" />
+    <link rel="stylesheet" href="/lens.css" />
     <script type="module" src="/landing.js"></script>
+    <script type="module" src="/lens-demo.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-nav">
       <a class="brand" href="/">◉ CircuitLens</a
-      ><span>Circuit analysis, made inspectable.</span
+      ><a class="examples-nav" href="#examples">Explore examples</a
       ><a href="/workbench.html">Open workbench ↗</a>
     </header>
     <main id="main">
-      <section class="specimen-hero">
-        <div class="hero-copy">
-          <p class="kicker">FOR THE CURIOUS. FOR THE CAREFUL.</p>
-          <h1>See beyond<br />the schematic.</h1>
-          <p class="hero-description">
-            Understand the connections.<br />Find the fault. Know what to
-            change.
-          </p>
-          <a class="action" href="/workbench.html?demo=reversed"
-            >Explore a circuit <span>↗</span></a
-          >
-          <p class="hero-note">
-            Seven generated examples. Evidence you can inspect.
-          </p>
+      <section class="lens-hero">
+        <div class="lens-intro">
+          <div>
+            <p class="kicker">CIRCUIT DIAGNOSIS, MADE INSPECTABLE</p>
+            <h1>Every connection.<br /><em>A clearer picture.</em></h1>
+          </div>
+          <div class="lens-explanation">
+            <p>
+              Trace a circuit’s connections.<br />Understand the fault.<br />Know
+              what to change.
+            </p>
+            <a class="action" href="/workbench.html?demo=reversed"
+              >Open this circuit <span>↗</span></a
+            ><small>Start with an example, or bring a circuit photo.</small>
+          </div>
         </div>
-        <figure class="specimen">
-          <img
-            src="/assets/components.jpg"
-            width="2272"
-            height="1704"
-            alt="A close photograph of resistors, metal leads and small electronic parts on paper"
-            fetchpriority="high"
-          />
-          <figcaption>
-            <span>A study in small things.</span
-            ><span>Physical components / photograph</span>
-          </figcaption>
-        </figure>
-      </section>
-      <section class="intro-editorial" id="approach">
-        <span class="kicker">A CONNECTION WORTH UNDERSTANDING</span>
-        <h2>A tiny detail can<br />change the whole circuit.</h2>
-        <div>
-          <p>
-            A reversed LED. A wire one row away. A resistor that’s missing.
-            CircuitLens turns explicit connections into explanations you can
-            follow.
-          </p>
-          <p>
-            Explore a known circuit, inspect the evidence, then correct the
-            model. Or bring a photo and review the components and terminals
-            yourself.
-          </p>
+        <div
+          id="linked-demo"
+          class="linked-demo"
+          aria-label="Interactive generated circuit demonstration"
+        >
+          <div class="linked-views">
+            <figure class="physical-study">
+              <figcaption>
+                <strong>Physical assembly</strong><span>Generated fixture</span>
+              </figcaption>
+              <div
+                id="demo-physical"
+                class="demo-physical"
+                aria-label="Interactive logical circuit assembly"
+              >
+                <p class="demo-loading">Preparing the circuit…</p>
+              </div>
+            </figure>
+            <div class="view-bridge" aria-hidden="true">
+              <span>↔</span><small>Same part.<br />Same connection.</small>
+            </div>
+            <figure class="schematic-study">
+              <figcaption>
+                <strong>Connection schematic</strong><span>Select a part</span>
+              </figcaption>
+              <div id="demo-schematic" class="demo-schematic">
+                <p class="demo-loading">Loading reviewed connections…</p>
+              </div>
+            </figure>
+          </div>
+          <div class="demo-evidence">
+            <div>
+              <small id="demo-state">Reversed LED · generated fixture</small>
+              <p id="demo-readout" aria-live="polite">
+                Select a component to connect the two views.
+              </p>
+            </div>
+            <div class="demo-actions">
+              <button id="demo-correct">Preview polarity correction →</button
+              ><a id="demo-inspect" href="/workbench.html?demo=reversed"
+                >Inspect in workbench ↗</a
+              >
+            </div>
+          </div>
         </div>
-      </section>
-      <section class="product-study">
-        <div class="study-heading">
-          <h2>Less guessing.<br />More understanding.</h2>
-          <p>
-            Select a part. See its connections and the evidence behind each
-            finding.
-          </p>
-        </div>
-        <a
-          href="/workbench.html?demo=reversed"
-          class="product-image"
-          aria-label="Open the demonstrated reversed LED workbench"
-          ><img
-            src="/assets/workbench.jpg"
-            width="1440"
-            height="900"
-            loading="lazy"
-            alt="Actual CircuitLens workspace showing the circuit, selected LED and diagnostic inspector"
-        /></a>
-        <div class="study-caption">
-          <span>Reversed LED / generated fixture</span
-          ><a href="/workbench.html?demo=reversed">Inspect this circuit ↗</a>
-        </div>
-        <p class="study-limit">
-          Rule checks describe the reviewed netlist. No hardware measurements or
-          validated live AI results are shown.
+        <p class="demo-caption">
+          Select a part in either view. Both representations follow the same
+          editable terminals. This generated assembly shows logical connections,
+          not inferred photo geometry or live AI results.
         </p>
       </section>
-      <section class="example-index">
+      <section class="evidence-chapter">
+        <div>
+          <p class="kicker">LESS GUESSWORK. MORE UNDERSTANDING.</p>
+          <h2>A finding should<br />come with <em>an explanation.</em></h2>
+          <p>
+            A highlighted component is only the beginning. Inspect the
+            connection, follow the evidence, and correct the model. CircuitLens
+            keeps the circuit and its explanation together.
+          </p>
+          <a href="/workbench.html?demo=reversed">Follow the evidence ↗</a>
+        </div>
+        <figure class="evidence-example">
+          <figcaption>
+            From the reversed-LED example
+            <span>Deterministic rule evidence</span>
+          </figcaption>
+          <div class="evidence-part">
+            <strong>D1</strong><span>LED · reversed polarity</span>
+          </div>
+          <div class="evidence-terminals">
+            <span><small>Anode</small>D18</span><b>→</b
+            ><span><small>Cathode</small>D12</span>
+          </div>
+          <blockquote>
+            The cathode reaches VCC and the anode reaches GND through the
+            passive network.
+          </blockquote>
+          <p>
+            Disconnect power. Swap the LED leads; connect its anode toward the
+            resistor and VCC.
+          </p>
+          <a href="/workbench.html?demo=reversed"
+            >Review and correct the model →</a
+          >
+        </figure>
+      </section>
+      <section class="example-index" id="examples">
         <div>
           <p class="kicker">THE EXAMPLE COLLECTION</p>
           <h2>Start with<br />something known.</h2>
@@ -140,18 +172,25 @@
           >
         </div>
       </section>
-      <section class="closing">
-        <p class="kicker">YOUR NEXT CONNECTION</p>
-        <h2>Bring curiosity.<br />Leave with clarity.</h2>
+
+      <section class="lens-closing">
+        <h2>Bring the circuit.<br /><em>Find the connection.</em></h2>
         <div>
-          <a class="action" href="/workbench.html">Open the workbench ↗</a
-          ><a href="/workbench.html?new=1">Bring a circuit photo ↗</a>
+          <p>
+            Seven examples to explore.<br />Your own photo to review.<br />Every
+            connection stays editable.
+          </p>
+          <a class="action" href="/workbench.html?new=1"
+            >Bring a circuit photo ↗</a
+          ><a class="quiet-link" href="/workbench.html"
+            >Explore the workbench →</a
+          >
         </div>
       </section>
     </main>
     <footer>
       <a class="brand" href="/">◉ CircuitLens</a
-      ><span>Observe. Review. Understand.</span
+      ><span>Reviewed models. Inspectable evidence.</span
       ><a href="/credits.html">Image & type credits</a>
     </footer>
   </body>

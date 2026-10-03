@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-03",
+  "homepage": {
+    "linkedSelection": true,
+    "keyboardSelection": true,
+    "correction": "supported checks passed",
+    "restoreFault": true,
+    "resizeLoadingRace": "fixed; clean fresh-tab console"
+  },
+  "demos": [
+    {
+      "demo": "Healthy LED",
+      "findings": "Checks passed"
+    },
+    {
+      "demo": "Reversed polarity",
+      "findings": "4 findings"
+    },
+    {
+      "demo": "Open connection",
+      "findings": "2 findings"
+    },
+    {
+      "demo": "Missing resistor",
+      "findings": "3 findings"
+    },
+    {
+      "demo": "Crossed rails",
+      "findings": "3 findings"
+    },
+    {
+      "demo": "Voltage divider",
+      "findings": "Checks passed"
+    },
+    {
+      "demo": "Push-button LED",
+      "findings": "Checks passed"
+    }
+  ],
+  "workbench": {
+    "crossViewSelection": true,
+    "desktopCorrection": true,
+    "mobileCorrection": true,
+    "addRemove": true,
+    "exportJsonPreview": true,
+    "importRoundtrip": true,
+    "reset": true,
+    "pngUpload": true,
+    "mobileLibraryClosesInspector": true,
+    "zoomButtons": true,
+    "keyboardZoomFit": true
+  },
+  "perception": {
+    "mode": "simulated; not live AI",
+    "consent": true,
+    "rejectReaccept": true,
+    "editedDetectionRequiresReview": true,
+    "unresolvedTerminalBlocksBuild": true,
+    "acceptedNetlistDiagnosed": true,
+    "liveRequests": 0
+  },
+  "reducedMotion": {
+    "systemEmulated": true,
+    "view": "schematic",
+    "selectionTransition": "0s",
+    "emulationCleared": true
+  },
+  "finalConsoleErrors": [],
+  "limitations": [
+    "Real-device pinch/pan and camera were not exercised; built-in browser synthetic touch dispatch unsupported.",
+    "Automatic download persistence not confirmed; JSON export fallback round-trip passed.",
+    "Live vision recognition remains unvalidated."
+  ]
+}

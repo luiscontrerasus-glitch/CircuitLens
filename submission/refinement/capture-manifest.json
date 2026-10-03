@@ -1,0 +1,82 @@
+[
+  {
+    "name": "home-1440.jpg",
+    "width": 1425,
+    "height": 2713
+  },
+  {
+    "name": "home-1920.jpg",
+    "width": 1905,
+    "height": 2825
+  },
+  {
+    "name": "home-390.jpg",
+    "width": 375,
+    "height": 3646
+  },
+  {
+    "name": "home-768.jpg",
+    "width": 753,
+    "height": 2562
+  },
+  {
+    "name": "home-hero-1920.jpg",
+    "width": 1905,
+    "height": 1080
+  },
+  {
+    "name": "home-hero-390.jpg",
+    "width": 390,
+    "height": 843
+  },
+  {
+    "name": "simulated-review-1440.jpg",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "name": "workbench-1440.jpg",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "name": "workbench-1920.jpg",
+    "width": 1920,
+    "height": 1080
+  },
+  {
+    "name": "workbench-390.jpg",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "name": "workbench-768.jpg",
+    "width": 768,
+    "height": 1024
+  },
+  {
+    "name": "workbench-corrected-390.jpg",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "name": "workbench-inspector-390.jpg",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "name": "workbench-physical-1440.jpg",
+    "width": 1440,
+    "height": 1000
+  },
+  {
+    "name": "workbench-reduced-motion-390.jpg",
+    "width": 390,
+    "height": 844
+  },
+  {
+    "name": "workbench-zoom-390.jpg",
+    "width": 390,
+    "height": 844
+  }
+]

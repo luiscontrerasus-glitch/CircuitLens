@@ -1,0 +1,668 @@
+/* Product instrument: ink-blue selection, warm fault evidence, fitted canvas. */
+:root {
+  color: #1e3345;
+  background: #f2f5f7;
+  --accent: #245879;
+  --muted: #536676;
+  --line: #dde4e9;
+}
+.app-nav {
+  height: 60px;
+  box-shadow: 0 2px 10px #213c5010;
+  border-bottom: 0;
+}
+.brand {
+  font-weight: 650;
+}
+.nav-actions #start {
+  background: #244d6a;
+  color: #fff;
+  padding: 9px 14px;
+}
+.app-workspace {
+  height: calc(100dvh - 60px);
+  grid-template-columns: 208px minmax(0, 1fr) 320px;
+}
+.library-collapsed .app-workspace {
+  grid-template-columns: minmax(0, 1fr) 320px;
+}
+.example-library {
+  background: #e5ebf0;
+  color: #233e52;
+  border-right: 0;
+  padding: 22px 12px;
+}
+.library-title h2 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.library-intro,
+.library-footer {
+  color: #536777;
+}
+.library-intro {
+  font-size: 12px;
+  margin: 20px 0 30px;
+}
+.example-card {
+  font-size: 13px;
+  padding: 14px 12px;
+  margin: 4px 0;
+}
+.example-card strong {
+  font-weight: 470;
+}
+.example-card.selected {
+  background: #ccdde9;
+  color: #173c58;
+  box-shadow: inset 3px 0 #245879;
+}
+.example-card.selected strong {
+  font-weight: 650;
+}
+.example-library button:hover {
+  background: #d5e1e9;
+}
+.library-footer button {
+  color: #28485e;
+  font-size: 12px;
+}
+.library-footer p {
+  font-size: 11px;
+}
+.example-card::before {
+  background: #618476;
+}
+.example-card[data-id="reversed"]::before,
+.example-card[data-id="disconnected"]::before,
+.example-card[data-id="no-resistor"]::before,
+.example-card[data-id="short"]::before {
+  background: #b1543c;
+}
+.workbench {
+  scroll-margin-top: 60px;
+  background: #f3f6f8;
+}
+.workspace-heading {
+  padding: 10px 16px 0;
+  min-height: 44px;
+}
+.workspace-heading button {
+  font-size: 12px;
+}
+.workspace-label {
+  font-size: 12px;
+}
+.workspace-heading #findings-jump {
+  color: #9c412e;
+  background: #f1e4de;
+  font-size: 12px;
+  padding: 7px 12px;
+}
+.graph-panel {
+  padding: 10px 22px 0;
+}
+.view-switch {
+  background: #e4eaf0;
+}
+.view-switch button {
+  font-size: 12px;
+  padding: 10px 17px;
+}
+.view-switch button[aria-pressed="true"] {
+  color: #204f71;
+  font-weight: 600;
+}
+.schematic-head > span {
+  font-size: 10px;
+  color: #536777;
+}
+.canvas-content {
+  overflow: hidden;
+}
+.live-graph {
+  overflow: hidden;
+  touch-action: none;
+}
+.schematic-view {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+.schematic {
+  max-width: none;
+  max-height: none;
+  flex-shrink: 0;
+  transform-origin: center;
+  overflow: visible;
+}
+.net path {
+  stroke: #aebdca;
+  stroke-dasharray: 2 8;
+}
+.net circle {
+  fill: #526a7d;
+}
+.net text {
+  font-size: 12px;
+  fill: #4d6376;
+  font-weight: 500;
+}
+.part-label {
+  font-size: 14px;
+  fill: #263f54;
+}
+.trace,
+.symbol path,
+.symbol circle {
+  stroke: #274a64;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.terminal {
+  fill: #274a64;
+}
+.faulty .trace,
+.faulty .symbol path,
+.faulty .symbol circle {
+  stroke: #ad513b;
+}
+.faulty .terminal {
+  fill: #ad513b;
+}
+.faulty .part-label {
+  fill: #96432f;
+}
+.schematic-part:hover .hit-area,
+.schematic-part:focus-visible .hit-area {
+  fill: #deebf4;
+  stroke: #628aa6;
+  stroke-width: 1;
+}
+.schematic-part.selected .hit-area {
+  fill: #dceaf4;
+  stroke: #285f85;
+  stroke-width: 1.4;
+  stroke-dasharray: none;
+}
+.schematic-part.selected .part-label {
+  font-weight: 650;
+}
+.schematic-part .hit-area {
+  transition:
+    fill 0.16s,
+    stroke 0.16s;
+}
+.model-stage {
+  max-height: none;
+  min-height: 0;
+  transform-origin: center;
+}
+.model-board {
+  transition: none;
+  transform: translate(-50%, -50%) scale(var(--model-scale, 0.6))
+    rotateX(calc(22deg + var(--bench-pitch, 0deg)))
+    rotateZ(calc(-6deg + var(--bench-yaw, 0deg)));
+}
+.model-part.selected {
+  outline-color: #245879;
+  outline-width: 2px;
+}
+.model-part.selected .model-label {
+  background: #234e6d;
+  color: #fff;
+}
+.component-chip.selected {
+  background: #d2e2ee;
+  color: #204b6b;
+}
+.component-chip {
+  font-size: 12px;
+}
+.board-layer.top {
+  background-color: #e8e6da;
+}
+.model-lead {
+  height: 5px;
+}
+.model-label {
+  font-size: 15px;
+}
+.docked-finding {
+  font-size: 12px;
+  background: #f1e4dd;
+  color: #97442f;
+  padding: 9px 14px;
+}
+.bench-evidence {
+  gap: 9px;
+}
+.bench-evidence p {
+  font-size: 11px;
+}
+.graph-caption {
+  font-size: 11px;
+  color: #506778;
+  margin: 8px 0 12px;
+}
+.analysis-pipeline {
+  padding: 0 22px 14px;
+  font-size: 11px;
+  color: #506778;
+}
+.healthy-readout {
+  color: #2e6856;
+  font-size: 12px;
+}
+.healthy-readout::before {
+  content: " ";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2e6856;
+  margin-right: 7px;
+}
+.viewport-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  border: 1px solid #d8e2e9;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 3px 12px #203c5210;
+  margin: 5px 0 3px;
+  padding: 3px;
+  gap: 3px;
+}
+.viewport-controls button {
+  font-size: 17px;
+  padding: 7px 11px;
+  min-width: 36px;
+}
+.viewport-controls #zoom-fit {
+  font-size: 12px;
+  min-width: 52px;
+}
+.viewport-controls output {
+  font-size: 11px;
+  color: #5a6d7d;
+  padding: 0 7px;
+  min-width: 38px;
+  text-align: center;
+}
+.viewport-controls button:hover {
+  background: #e7eff5;
+}
+body[data-circuit-view="source"] .viewport-controls {
+  display: none;
+}
+.editor-panel {
+  padding: 24px 22px;
+  background: #fff;
+  border-left: 1px solid #e1e7ec;
+}
+.inspector-title {
+  font-size: 12px;
+  color: #506779;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.inspector-title button {
+  display: none;
+}
+.component-inspector .eyebrow {
+  font-size: 11px;
+  color: #8f4b35;
+}
+.component-inspector h3 {
+  font-weight: 550;
+  font-size: 42px;
+  margin: 10px 0 24px;
+  letter-spacing: -1.8px;
+}
+.component-inspector .empty-inspector {
+  font-size: 24px;
+  letter-spacing: -0.7px;
+}
+.inspector-terminals label {
+  font-size: 12px;
+  color: #536777;
+}
+.inspector-terminals input {
+  margin-top: 9px;
+  border-color: #d4e0e8;
+  background: #f6f8fa;
+  color: #1e4059;
+  padding: 11px;
+}
+.inspector-evidence {
+  background: #f2f5f7;
+  border-left: 2px solid #b0543a;
+  padding: 16px;
+  margin: 26px 0 18px;
+}
+.inspector-evidence strong {
+  font-size: 15px;
+  color: #853c29;
+}
+.inspector-evidence p {
+  font-size: 13px;
+  color: #40596d;
+  line-height: 1.65;
+}
+.inspector-evidence > p:nth-of-type(2) {
+  padding-top: 14px;
+  border-top: 1px solid #dce3e8;
+}
+.inspector-evidence details {
+  background: #fff;
+  margin: 14px -10px -10px;
+  padding: 0 10px;
+  border-top: 0;
+}
+.inspector-evidence details p {
+  font-size: 12px;
+}
+.component-inspector #swap-polarity {
+  background: #244f6d;
+  color: #fff;
+  font-size: 13px;
+  margin: 0 0 20px;
+}
+.settings-link {
+  font-size: 12px;
+  color: #32566f;
+}
+.primary {
+  background: #244f6d;
+  color: #fff;
+}
+.primary:hover,
+#swap-polarity:hover {
+  background: #183f5b;
+}
+.confirm {
+  font-size: 12px;
+}
+.editor-panel > .helper {
+  font-size: 11px;
+  color: #506778;
+}
+.mobile-inspect {
+  display: none;
+}
+.analysis-busy #live-graph {
+  opacity: 0.5;
+  transition: opacity 0.16s;
+}
+.analysis-busy .viewport-controls {
+  pointer-events: none;
+}
+@media (max-width: 1000px) {
+  .app-workspace,
+  .library-collapsed .app-workspace {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+  .example-library {
+    top: 60px;
+    box-shadow: 10px 0 40px #223e5220;
+  }
+  .model-stage {
+    min-height: 0;
+  }
+  .schematic-head > span {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  body.application {
+    height: 100dvh;
+    overflow: hidden;
+  }
+  .app-nav {
+    height: 56px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+  .app-nav .brand {
+    font-size: 19px;
+  }
+  .nav-actions {
+    gap: 0;
+  }
+  .nav-actions button {
+    font-size: 11px;
+    padding: 9px 7px;
+  }
+  .nav-actions #start {
+    background: transparent;
+    color: #244d6a;
+    padding: 9px 7px;
+  }
+  .app-workspace,
+  .library-collapsed .app-workspace {
+    display: block;
+    height: calc(100dvh - 56px);
+    min-height: 0;
+  }
+  .workbench {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    padding-bottom: 66px;
+    scroll-margin-top: 56px;
+  }
+  .workspace-heading {
+    padding: 10px 10px 0;
+    min-height: 44px;
+  }
+  .workspace-label {
+    display: none;
+  }
+  .graph-panel {
+    padding: 8px 12px 0;
+    flex: 1;
+    min-height: 0;
+  }
+  .view-switch {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .view-switch button {
+    font-size: 12px;
+    padding: 11px 14px;
+    flex: 1;
+  }
+  .canvas-content {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+  }
+  .live-graph {
+    height: 100%;
+    min-height: 0;
+  }
+  .schematic-view {
+    height: 100%;
+    min-height: 0;
+    align-items: flex-start;
+    padding-top: 22px;
+  }
+  .schematic {
+    min-width: 0;
+  }
+  .part-label {
+    font-size: 16px;
+  }
+  .net text {
+    font-size: 14px;
+  }
+  .assembly-view {
+    height: 100%;
+    min-height: 0;
+  }
+  .model-stage {
+    height: 100%;
+    min-height: 0;
+  }
+  .component-strip {
+    display: none;
+  }
+  .graph-caption,
+  .analysis-pipeline {
+    display: none;
+  }
+  .bench-evidence {
+    padding: 6px 0;
+    flex-wrap: nowrap;
+    overflow: auto;
+    justify-content: start;
+  }
+  .docked-finding {
+    font-size: 11px;
+    white-space: nowrap;
+    padding: 8px 10px;
+  }
+  .docked-finding small {
+    display: none;
+  }
+  .viewport-controls {
+    margin: 3px 0 8px;
+  }
+  .viewport-controls button {
+    min-height: 40px;
+    min-width: 40px;
+  }
+  .healthy-readout {
+    font-size: 11px;
+  }
+  .bench-evidence p {
+    display: none;
+  }
+  .editor-panel {
+    position: fixed;
+    z-index: 25;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 40dvh;
+    overflow: auto;
+    border-left: 0;
+    border-top: 1px solid #cbd9e3;
+    border-radius: 16px 16px 0 0;
+    padding: 0 20px 20px;
+    box-shadow: 0 -12px 40px #17375020;
+    display: none;
+  }
+  .inspector-open .editor-panel {
+    display: block;
+  }
+  .inspector-title {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 2;
+    margin: 0 -20px 18px;
+    padding: 15px 20px;
+    font-size: 12px;
+  }
+  .inspector-title button {
+    display: block;
+    padding: 4px 9px;
+    font-size: 24px;
+  }
+  .component-inspector h3 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  .inspector-evidence {
+    margin: 20px 0 16px;
+    padding: 14px;
+  }
+  .component-inspector .eyebrow {
+    font-size: 11px;
+  }
+  .inspector-terminals input {
+    font-size: 16px;
+    min-height: 44px;
+  }
+  .mobile-inspect {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 21;
+    width: 100%;
+    border-top: 1px solid #d0dce5;
+    border-radius: 0;
+    background: #fff;
+    color: #22475f;
+    min-height: 64px;
+    padding: 12px 20px;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    box-shadow: 0 -3px 15px #173c5310;
+    font-size: 13px;
+    font-weight: 550;
+  }
+  .mobile-inspect::after {
+    content: "Inspect ↑";
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 15px;
+    white-space: nowrap;
+  }
+  .mobile-inspect[aria-expanded="true"] {
+    visibility: hidden;
+  }
+  .example-library {
+    top: 56px;
+    bottom: 64px;
+    z-index: 24;
+    background: #e5ebf0;
+  }
+  .visual-panel {
+    height: 100%;
+    overflow: auto;
+    padding: 18px 0;
+  }
+  .image-stage {
+    min-height: 220px;
+  }
+  .visual-panel .panel-head h3 {
+    font-size: 14px;
+  }
+  .image-stage canvas {
+    max-height: 330px;
+  }
+  .confirm {
+    font-size: 12px;
+  }
+  .editor-panel > .helper {
+    font-size: 11px;
+  }
+  .image-tools button {
+    min-height: 44px;
+  }
+  .repair-turn {
+    animation: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .schematic-part .hit-area,
+  .analysis-busy #live-graph {
+    transition: none;
+  }
+}
+.reduced-motion .schematic-part .hit-area,
+.reduced-motion.analysis-busy #live-graph {
+  transition: none;
+}

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="prototype.css" />
+    <title>CircuitLens concept a</title>
+  </head>
+  <body class="concept-a">
+    <nav>
+      <b>◉ CircuitLens</b><span>Circuit understanding, connected.</span
+      ><a href="/workbench.html">Open workbench ↗</a>
+    </nav>
+    <main class="atlas">
+      <div class="intro">
+        <p>FROM CONNECTION TO COMPREHENSION</p>
+        <h1>Every connection.<br /><em>A clearer picture.</em></h1>
+        <div>
+          <p>
+            See a circuit, trace its connections, and understand exactly what
+            needs your attention.
+          </p>
+          <a class="cta" href="/workbench.html">Explore the circuit ↗</a>
+        </div>
+      </div>
+      <section class="linked">
+        <figure>
+          <figcaption>
+            Physical assembly <span>Generated fixture</span>
+          </figcaption>
+          <div class="proto-physical"></div>
+        </figure>
+        <div class="bridge">
+          ↔<small>One circuit.<br />Two perspectives.</small>
+        </div>
+        <figure>
+          <figcaption>
+            Connection schematic <span>Select a component</span>
+          </figcaption>
+          <svg
+            class="schematic"
+            viewBox="0 0 340 338"
+            width="340"
+            aria-label="Editable terminal topology; wires are shown before net merging"
+            role="group"
+          >
+            <defs>
+              <pattern
+                id="schematic-grid"
+                width="20"
+                height="20"
+                patternUnits="userSpaceOnUse"
+              >
+                <circle cx="1" cy="1" r=".65" fill="#d2d2d0" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#schematic-grid)" />
+            <g class="net power">
+              <path d="M52 48V316" />
+              <circle cx="52" cy="32" r="5" />
+              <text x="52" y="18" text-anchor="middle">VCC</text>
+            </g>
+            <g class="net">
+              <path d="M111 48V316" />
+              <circle cx="111" cy="32" r="5" />
+              <text x="111" y="18" text-anchor="middle">L5</text>
+            </g>
+            <g class="net">
+              <path d="M170 48V316" />
+              <circle cx="170" cy="32" r="5" />
+              <text x="170" y="18" text-anchor="middle">L12</text>
+            </g>
+            <g class="net">
+              <path d="M229 48V316" />
+              <circle cx="229" cy="32" r="5" />
+              <text x="229" y="18" text-anchor="middle">L18</text>
+            </g>
+            <g class="net ground">
+              <path d="M288 48V316" />
+              <circle cx="288" cy="32" r="5" />
+              <text x="288" y="18" text-anchor="middle">GND</text>
+            </g>
+            <g
+              class="schematic-part wire"
+              data-component="0"
+              tabindex="0"
+              role="button"
+              aria-label="Edit W1 wire VCC to A5"
+            >
+              <title>W1: VCC → A5. Select to edit.</title>
+              <rect
+                class="hit-area"
+                x="30"
+                y="40"
+                width="119.5"
+                height="58"
+                rx="4"
+              />
+              <path class="trace" d="M52 70H53.5M109.5 70H111" />
+              <circle class="terminal" cx="52" cy="70" r="4" />
+              <circle class="terminal" cx="111" cy="70" r="4" />
+              <g class="symbol" transform="translate(81.5 70)">
+                <path d="M-28 0h56" />
+                <circle r="3" />
+              </g>
+              <text class="part-label" x="81.5" y="93" text-anchor="middle">
+                W1 · wire
+              </text>
+            </g>
+            <g
+              class="schematic-part resistor"
+              data-component="1"
+              tabindex="0"
+              role="button"
+              aria-label="Edit R1 resistor B5 to B12"
+            >
+              <title>R1: B5 → B12. Select to edit.</title>
+              <rect
+                class="hit-area"
+                x="89"
+                y="102"
+                width="119.5"
+                height="58"
+                rx="4"
+              />
+              <path class="trace" d="M111 132H112.5M168.5 132H170" />
+              <circle class="terminal" cx="111" cy="132" r="4" />
+              <circle class="terminal" cx="170" cy="132" r="4" />
+              <g class="symbol" transform="translate(140.5 132)">
+                <path d="M-28 0h8l4-9 8 18 8-18 8 18 8-18 4 9h8" />
+              </g>
+              <text class="part-label" x="140.5" y="155" text-anchor="middle">
+                R1 · 330 Ω
+              </text>
+            </g>
+            <g
+              class="schematic-part led faulty"
+              data-component="2"
+              tabindex="0"
+              role="button"
+              aria-label="Edit D1 led D18 to D12, finding"
+            >
+              <title>D1: D18 → D12. Select to edit.</title>
+              <rect
+                class="hit-area"
+                x="148"
+                y="164"
+                width="119.5"
+                height="58"
+                rx="4"
+              />
+              <path class="trace" d="M229 194H227.5M171.5 194H170" />
+              <circle class="terminal" cx="229" cy="194" r="4" />
+              <circle class="terminal" cx="170" cy="194" r="4" />
+              <g class="symbol" transform="translate(199.5 194) scale(-1 1)">
+                <path
+                  d="M-28 0h16m0-12v24L10 0zM12-12v24m0-12h16M0-19l9-9m-3 0h3v3M10-19l9-9m-3 0h3v3"
+                />
+              </g>
+              <text class="part-label" x="199.5" y="217" text-anchor="middle">
+                D1 · led / CHECK
+              </text>
+            </g>
+            <g
+              class="schematic-part wire"
+              data-component="3"
+              tabindex="0"
+              role="button"
+              aria-label="Edit W2 wire A18 to GND"
+            >
+              <title>W2: A18 → GND. Select to edit.</title>
+              <rect
+                class="hit-area"
+                x="207"
+                y="226"
+                width="119.5"
+                height="58"
+                rx="4"
+              />
+              <path class="trace" d="M229 256H230.5M286.5 256H288" />
+              <circle class="terminal" cx="229" cy="256" r="4" />
+              <circle class="terminal" cx="288" cy="256" r="4" />
+              <g class="symbol" transform="translate(258.5 256)">
+                <path d="M-28 0h56" />
+                <circle r="3" />
+              </g>
+              <text class="part-label" x="258.5" y="279" text-anchor="middle">
+                W2 · wire
+              </text>
+            </g>
+          </svg>
+        </figure>
+      </section>
+      <div class="note">
+        <strong>D1 · reversed polarity</strong
+        ><span>The same component. The same evidence. A precise next step.</span
+        ><a href="/workbench.html">Inspect D1 ↗</a>
+      </div>
+    </main>
+    <script type="module">
+      import { mountAssembly } from "/assembly.js";
+      const circuit = {
+          name: "LED + current limiter",
+          voltage: 5,
+          components: [
+            { id: "W1", type: "wire", a: "VCC", b: "A5" },
+            { id: "R1", type: "resistor", a: "B5", b: "B12", value: 330 },
+            { id: "D1", type: "led", a: "D18", b: "D12" },
+            { id: "W2", type: "wire", a: "A18", b: "GND" },
+          ],
+        },
+        issues = [
+          {
+            code: "reversed-led",
+            title: "D1 polarity is reversed",
+            severity: "warning",
+            components: ["D1"],
+            evidence:
+              "The cathode reaches VCC and the anode reaches GND through the passive network.",
+            why: "An LED conducts mainly from anode to cathode. Reverse bias prevents normal illumination.",
+            fix: "Disconnect power. Swap the LED leads; connect its anode toward the resistor and VCC.",
+            confidence: "Based on confirmed terminals",
+          },
+        ];
+      document.querySelectorAll(".proto-physical").forEach((el) => {
+        mountAssembly(el, circuit, issues);
+        new ResizeObserver(() =>
+          el.style.setProperty(
+            "--model-scale",
+            Math.min(1.2, el.clientWidth / 720),
+          ),
+        ).observe(el);
+      });
+      document.querySelectorAll("[data-component]").forEach((part) =>
+        part.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-component]")
+            .forEach((p) =>
+              p.classList.toggle(
+                "selected",
+                p.dataset.component === part.dataset.component,
+              ),
+            );
+        }),
+      );
+    </script>
+  </body>
+</html>

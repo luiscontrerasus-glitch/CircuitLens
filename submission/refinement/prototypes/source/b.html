@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="prototype.css" />
+    <title>CircuitLens concept b</title>
+  </head>
+  <body class="concept-b">
+    <nav>
+      <b>◉ CircuitLens</b><span>Circuit understanding, connected.</span
+      ><a href="/workbench.html">Open workbench ↗</a>
+    </nav>
+    <main class="fault-story">
+      <aside>
+        <p>A CIRCUIT CASE STUDY</p>
+        <h1>A tiny reversal.<br /><em>A clear answer.</em></h1>
+        <p>
+          A light that stays dark. Follow the evidence from the physical part to
+          the faulty connection.
+        </p>
+        <a class="cta" href="/workbench.html">Follow the fault ↗</a>
+      </aside>
+      <div class="story-object">
+        <div class="proto-physical"></div>
+        <span class="callout">D1 / CATHODE TOWARD SUPPLY</span>
+      </div>
+      <footer>
+        <b>Disconnect. Review. Correct.</b
+        ><span>Deterministic checks · generated fixture · not live AI</span>
+      </footer>
+    </main>
+    <script type="module">
+      import { mountAssembly } from "/assembly.js";
+      const circuit = {
+          name: "LED + current limiter",
+          voltage: 5,
+          components: [
+            { id: "W1", type: "wire", a: "VCC", b: "A5" },
+            { id: "R1", type: "resistor", a: "B5", b: "B12", value: 330 },
+            { id: "D1", type: "led", a: "D18", b: "D12" },
+            { id: "W2", type: "wire", a: "A18", b: "GND" },
+          ],
+        },
+        issues = [
+          {
+            code: "reversed-led",
+            title: "D1 polarity is reversed",
+            severity: "warning",
+            components: ["D1"],
+            evidence:
+              "The cathode reaches VCC and the anode reaches GND through the passive network.",
+            why: "An LED conducts mainly from anode to cathode. Reverse bias prevents normal illumination.",
+            fix: "Disconnect power. Swap the LED leads; connect its anode toward the resistor and VCC.",
+            confidence: "Based on confirmed terminals",
+          },
+        ];
+      document.querySelectorAll(".proto-physical").forEach((el) => {
+        mountAssembly(el, circuit, issues);
+        new ResizeObserver(() =>
+          el.style.setProperty(
+            "--model-scale",
+            Math.min(1.2, el.clientWidth / 720),
+          ),
+        ).observe(el);
+      });
+      document.querySelectorAll("[data-component]").forEach((part) =>
+        part.addEventListener("click", () => {
+          document
+            .querySelectorAll("[data-component]")
+            .forEach((p) =>
+              p.classList.toggle(
+                "selected",
+                p.dataset.component === part.dataset.component,
+              ),
+            );
+        }),
+      );
+    </script>
+  </body>
+</html>
