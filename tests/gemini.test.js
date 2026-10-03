@@ -48,7 +48,14 @@ test("Gemini sends pixels and schema to the fixed free image model without tools
         observationSchema,
       );
       assert.equal(body.generationConfig.responseMimeType, "application/json");
-      assert.equal(body.generationConfig.thinkingConfig.thinkingBudget, 0);
+      assert.equal(body.generationConfig.thinkingConfig.thinkingLevel, "LOW");
+      assert.equal(
+        body.generationConfig.thinkingConfig.thinkingBudget,
+        undefined,
+      );
+      assert.equal(body.generationConfig.temperature, 1);
+      assert.equal(body.generationConfig.maxOutputTokens, 12000);
+      assert.equal(GEMINI_MODEL, "gemini-3.8-flash");
       assert.deepEqual(body.contents[0].parts[1].inlineData, {
         mimeType: "image/jpeg",
         data: "aGVsbG8=",
@@ -111,13 +118,45 @@ test("Gemini refuses missing credentials, disallowed models and malformed images
   assert.equal(calls, 0);
 });
 
+test("explicit Flash-Lite selection stays on the verified free allowlist with no fallback", async () => {
+  const env = {
+    GEMINI_API_KEY: "test-only-gemini",
+    GEMINI_FREE_TIER_CONFIRMED: "true",
+    LIVE_VISION_ENABLED: "true",
+    GEMINI_VISION_MODEL: "gemini-3.5-flash-lite",
+    OPENAI_API_KEY: "test-unused-openai",
+  };
+  const vision = visionSettings({}, env);
+  assert.equal(vision.configured, true);
+  assert.equal(vision.provider, "gemini");
+  let calls = 0;
+  const record = await vision.perception(image, {
+    apiKey: vision.apiKey,
+    model: vision.model,
+    fetchImpl: async (url) => {
+      calls++;
+      assert.ok(url.endsWith("/gemini-3.5-flash-lite:generateContent"));
+      return response(fixtureObservations());
+    },
+  });
+  assert.equal(calls, 1);
+  assert.equal(record.provenance.model, "gemini-3.5-flash-lite");
+  for (const model of [
+    "gemini-2.5-flash",
+    "gemini-3.8-pro",
+    "gemini-3.1-flash-image",
+  ])
+    assert.equal(visionSettings({ model }, env).configured, false);
+});
+
 test("Gemini quota, denied keys, provider errors and network failures are sanitized without retries", async () => {
   for (const [status, code] of [
     [429, "free_quota_exhausted"],
     [403, "key_rejected"],
     [401, "key_rejected"],
-    [503, "model_error"],
+    [503, "service_unavailable"],
     [400, "model_error"],
+    [404, "model_unavailable"],
   ]) {
     let calls = 0;
     await assert.rejects(

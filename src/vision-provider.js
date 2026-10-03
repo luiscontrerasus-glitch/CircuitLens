@@ -1,5 +1,9 @@
 import { MODEL, perceiveImage } from "./perception.js";
-import { GEMINI_MODEL, perceiveGeminiImage } from "./gemini-perception.js";
+import {
+  GEMINI_MODEL,
+  GEMINI_FREE_MODELS,
+  perceiveGeminiImage,
+} from "./gemini-perception.js";
 
 export function visionSettings(options = {}, env = process.env) {
   const provider = options.provider ?? env.VISION_PROVIDER ?? "gemini";
@@ -10,13 +14,16 @@ export function visionSettings(options = {}, env = process.env) {
     (provider === "gemini" ? env.GEMINI_API_KEY : env.OPENAI_API_KEY);
   const model =
     options.model ??
-    (provider === "gemini" ? GEMINI_MODEL : env.OPENAI_VISION_MODEL || MODEL);
+    (provider === "gemini"
+      ? env.GEMINI_VISION_MODEL || GEMINI_MODEL
+      : env.OPENAI_VISION_MODEL || MODEL);
   const liveEnabled =
     options.liveVisionEnabled ?? env.LIVE_VISION_ENABLED === "true";
   const freeTierConfirmed =
     options.freeTierConfirmed ?? env.GEMINI_FREE_TIER_CONFIRMED === "true";
   const freeAllowed =
-    provider !== "gemini" || (freeTierConfirmed && model === GEMINI_MODEL);
+    provider !== "gemini" ||
+    (freeTierConfirmed && GEMINI_FREE_MODELS.includes(model));
   const configured = liveEnabled && !!apiKey && freeAllowed;
   const providerLabel = provider === "gemini" ? "Google Gemini" : "OpenAI";
   const unavailableReason = !liveEnabled

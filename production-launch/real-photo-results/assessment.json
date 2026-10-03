@@ -1,0 +1,182 @@
+{
+  "assessment_date": "2026-10-03",
+  "synthetic": false,
+  "hardware_validated": false,
+  "results": [
+    {
+      "id": "led",
+      "model": "gemini-3.8-flash",
+      "known_part_counts": {
+        "led": 1,
+        "resistor": 4,
+        "wire": 2,
+        "looseResistors": 3,
+        "installedResistorOhms": [270]
+      },
+      "observed_counts": {
+        "wire": 2,
+        "resistor": 4,
+        "led": 1
+      },
+      "known_terminals": 2,
+      "total_terminals": 14,
+      "resistor_values": [
+        {
+          "id": "R1",
+          "ohms": null
+        },
+        {
+          "id": "R2",
+          "ohms": null
+        },
+        {
+          "id": "R3",
+          "ohms": null
+        },
+        {
+          "id": "R4",
+          "ohms": null
+        }
+      ],
+      "build_pending_blocked": true,
+      "blind_acceptance_block": "review_required",
+      "diagnostic_accuracy": "Not measurable: no complete verified netlist or physical fault ground truth."
+    },
+    {
+      "id": "buttons",
+      "model": "gemini-3.8-flash",
+      "known_part_counts": {
+        "led": 1,
+        "resistor": 1,
+        "button": 2,
+        "wire": 6,
+        "installedResistorOhms": [270]
+      },
+      "observed_counts": {
+        "resistor": 1,
+        "led": 1,
+        "button": 2,
+        "wire": 6
+      },
+      "known_terminals": 12,
+      "total_terminals": 20,
+      "resistor_values": [
+        {
+          "id": "R1",
+          "ohms": 1000
+        }
+      ],
+      "build_pending_blocked": true,
+      "blind_acceptance_block": "review_required",
+      "diagnostic_accuracy": "Not measurable: no complete verified netlist or physical fault ground truth."
+    },
+    {
+      "id": "light",
+      "model": "gemini-3.8-flash",
+      "known_part_counts": {
+        "led": 8,
+        "resistor": 9,
+        "installedResistorOhms": [270, 270, 270, 270, 270, 270, 270, 270, 1000],
+        "unsupported": [
+          "Arduino Uno",
+          "74HC595 shift register",
+          "photoresistor"
+        ]
+      },
+      "observed_counts": {
+        "unknown": 3,
+        "led": 6,
+        "resistor": 1,
+        "wire": 3
+      },
+      "known_terminals": 10,
+      "total_terminals": 26,
+      "resistor_values": [
+        {
+          "id": "R1",
+          "ohms": null
+        }
+      ],
+      "build_pending_blocked": true,
+      "blind_acceptance_block": "review_required",
+      "diagnostic_accuracy": "Not measurable: no complete verified netlist or physical fault ground truth."
+    },
+    {
+      "id": "shift",
+      "model": "gemini-3.5-flash-lite",
+      "known_part_counts": {
+        "led": 8,
+        "resistor": 8,
+        "installedResistorOhms": [270, 270, 270, 270, 270, 270, 270, 270],
+        "unsupported": ["Arduino Uno", "74HC595 shift register"]
+      },
+      "observed_counts": {
+        "unknown": 2
+      },
+      "known_terminals": 0,
+      "total_terminals": 4,
+      "resistor_values": [],
+      "build_pending_blocked": true,
+      "blind_acceptance_block": "review_required",
+      "diagnostic_accuracy": "Not measurable: no complete verified netlist or physical fault ground truth."
+    },
+    {
+      "id": "analog",
+      "model": "gemini-3.5-flash-lite",
+      "known_part_counts": {
+        "led": 8,
+        "resistor": 8,
+        "installedResistorOhms": [270, 270, 270, 270, 270, 270, 270, 270],
+        "unsupported": [
+          "Arduino Uno",
+          "74HC595 shift register",
+          "10 kiloohm three-terminal potentiometer"
+        ]
+      },
+      "observed_counts": {
+        "unknown": 3
+      },
+      "known_terminals": 0,
+      "total_terminals": 6,
+      "resistor_values": [],
+      "build_pending_blocked": true,
+      "blind_acceptance_block": "review_required",
+      "diagnostic_accuracy": "Not measurable: no complete verified netlist or physical fault ground truth."
+    },
+    {
+      "id": "rgb",
+      "model": "gemini-3.5-flash-lite",
+      "known_part_counts": {
+        "resistor": 3,
+        "wire": 4,
+        "installedResistorOhms": [270, 270, 270],
+        "unsupported": ["Arduino Uno", "four-terminal common-cathode RGB LED"]
+      },
+      "observed_counts": {
+        "unknown": 1,
+        "wire": 3,
+        "resistor": 3,
+        "led": 1
+      },
+      "known_terminals": 11,
+      "total_terminals": 16,
+      "resistor_values": [
+        {
+          "id": "R1",
+          "ohms": null
+        },
+        {
+          "id": "R2",
+          "ohms": null
+        },
+        {
+          "id": "R3",
+          "ohms": null
+        }
+      ],
+      "build_pending_blocked": true,
+      "blind_acceptance_block": "review_required",
+      "diagnostic_accuracy": "Not measurable: no complete verified netlist or physical fault ground truth."
+    }
+  ]
+}

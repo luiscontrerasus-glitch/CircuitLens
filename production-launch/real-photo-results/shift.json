@@ -1,0 +1,103 @@
+{
+  "image": "shift",
+  "source": "https://learn.adafruit.com/assets/2101",
+  "original_sha256": "a09ebf2efdbbff554c2fbbdfd571afc3be1bc601637b6b6a4df976a996dd21a7",
+  "prepared_sha256": "468ba42435907e0c8f63541d656de61d460dac273705a9834214fc0501d467c3",
+  "evaluated_at": "2026-10-03T22:23:38.214Z",
+  "elapsed_ms": 2512,
+  "provider_http_status": 200,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "model": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f25bab77e99a71edd4bf3d235ae960a9ef748564646b46fca5b148d7debd7416",
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "received",
+  "observations": {
+    "image_kind": "photograph",
+    "summary": "An Arduino Uno connected to a breadboard containing multiple LEDs, resistors, and an IC.",
+    "supply_voltage": null,
+    "components": [
+      {
+        "id": "U1",
+        "type": "unknown",
+        "confidence": 0.99,
+        "evidence": "Arduino Uno microcontroller board",
+        "bbox": {
+          "x": 0.52,
+          "y": 0.21,
+          "width": 0.45,
+          "height": 0.69
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "U2",
+        "type": "unknown",
+        "confidence": 0.95,
+        "evidence": "IC on breadboard",
+        "bbox": {
+          "x": 0.23,
+          "y": 0.5,
+          "width": 0.08,
+          "height": 0.15
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      }
+    ],
+    "warnings": [
+      "Contains unsupported ICs and microcontroller board as unknown objects."
+    ],
+    "confidence_note": "Model-assessed scores are uncalibrated; every component and terminal requires human review."
+  },
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini",
+    "model": "gemini-3.5-flash-lite",
+    "generated_at": "2026-10-03T22:23:38.214Z",
+    "image_sha256": "468ba42435907e0c8f63541d656de61d460dac273705a9834214fc0501d467c3",
+    "width": 1600,
+    "height": 1156,
+    "usage": {
+      "input_tokens": 1580,
+      "output_tokens": 516
+    }
+  },
+  "selected_from": "flash-lite/shift.json",
+  "selection_note": "Explicit free-model comparison after transient 503; not an automatic application fallback. Inaccurate or incomplete recognition remains pending."
+}

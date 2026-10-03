@@ -1,0 +1,444 @@
+{
+  "image": "light",
+  "source": "https://learn.adafruit.com/assets/2273",
+  "original_sha256": "ce2b70aed3b26e16aab4434e069056171e2f73cb2b768638e3f5a2d70977057a",
+  "prepared_sha256": "f9b76279a17200ed3bf465926d4751a120258aa817f576c0dd74bdf6e58bb8c3",
+  "evaluated_at": "2026-10-03T22:19:45.227Z",
+  "elapsed_ms": 12918,
+  "provider_http_status": 200,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "model": "gemini-3.8-flash",
+  "prompt_sha256": "f25bab77e99a71edd4bf3d235ae960a9ef748564646b46fca5b148d7debd7416",
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "received",
+  "observations": {
+    "image_kind": "photograph",
+    "summary": "Breadboard circuit connected to an Arduino Uno, featuring red LEDs, multiple resistors, a photoresistor (LDR), an integrated circuit (shift register/IC), and numerous jumper wires.",
+    "supply_voltage": null,
+    "components": [
+      {
+        "id": "U1",
+        "type": "unknown",
+        "confidence": 0.95,
+        "evidence": "Arduino Uno microcontroller board",
+        "bbox": {
+          "x": 0.559,
+          "y": 0.176,
+          "width": 0.371,
+          "height": 0.584
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0.589,
+            "y": 0.428
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0.892,
+            "y": 0.334
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "U2",
+        "type": "unknown",
+        "confidence": 0.9,
+        "evidence": "DIP integrated circuit straddling the center divider",
+        "bbox": {
+          "x": 0.332,
+          "y": 0.554,
+          "width": 0.076,
+          "height": 0.177
+        },
+        "a": {
+          "hole": "E15",
+          "confidence": 0.4,
+          "point": {
+            "x": 0.337,
+            "y": 0.569
+          }
+        },
+        "b": {
+          "hole": "F22",
+          "confidence": 0.4,
+          "point": {
+            "x": 0.395,
+            "y": 0.697
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "U3",
+        "type": "unknown",
+        "confidence": 0.9,
+        "evidence": "Photoresistor / LDR",
+        "bbox": {
+          "x": 0.323,
+          "y": 0.662,
+          "width": 0.046,
+          "height": 0.169
+        },
+        "a": {
+          "hole": "D24",
+          "confidence": 0.5,
+          "point": {
+            "x": 0.354,
+            "y": 0.771
+          }
+        },
+        "b": {
+          "hole": "F24",
+          "confidence": 0.5,
+          "point": {
+            "x": 0.368,
+            "y": 0.824
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D1",
+        "type": "led",
+        "confidence": 0.85,
+        "evidence": "Red 5mm LED top of bank",
+        "bbox": {
+          "x": 0.213,
+          "y": 0.068,
+          "width": 0.045,
+          "height": 0.117
+        },
+        "a": {
+          "hole": "A1",
+          "confidence": 0.4,
+          "point": {
+            "x": 0.247,
+            "y": 0.222
+          }
+        },
+        "b": {
+          "hole": "B1",
+          "confidence": 0.3,
+          "point": {
+            "x": 0.257,
+            "y": 0.224
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D2",
+        "type": "led",
+        "confidence": 0.85,
+        "evidence": "Red 5mm LED second from top",
+        "bbox": {
+          "x": 0.201,
+          "y": 0.118,
+          "width": 0.048,
+          "height": 0.106
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.247,
+            "y": 0.27
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.253,
+            "y": 0.277
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D3",
+        "type": "led",
+        "confidence": 0.85,
+        "evidence": "Red 5mm LED third from top",
+        "bbox": {
+          "x": 0.198,
+          "y": 0.203,
+          "width": 0.049,
+          "height": 0.089
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.243,
+            "y": 0.316
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.251,
+            "y": 0.323
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D4",
+        "type": "led",
+        "confidence": 0.85,
+        "evidence": "Red 5mm LED fourth from top",
+        "bbox": {
+          "x": 0.187,
+          "y": 0.277,
+          "width": 0.051,
+          "height": 0.086
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.24,
+            "y": 0.37
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.247,
+            "y": 0.376
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D5",
+        "type": "led",
+        "confidence": 0.85,
+        "evidence": "Red 5mm LED fifth from top",
+        "bbox": {
+          "x": 0.19,
+          "y": 0.344,
+          "width": 0.049,
+          "height": 0.089
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.237,
+            "y": 0.428
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.244,
+            "y": 0.435
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D6",
+        "type": "led",
+        "confidence": 0.85,
+        "evidence": "Red 5mm LED bottom",
+        "bbox": {
+          "x": 0.184,
+          "y": 0.385,
+          "width": 0.048,
+          "height": 0.088
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.232,
+            "y": 0.477
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.2,
+          "point": {
+            "x": 0.24,
+            "y": 0.485
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "confidence": 0.9,
+        "evidence": "Through-hole resistor near bottom of breadboard",
+        "bbox": {
+          "x": 0.254,
+          "y": 0.771,
+          "width": 0.076,
+          "height": 0.098
+        },
+        "a": {
+          "hole": "B28",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.264,
+            "y": 0.853
+          }
+        },
+        "b": {
+          "hole": "D26",
+          "confidence": 0.5,
+          "point": {
+            "x": 0.316,
+            "y": 0.856
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "confidence": 0.8,
+        "evidence": "Blue jumper wire on left breadboard side",
+        "bbox": {
+          "x": 0.138,
+          "y": 0.505,
+          "width": 0.165,
+          "height": 0.239
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.4,
+          "point": {
+            "x": 0.258,
+            "y": 0.651
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.4,
+          "point": {
+            "x": 0.198,
+            "y": 0.785
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "confidence": 0.85,
+        "evidence": "Green jumper wire across middle breadboard",
+        "bbox": {
+          "x": 0.204,
+          "y": 0.395,
+          "width": 0.222,
+          "height": 0.136
+        },
+        "a": {
+          "hole": "A10",
+          "confidence": 0.4,
+          "point": {
+            "x": 0.211,
+            "y": 0.518
+          }
+        },
+        "b": {
+          "hole": "H10",
+          "confidence": 0.4,
+          "point": {
+            "x": 0.422,
+            "y": 0.46
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "confidence": 0.85,
+        "evidence": "Red jumper wire from breadboard to Arduino header",
+        "bbox": {
+          "x": 0.436,
+          "y": 0.176,
+          "width": 0.472,
+          "height": 0.427
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.5,
+          "point": {
+            "x": 0.449,
+            "y": 0.612
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.5,
+          "point": {
+            "x": 0.893,
+            "y": 0.334
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      }
+    ],
+    "warnings": [
+      "External controller board Arduino Uno and integrated circuit (likely 74HC595 shift register) are represented as unknown.",
+      "LDR / photoresistor present, represented as unknown.",
+      "High wire/component occlusion around center rows 1-20 makes full breadboard terminal mapping ambiguous; unlisted wires and resistors are partially obscured."
+    ],
+    "confidence_note": "Model-assessed scores are uncalibrated; every component and terminal requires human review."
+  },
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini",
+    "model": "gemini-3.8-flash",
+    "generated_at": "2026-10-03T22:19:45.227Z",
+    "image_sha256": "f9b76279a17200ed3bf465926d4751a120258aa817f576c0dd74bdf6e58bb8c3",
+    "width": 1600,
+    "height": 1064,
+    "usage": {
+      "input_tokens": 1595,
+      "output_tokens": 3218
+    }
+  }
+}

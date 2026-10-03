@@ -1,0 +1,15 @@
+{
+  "image": "shift",
+  "source": "https://learn.adafruit.com/assets/2101",
+  "original_sha256": "a09ebf2efdbbff554c2fbbdfd571afc3be1bc601637b6b6a4df976a996dd21a7",
+  "prepared_sha256": "468ba42435907e0c8f63541d656de61d460dac273705a9834214fc0501d467c3",
+  "evaluated_at": "2026-10-03T22:15:22.845Z",
+  "elapsed_ms": 33534,
+  "provider_http_status": 503,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "failed",
+  "error": "model_error",
+  "message": "Gemini could not complete recognition. Try manually later or enter connections yourself. No paid fallback occurs."
+}

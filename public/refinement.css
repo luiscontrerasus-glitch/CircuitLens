@@ -248,9 +248,14 @@
   margin: 8px 0 12px;
 }
 .analysis-pipeline {
+  flex-shrink: 0;
   padding: 0 22px 14px;
   font-size: 11px;
   color: #506778;
+}
+.visual-panel {
+  height: 100%;
+  min-height: 0;
 }
 .healthy-readout {
   color: #2e6856;

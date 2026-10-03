@@ -1,6 +1,6 @@
 # Final functional verification
 
-October 3, 2026; launch built on `60c827c`. `npm test` completed with **64 passed, 0 failed, 0 skipped, 0 cancelled** in approximately 1.12 seconds. The former 51-test suite is preserved; three cost-boundary tests and ten Gemini-specific tests were added. All 54 entries in the original launch table below still pass; the ten additional cases follow. Provider calls in tests use injected mocks, never the real OpenAI service.
+October 3, 2026; preserves the design and Git history through `60c827c` and `89fef5f`. Final `npm test` verification: **67 passed, 0 failed, 0 skipped, 0 cancelled**, approximately 1.97 seconds. The original 51 tests and all subsequent cost/provider tests remain passing. Three new checks cover explicit Free Tier Flash-Lite selection, licensed actual-image provenance and blocking incomplete archived real-photo outputs. Automated tests use mocks/archives and never contact a paid provider. The complete TAP result with every test name is `automated-tests.tap`.
 
 ## All automated test results
 
@@ -78,11 +78,19 @@ Every entry below passed. Names are condensed only for readability.
 | 63  | HTTP blocks key without billing-disabled confirmation                   | Pass   |
 | 64  | Distinct Gemini/OpenAI/recorded/simulated UI provenance                 | Pass   |
 
-Gemini browser harness: four pending observations populated the existing editor. Clearing D1's terminal flagged uncertainty and blocked conversion. Editing resets acceptance; after correcting and re-accepting D1, the model built and the engine identified its reversed polarity. The simulated disclosure remained visible on desktop and mobile, with no mobile document overflow or console warnings/errors. These checks used mocked Gemini responses, not a live Google request. Actual-photo accuracy remains pending key setup.
+Gemini browser harness: four pending observations populated the existing editor. Clearing D1's terminal flagged uncertainty and blocked conversion. Editing resets acceptance; after correcting and re-accepting D1, the model built and the engine identified its reversed polarity. The simulated disclosure remained visible on desktop and mobile, with no mobile document overflow or console warnings/errors. These checks used mocked Gemini responses, not a live Google request. Actual-photo requests and errors are assessed separately in `REAL_PHOTO_EVALUATION.md`; none yielded a complete verified circuit.
+
+Additional passing cases:
+
+| #   | Test                                                                                   | Result |
+| --- | -------------------------------------------------------------------------------------- | ------ |
+| 65  | Explicit allowlisted Flash-Lite selection, rejected unsupported models and no fallback | Pass   |
+| 66  | Six licensed photograph archives match source/prepared hashes and actual provenance    | Pass   |
+| 67  | Incomplete actual-photo proposals block diagnosis even after blind acceptance          | Pass   |
 
 ## Production build and smoke
 
-`npm run check`: **40 JavaScript files passed syntax checks**. `npm run build`: **59 allowlisted files**. The production package started on port 3005 and `scripts/smoke-production.js` passed **49 assets/routes**, CSP checks, and all seven fixture analyses. No perception requests were made. `production-smoke.json` contains exact findings and measurements. Docker execution and public hosting were not tested; deployment is awaiting account sign-in.
+`npm run check`: **42 JavaScript files passed syntax checks**. `npm run build`: **59 allowlisted files**. The credential-free production package started on port 3008, and the locally configured Gemini package started on port 3005 and `scripts/smoke-production.js` passed **49 assets/routes**, CSP checks, and all seven fixture analyses. The smoke script made no perception requests. Separate real-photo testing made deliberate free Gemini requests. `production-smoke.json` contains exact findings and measurements. Docker execution and public hosting were not tested; deployment is awaiting account sign-in.
 
 | Example           | API outcome | Findings | Physical / schematic components |
 | ----------------- | ----------- | -------- | ------------------------------- |

@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-03",
+  "photo": "test-images/real-breadboards/led.jpg",
+  "realPhotograph": true,
+  "provider": "Google Gemini",
+  "model": "gemini-3.8-flash",
+  "attempts": [
+    {
+      "http": 503,
+      "response": {
+        "error": "Gemini is temporarily overloaded. Wait and try manually later, or enter connections yourself. No automatic retry or paid fallback occurs.",
+        "code": "service_unavailable"
+      }
+    },
+    {
+      "http": 503,
+      "response": {
+        "error": "Gemini is temporarily overloaded. Wait and try manually later, or enter connections yourself. No automatic retry or paid fallback occurs.",
+        "code": "service_unavailable"
+      }
+    }
+  ],
+  "automaticRetries": false,
+  "paidFallback": false,
+  "manualEntryAvailable": true,
+  "successfulLiveUiRecognition": false,
+  "logs": []
+}

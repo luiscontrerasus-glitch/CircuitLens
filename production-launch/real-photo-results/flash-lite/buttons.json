@@ -1,0 +1,378 @@
+{
+  "image": "buttons",
+  "source": "https://learn.adafruit.com/assets/2202",
+  "original_sha256": "a7079862d76788ae791d9e8d5ae6ba920b7b7ed181d2ff746fce38dacd98f58b",
+  "prepared_sha256": "f45cb843e6270f4f807fc30cdaacbf9b1e8b76ec99457cfa752b314573488845",
+  "evaluated_at": "2026-10-03T22:23:11.175Z",
+  "elapsed_ms": 6722,
+  "provider_http_status": 200,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "model": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f25bab77e99a71edd4bf3d235ae960a9ef748564646b46fca5b148d7debd7416",
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "received",
+  "observations": {
+    "image_kind": "photograph",
+    "summary": "An Arduino Uno connected to a breadboard containing two push buttons, a resistor, an LED, and several jumper wires.",
+    "supply_voltage": null,
+    "components": [
+      {
+        "id": "U1",
+        "type": "unknown",
+        "confidence": 0.99,
+        "evidence": "Arduino Uno microcontroller board",
+        "bbox": {
+          "x": 0.05,
+          "y": 0.25,
+          "width": 0.38,
+          "height": 0.58
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0.38,
+            "y": 0.53
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0.38,
+            "y": 0.69
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "S1",
+        "type": "button",
+        "confidence": 0.95,
+        "evidence": "Push button on breadboard upper section",
+        "bbox": {
+          "x": 0.67,
+          "y": 0.23,
+          "width": 0.06,
+          "height": 0.08
+        },
+        "a": {
+          "hole": "C2",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.59,
+            "y": 0.25
+          }
+        },
+        "b": {
+          "hole": "H2",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.73,
+            "y": 0.25
+          }
+        },
+        "value": null,
+        "closed": false,
+        "review": "pending"
+      },
+      {
+        "id": "S2",
+        "type": "button",
+        "confidence": 0.95,
+        "evidence": "Push button on breadboard middle section",
+        "bbox": {
+          "x": 0.67,
+          "y": 0.36,
+          "width": 0.06,
+          "height": 0.08
+        },
+        "a": {
+          "hole": "C8",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.59,
+            "y": 0.38
+          }
+        },
+        "b": {
+          "hole": "H8",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.73,
+            "y": 0.38
+          }
+        },
+        "value": null,
+        "closed": false,
+        "review": "pending"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "confidence": 0.95,
+        "evidence": "Resistor spanning from column c to column i on row 15",
+        "bbox": {
+          "x": 0.55,
+          "y": 0.52,
+          "width": 0.2,
+          "height": 0.05
+        },
+        "a": {
+          "hole": "C15",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.59,
+            "y": 0.54
+          }
+        },
+        "b": {
+          "hole": "I15",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.79,
+            "y": 0.54
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D1",
+        "type": "led",
+        "confidence": 0.9,
+        "evidence": "Red LED on the right side of the breadboard",
+        "bbox": {
+          "x": 0.83,
+          "y": 0.48,
+          "width": 0.09,
+          "height": 0.14
+        },
+        "a": {
+          "hole": "J15",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.81,
+            "y": 0.54
+          }
+        },
+        "b": {
+          "hole": "J17",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.81,
+            "y": 0.57
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Orange jumper wire from Arduino pin 13 to b2",
+        "bbox": {
+          "x": 0.37,
+          "y": 0.22,
+          "width": 0.23,
+          "height": 0.26
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.38,
+            "y": 0.48
+          }
+        },
+        "b": {
+          "hole": "B2",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.59,
+            "y": 0.23
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Orange jumper wire from Arduino pin 12 to b8",
+        "bbox": {
+          "x": 0.37,
+          "y": 0.35,
+          "width": 0.23,
+          "height": 0.26
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.38,
+            "y": 0.61
+          }
+        },
+        "b": {
+          "hole": "B8",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.59,
+            "y": 0.36
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Yellow jumper wire from Arduino pin 6 to c15",
+        "bbox": {
+          "x": 0.37,
+          "y": 0.52,
+          "width": 0.23,
+          "height": 0.26
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.38,
+            "y": 0.72
+          }
+        },
+        "b": {
+          "hole": "C15",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.59,
+            "y": 0.54
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W4",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Blue jumper wire from GND to bottom power rail",
+        "bbox": {
+          "x": 0.36,
+          "y": 0.69,
+          "width": 0.55,
+          "height": 0.31
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.38,
+            "y": 0.79
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.89,
+            "y": 0.83
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W5",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Blue jumper wire loop on right breadboard section",
+        "bbox": {
+          "x": 0.78,
+          "y": 0.05,
+          "width": 0.13,
+          "height": 0.25
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.79,
+            "y": 0.23
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.89,
+            "y": 0.23
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W6",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Blue jumper wire from h9 to right breadboard column",
+        "bbox": {
+          "x": 0.74,
+          "y": 0.36,
+          "width": 0.2,
+          "height": 0.08
+        },
+        "a": {
+          "hole": "H9",
+          "confidence": 0.9,
+          "point": {
+            "x": 0.77,
+            "y": 0.38
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.89,
+            "y": 0.43
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      }
+    ],
+    "warnings": ["Microcontroller board treated as an unknown component."],
+    "confidence_note": "Model-assessed scores are uncalibrated; every component and terminal requires human review."
+  },
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini",
+    "model": "gemini-3.5-flash-lite",
+    "generated_at": "2026-10-03T22:23:11.175Z",
+    "image_sha256": "f45cb843e6270f4f807fc30cdaacbf9b1e8b76ec99457cfa752b314573488845",
+    "width": 1600,
+    "height": 1520,
+    "usage": {
+      "input_tokens": 1576,
+      "output_tokens": 2615
+    }
+  }
+}

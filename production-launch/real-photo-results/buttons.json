@@ -1,0 +1,348 @@
+{
+  "image": "buttons",
+  "source": "https://learn.adafruit.com/assets/2202",
+  "original_sha256": "a7079862d76788ae791d9e8d5ae6ba920b7b7ed181d2ff746fce38dacd98f58b",
+  "prepared_sha256": "f45cb843e6270f4f807fc30cdaacbf9b1e8b76ec99457cfa752b314573488845",
+  "evaluated_at": "2026-10-03T22:17:49.205Z",
+  "elapsed_ms": 16731,
+  "provider_http_status": 200,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "model": "gemini-3.8-flash",
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "received",
+  "observations": {
+    "image_kind": "photograph",
+    "summary": "An Arduino Uno connected via jumper wires to a breadboard containing two pushbuttons, a resistor, and a red LED.",
+    "supply_voltage": null,
+    "components": [
+      {
+        "id": "R1",
+        "type": "resistor",
+        "confidence": 0.95,
+        "evidence": "Through-hole resistor with visible bands (brown, black, red, gold ~ 1k ohm) bridging across the breadboard center trough",
+        "bbox": {
+          "x": 0.605,
+          "y": 0.496,
+          "width": 0.222,
+          "height": 0.027
+        },
+        "a": {
+          "hole": "E15",
+          "confidence": 0.85,
+          "point": {
+            "x": 0.608,
+            "y": 0.517
+          }
+        },
+        "b": {
+          "hole": "F15",
+          "confidence": 0.85,
+          "point": {
+            "x": 0.824,
+            "y": 0.507
+          }
+        },
+        "value": 1000,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D1",
+        "type": "led",
+        "confidence": 0.93,
+        "evidence": "Red 5mm LED placed near the right side of the breadboard",
+        "bbox": {
+          "x": 0.825,
+          "y": 0.495,
+          "width": 0.1,
+          "height": 0.095
+        },
+        "a": {
+          "hole": "J15",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.828,
+            "y": 0.509
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.4,
+          "point": {
+            "x": 0.885,
+            "y": 0.522
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "S1",
+        "type": "button",
+        "confidence": 0.95,
+        "evidence": "4-pin tactile pushbutton mounted straddling the center divider at rows 3-4",
+        "bbox": {
+          "x": 0.678,
+          "y": 0.237,
+          "width": 0.052,
+          "height": 0.056
+        },
+        "a": {
+          "hole": "E3",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.681,
+            "y": 0.252
+          }
+        },
+        "b": {
+          "hole": "F3",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.728,
+            "y": 0.252
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "S2",
+        "type": "button",
+        "confidence": 0.95,
+        "evidence": "4-pin tactile pushbutton mounted straddling the center divider at rows 8-9",
+        "bbox": {
+          "x": 0.677,
+          "y": 0.358,
+          "width": 0.053,
+          "height": 0.057
+        },
+        "a": {
+          "hole": "E8",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.681,
+            "y": 0.373
+          }
+        },
+        "b": {
+          "hole": "F8",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.728,
+            "y": 0.373
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "confidence": 0.92,
+        "evidence": "Orange jumper wire from Arduino pin 10 to breadboard row 2",
+        "bbox": {
+          "x": 0.37,
+          "y": 0.23,
+          "width": 0.245,
+          "height": 0.37
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.375,
+            "y": 0.589
+          }
+        },
+        "b": {
+          "hole": "B2",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.597,
+            "y": 0.248
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "confidence": 0.92,
+        "evidence": "Orange jumper wire from Arduino pin 9 to breadboard row 7",
+        "bbox": {
+          "x": 0.38,
+          "y": 0.36,
+          "width": 0.24,
+          "height": 0.28
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.382,
+            "y": 0.627
+          }
+        },
+        "b": {
+          "hole": "B7",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.603,
+            "y": 0.371
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "confidence": 0.92,
+        "evidence": "Yellow jumper wire from Arduino pin 6 to breadboard row 14",
+        "bbox": {
+          "x": 0.375,
+          "y": 0.505,
+          "width": 0.235,
+          "height": 0.245
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.85,
+          "point": {
+            "x": 0.383,
+            "y": 0.706
+          }
+        },
+        "b": {
+          "hole": "B14",
+          "confidence": 0.85,
+          "point": {
+            "x": 0.595,
+            "y": 0.509
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W4",
+        "type": "wire",
+        "confidence": 0.9,
+        "evidence": "Blue jumper wire loop on breadboard from column J row 3 to right power bus",
+        "bbox": {
+          "x": 0.785,
+          "y": 0.005,
+          "width": 0.185,
+          "height": 0.29
+        },
+        "a": {
+          "hole": "J3",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.806,
+            "y": 0.285
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.7,
+          "point": {
+            "x": 0.887,
+            "y": 0.229
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W5",
+        "type": "wire",
+        "confidence": 0.9,
+        "evidence": "Blue jumper wire loop from column J row 8 to right power bus",
+        "bbox": {
+          "x": 0.77,
+          "y": 0.365,
+          "width": 0.225,
+          "height": 0.085
+        },
+        "a": {
+          "hole": "J8",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.809,
+            "y": 0.404
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.7,
+          "point": {
+            "x": 0.895,
+            "y": 0.435
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W6",
+        "type": "wire",
+        "confidence": 0.9,
+        "evidence": "Blue jumper wire from Arduino GND header looping to bottom right of breadboard bus",
+        "bbox": {
+          "x": 0.345,
+          "y": 0.485,
+          "width": 0.56,
+          "height": 0.515
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.378,
+            "y": 0.495
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.75,
+          "point": {
+            "x": 0.893,
+            "y": 0.825
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      }
+    ],
+    "warnings": [
+      "LED cathode/anode orientation determined from visible leads and resistor connection; cathode pin placement into breadboard rail or column is partially occluded by the LED body."
+    ],
+    "confidence_note": "Model-assessed scores are uncalibrated; every component and terminal requires human review."
+  },
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini",
+    "model": "gemini-3.8-flash",
+    "generated_at": "2026-10-03T22:17:49.205Z",
+    "image_sha256": "f45cb843e6270f4f807fc30cdaacbf9b1e8b76ec99457cfa752b314573488845",
+    "width": 1600,
+    "height": 1520,
+    "usage": {
+      "input_tokens": 1500,
+      "output_tokens": 2560
+    }
+  }
+}

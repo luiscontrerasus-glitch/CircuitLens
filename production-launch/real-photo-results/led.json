@@ -1,0 +1,256 @@
+{
+  "image": "led",
+  "source": "https://learn.adafruit.com/assets/2170",
+  "original_sha256": "12c62b96c8a39efa0484d36b39cae56af5015906a9b41673b1767d06d2eef57a",
+  "prepared_sha256": "7d947e5d90f81575fe3cc4b54a5a82f913785bbb679b3cfc3400bf07a1e37a12",
+  "evaluated_at": "2026-10-03T22:13:05.380Z",
+  "elapsed_ms": 10550,
+  "provider_http_status": 200,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "received",
+  "observations": {
+    "image_kind": "photograph",
+    "summary": "An Arduino Uno connected via red and blue jumper wires to a breadboard containing a resistor and a red LED, with three loose resistors nearby.",
+    "supply_voltage": null,
+    "components": [
+      {
+        "id": "W1",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Red jumper wire running from Arduino Uno GND/header pin to breadboard left power bus.",
+        "bbox": {
+          "x": 0.161,
+          "y": 0.1348,
+          "width": 0.148,
+          "height": 0.3652
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.2766,
+            "y": 0.3256
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.7,
+          "point": {
+            "x": 0.1996,
+            "y": 0.4793
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Blue jumper wire running from Arduino header pin to breadboard right power bus.",
+        "bbox": {
+          "x": 0.2929,
+          "y": 0.2247,
+          "width": 0.2251,
+          "height": 0.2753
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.2969,
+            "y": 0.3398
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.7,
+          "point": {
+            "x": 0.5068,
+            "y": 0.4793
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "confidence": 0.95,
+        "evidence": "Axial resistor spanning from column a/b row 4/6 area across center divider to column g/h row 8.",
+        "bbox": {
+          "x": 0.1905,
+          "y": 0.5127,
+          "width": 0.2155,
+          "height": 0.0715
+        },
+        "a": {
+          "hole": "A6",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.1916,
+            "y": 0.5717
+          }
+        },
+        "b": {
+          "hole": "G8",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.405,
+            "y": 0.5842
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "LED1",
+        "type": "led",
+        "confidence": 0.9,
+        "evidence": "Red 5mm LED placed near columns i/j and the right power strip.",
+        "bbox": {
+          "x": 0.4417,
+          "y": 0.4608,
+          "width": 0.0714,
+          "height": 0.1332
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.4,
+          "point": {
+            "x": 0.4542,
+            "y": 0.5833
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.4,
+          "point": {
+            "x": 0.5063,
+            "y": 0.5941
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "confidence": 0.95,
+        "evidence": "Loose axial resistor resting on the table.",
+        "bbox": {
+          "x": 0.5666,
+          "y": 0.5758,
+          "width": 0.3753,
+          "height": 0.0664
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.9,
+          "point": {
+            "x": 0.5679,
+            "y": 0.5993
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.9,
+          "point": {
+            "x": 0.9407,
+            "y": 0.6422
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R3",
+        "type": "resistor",
+        "confidence": 0.95,
+        "evidence": "Loose axial resistor resting on table below R2.",
+        "bbox": {
+          "x": 0.5706,
+          "y": 0.6402,
+          "width": 0.3945,
+          "height": 0.1189
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.9,
+          "point": {
+            "x": 0.572,
+            "y": 0.6422
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.9,
+          "point": {
+            "x": 0.964,
+            "y": 0.7585
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R4",
+        "type": "resistor",
+        "confidence": 0.95,
+        "evidence": "Loose axial resistor resting on table below R3.",
+        "bbox": {
+          "x": 0.5636,
+          "y": 0.6949,
+          "width": 0.3896,
+          "height": 0.1488
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.9,
+          "point": {
+            "x": 0.565,
+            "y": 0.6969
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.9,
+          "point": {
+            "x": 0.9521,
+            "y": 0.8426
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      }
+    ],
+    "warnings": [
+      "LED internal lead frame polarity cannot be determined with high certainty from this angle.",
+      "Three loose resistors (R2, R3, R4) are unattached to any breadboard or circuit node.",
+      "Exact breadboard hole coordinates are partially obscured by component bodies and wires."
+    ],
+    "confidence_note": "Model-assessed scores are uncalibrated; every component and terminal requires human review."
+  },
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini",
+    "model": "gemini-3.8-flash",
+    "generated_at": "2026-10-03T22:13:05.380Z",
+    "image_sha256": "7d947e5d90f81575fe3cc4b54a5a82f913785bbb679b3cfc3400bf07a1e37a12",
+    "width": 1600,
+    "height": 1424,
+    "usage": {
+      "input_tokens": 1497,
+      "output_tokens": 1981
+    }
+  }
+}

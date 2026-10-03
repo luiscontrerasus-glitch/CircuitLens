@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-03",
+  "desktop": {
+    "width": 1440,
+    "allSevenSchematics": true,
+    "selectionCorrectionZoom": true
+  },
+  "tablet": {
+    "width": 768,
+    "overflow": false
+  },
+  "mobile": {
+    "width": 390,
+    "overflow": false,
+    "inspectorOpen": true
+  },
+  "reducedMotion": {
+    "defaultView": "Schematic"
+  },
+  "export": {
+    "jsonPreview": true,
+    "automaticDownload": false,
+    "copyFallback": true
+  },
+  "consoleWarningsErrors": []
+}

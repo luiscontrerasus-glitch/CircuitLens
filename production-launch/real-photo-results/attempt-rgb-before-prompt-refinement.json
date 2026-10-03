@@ -1,0 +1,255 @@
+{
+  "image": "rgb",
+  "source": "https://learn.adafruit.com/assets/2083",
+  "original_sha256": "e112a5eae43b882f126fc5036ac65ed1ef408a3d3fad62ef37f6546562200e2f",
+  "prepared_sha256": "da9f887ec6fe6ef1a0fcc608d5b50a06d075cfb962a2db86148acc9e9c9a1252",
+  "evaluated_at": "2026-10-03T22:16:39.459Z",
+  "elapsed_ms": 13834,
+  "provider_http_status": 200,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "received",
+  "observations": {
+    "image_kind": "photograph",
+    "summary": "An Arduino Uno connected via three jumper wires to a breadboard containing resistors and an illuminated large LED (likely RGB or diffuse LED).",
+    "supply_voltage": null,
+    "components": [
+      {
+        "id": "D1",
+        "type": "led",
+        "confidence": 0.95,
+        "evidence": "Large frosted dome LED emitting pink/orange light, plugged into the breadboard",
+        "bbox": {
+          "x": 0.767,
+          "y": 0.023,
+          "width": 0.081,
+          "height": 0.264
+        },
+        "a": {
+          "hole": "H1",
+          "confidence": 0.65,
+          "point": {
+            "x": 0.796,
+            "y": 0.287
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0.4,
+          "point": {
+            "x": 0.803,
+            "y": 0.287
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "confidence": 0.9,
+        "evidence": "Through-hole resistor bridging columns d/e to f/g around row 1",
+        "bbox": {
+          "x": 0.648,
+          "y": 0.134,
+          "width": 0.116,
+          "height": 0.135
+        },
+        "a": {
+          "hole": "E1",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.654,
+            "y": 0.265
+          }
+        },
+        "b": {
+          "hole": "F1",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.741,
+            "y": 0.292
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "confidence": 0.9,
+        "evidence": "Through-hole resistor bridging across the breadboard center trough around row 2",
+        "bbox": {
+          "x": 0.669,
+          "y": 0.169,
+          "width": 0.082,
+          "height": 0.106
+        },
+        "a": {
+          "hole": "E2",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.672,
+            "y": 0.218
+          }
+        },
+        "b": {
+          "hole": "F2",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.732,
+            "y": 0.263
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R3",
+        "type": "resistor",
+        "confidence": 0.9,
+        "evidence": "Through-hole resistor positioned directly below R2",
+        "bbox": {
+          "x": 0.672,
+          "y": 0.187,
+          "width": 0.075,
+          "height": 0.089
+        },
+        "a": {
+          "hole": "E3",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.677,
+            "y": 0.231
+          }
+        },
+        "b": {
+          "hole": "F3",
+          "confidence": 0.6,
+          "point": {
+            "x": 0.731,
+            "y": 0.272
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Red jumper wire from Arduino pin header to breadboard column B row 1",
+        "bbox": {
+          "x": 0.428,
+          "y": 0.6,
+          "width": 0.224,
+          "height": 0.4
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.435,
+            "y": 0.508
+          }
+        },
+        "b": {
+          "hole": "B1",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.627,
+            "y": 0.222
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Green jumper wire from Arduino header to breadboard column B row 2",
+        "bbox": {
+          "x": 0.427,
+          "y": 0.13,
+          "width": 0.219,
+          "height": 0.38
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.437,
+            "y": 0.51
+          }
+        },
+        "b": {
+          "hole": "B2",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.624,
+            "y": 0.276
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "confidence": 0.95,
+        "evidence": "Blue jumper wire from Arduino digital pin header to breadboard column B row 3",
+        "bbox": {
+          "x": 0.431,
+          "y": 0.18,
+          "width": 0.228,
+          "height": 0.395
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.8,
+          "point": {
+            "x": 0.436,
+            "y": 0.575
+          }
+        },
+        "b": {
+          "hole": "B3",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.63,
+            "y": 0.245
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      }
+    ],
+    "warnings": [
+      "Arduino pin header holes are partially occluded by connectors and wires; holes are not assigned breadboard coordinates.",
+      "LED may have multiple pins (e.g. common cathode/anode RGB LED); some pins enter obscured holes behind the front view."
+    ],
+    "confidence_note": "Model-assessed scores are uncalibrated; every component and terminal requires human review."
+  },
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini",
+    "model": "gemini-3.8-flash",
+    "generated_at": "2026-10-03T22:16:39.459Z",
+    "image_sha256": "da9f887ec6fe6ef1a0fcc608d5b50a06d075cfb962a2db86148acc9e9c9a1252",
+    "width": 800,
+    "height": 558,
+    "usage": {
+      "input_tokens": 1492,
+      "output_tokens": 1832
+    }
+  }
+}

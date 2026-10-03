@@ -4,7 +4,7 @@
 
 The editorial website and application are separate pages. The homepage links an actual generated assembly with its connection schematic and a working polarity-correction preview. Locally hosted Archivo and Georgia italic define the typography. `/workbench.html` opens a useful circuit immediately: a collapsible example library, fitted physical/schematic/source canvas, zoom controls and contextual inspector. Connections, image review, and full reports use accessible dialogs. Tablet uses an adapted schematic; phone adds an independently scrolling inspector sheet. Reduced motion removes transitions and defaults to the schematic.
 
-The current **$0 launch passes 64 automated tests**. All seven examples, manual photo review, circuit editing, deterministic diagnosis, and import/export work without an API key. Live recognition is disabled by default, even when an old key exists locally. Gemini 2.5 Flash image recognition is integrated into the existing review interface and is the default provider. It remains disabled until a Free Tier key and billing-disabled confirmation are configured. OpenAI remains an explicitly selected alternative, with no automatic fallback. Actual Gemini recognition awaits key setup; no successful live recognition is claimed. See [Gemini setup](production-launch/GEMINI_SETUP.md). See [deployment](production-launch/DEPLOYMENT.md), [functional verification](production-launch/FUNCTIONAL_TEST_RESULTS.md), and the [launch checklist](production-launch/FINAL_CHECKLIST.md). Earlier official screenshots, videos and Git history are preserved.
+The current **$0 launch passes 67 automated tests**. All seven examples, manual photo review, circuit editing, deterministic diagnosis, and import/export work without an API key. Live recognition is disabled by default, even when an old key exists locally. Gemini Free Tier image recognition is integrated into the existing review interface and is the default provider. It remains disabled until a Free Tier key and billing-disabled confirmation are configured. OpenAI remains an explicitly selected alternative, with no automatic fallback. Six licensed real breadboard photographs were tested with actual Gemini requests. All six obtained at least one validated structured response, but none produced a complete verified circuit; values, terminals and omissions still require human correction. See [actual photo assessment](production-launch/REAL_PHOTO_EVALUATION.md). See [Gemini setup](production-launch/GEMINI_SETUP.md). See [deployment](production-launch/DEPLOYMENT.md), [functional verification](production-launch/FUNCTIONAL_TEST_RESULTS.md), and the [launch checklist](production-launch/FINAL_CHECKLIST.md). Earlier official screenshots, videos and Git history are preserved.
 
 ![CircuitLens circuit workspace](submission/refinement/final/workbench-1440.jpg)
 
@@ -48,7 +48,7 @@ flowchart TD
 
 ## Computer Vision / AI Pipeline
 
-The default Gemini adapter uses GenerateContent with fixed `gemini-2.5-flash`, inline image bytes and JSON-schema output. It has no tools, grounding, retries or paid fallback. The optional alternative uses the OpenAI Responses API with `gpt-4.1-mini-2025-04-14`, `input_image`, `store:false`, and a strict JSON schema. It receives image pixels only, never the intended circuit. The model proposes component IDs/types, normalized boxes, A/B terminal candidates and points, values, polarity orientation, visible evidence, warnings and confidence. Terminal A is an LED's anode; B is its cathode. Unknown holes and values stay unresolved.
+The default Gemini adapter uses GenerateContent with default `gemini-3.8-flash` (or explicitly selected, allowlisted `gemini-3.5-flash-lite`), inline image bytes and JSON-schema output. It has no tools, grounding, retries or paid fallback. The optional alternative uses the OpenAI Responses API with `gpt-4.1-mini-2025-04-14`, `input_image`, `store:false`, and a strict JSON schema. It receives image pixels only, never the intended circuit. The model proposes component IDs/types, normalized boxes, A/B terminal candidates and points, values, polarity orientation, visible evidence, warnings and confidence. Terminal A is an LED's anode; B is its cathode. Unknown holes and values stay unresolved.
 
 Sharp validates JPEG/PNG/WebP, rejects invalid/oversized input, rotates, resizes to at most 1600 pixels and re-encodes without original metadata. Ajv independently validates returned JSON. There is no learned local object detector, training step, custom model, perspective calibration or general schematic parser.
 
@@ -92,15 +92,15 @@ Three separate PNG demos under `public/vision-demos` depict correct, reversed an
 
 ## Tech Stack
 
-Browser ES modules, semantic HTML, CSS, Canvas; Node HTTP; Ajv 8.20.0; Sharp 0.35.5; OpenAI Responses API. Prettier 3.6.2 for formatting. Pinned dependencies are in the lockfile.
+Browser ES modules, semantic HTML, CSS, Canvas; Node HTTP; Ajv 8.20.0; Sharp 0.35.5; Gemini GenerateContent REST API (optional OpenAI Responses alternative). Prettier 3.6.2 for formatting. Pinned dependencies are in the lockfile.
 
 ## Local Setup
 
-Node 22.8+ is required; verified here with Node 24.14.1. Run `npm ci`, then `npm start`; open http://127.0.0.1:3000. Manual mode works without a key. Startup reads ignored `.env.local` if present; `.env.example` contains empty credential placeholders. Store `OPENAI_API_KEY` only on the server. Do not paste it into browser code or commit it.
+Node 22.8+ is required; verified here with Node 24.14.1. Run `npm ci`, then `npm start`; open http://127.0.0.1:3000. Manual mode works without a key. Startup reads ignored `.env.local` if present; `.env.example` contains empty credential placeholders. Store `GEMINI_API_KEY` only on the server; confirm the Google project remains unbilled. Do not paste it into browser code or commit it.
 
 ## Usage
 
-The fastest dependable demo uses “A light that stays dark”: launch its one-click rule check, change D1 from D18/D12 to D12/D18, confirm again, analyze. The image remains the original reference while its netlist changes. The live vision route instead requires usable API credits and image-sharing consent. Every proposal must be reviewed.
+The fastest dependable demo uses “A light that stays dark”: launch its one-click rule check, change D1 from D18/D12 to D12/D18, confirm again, analyze. The image remains the original reference while its netlist changes. The live Gemini route requires an unbilled Free Tier key, explicit enablement and image-sharing consent, with no paid fallback. Every proposal must be reviewed.
 
 | Endpoint                       | Purpose                                                     |
 | ------------------------------ | ----------------------------------------------------------- |

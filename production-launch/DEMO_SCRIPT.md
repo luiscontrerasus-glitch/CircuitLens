@@ -36,4 +36,4 @@ Return to Physical to inspect the corrected logical assembly. The selected LED a
 
 ## 2:15–2:30 — Close
 
-All seven examples remain editable and available for free. Optional live photo recognition is implemented but disabled in this launch and requires separately configured API access. CircuitLens makes engineering evidence inspectable, with the circuit itself at the center.
+All seven examples remain editable and available for free. Optional Gemini recognition uses an unbilled Free Tier project. Actual photo testing found missed parts and incorrect predictions, so every observation needs human review. This video demonstrates generated fixtures. CircuitLens makes engineering evidence inspectable, with the circuit itself at the center.

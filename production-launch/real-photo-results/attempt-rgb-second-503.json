@@ -1,0 +1,17 @@
+{
+  "image": "rgb",
+  "source": "https://learn.adafruit.com/assets/2083",
+  "original_sha256": "e112a5eae43b882f126fc5036ac65ed1ef408a3d3fad62ef37f6546562200e2f",
+  "prepared_sha256": "da9f887ec6fe6ef1a0fcc608d5b50a06d075cfb962a2db86148acc9e9c9a1252",
+  "evaluated_at": "2026-10-03T22:20:34.185Z",
+  "elapsed_ms": 3428,
+  "provider_http_status": 503,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "model": "gemini-3.8-flash",
+  "prompt_sha256": "f25bab77e99a71edd4bf3d235ae960a9ef748564646b46fca5b148d7debd7416",
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "failed",
+  "error": "model_error",
+  "message": "Gemini could not complete recognition. Try manually later or enter connections yourself. No paid fallback occurs."
+}

@@ -1,0 +1,17 @@
+{
+  "image": "led",
+  "source": "https://learn.adafruit.com/assets/2170",
+  "original_sha256": "12c62b96c8a39efa0484d36b39cae56af5015906a9b41673b1767d06d2eef57a",
+  "prepared_sha256": "7d947e5d90f81575fe3cc4b54a5a82f913785bbb679b3cfc3400bf07a1e37a12",
+  "evaluated_at": "2026-10-03T22:22:53.353Z",
+  "elapsed_ms": 56312,
+  "provider_http_status": 503,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "model": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f25bab77e99a71edd4bf3d235ae960a9ef748564646b46fca5b148d7debd7416",
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "failed",
+  "error": "model_error",
+  "message": "Gemini could not complete recognition. Try manually later or enter connections yourself. No paid fallback occurs."
+}

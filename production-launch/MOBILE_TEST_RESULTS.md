@@ -26,3 +26,7 @@ The new Gemini observation-review dialog was also checked at 390 × 844 with moc
 - Enable the phone's Reduce Motion setting and repeat navigation and component selection.
 
 Screenshots: `screenshots/homepage-mobile-complete.jpg`, `workbench-mobile.jpg`, `workbench-mobile-inspector.jpg`, `homepage-tablet-complete.jpg`, and `workbench-tablet.jpg`.
+
+## Actual-photo follow-up
+
+The live Gemini browser request used the licensed `led.jpg` photograph and consent. Two deliberate attempts received HTTP 503 with a clear overloaded-provider explanation and manual entry retained; no automatic retry or paid fallback occurred. The configured desktop and mobile upload/control layouts were reviewed again. Actual CLI responses for all six photographs were separately preserved; browser error handling is not proof of successful live UI recognition. The observations dialog now states the two-terminal component scope and asks users to check missing parts. The source-panel footer was given reserved space after a live-error screenshot revealed crowding at its lower edge.

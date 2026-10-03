@@ -1,0 +1,15 @@
+{
+  "image": "buttons",
+  "source": "https://learn.adafruit.com/assets/2202",
+  "original_sha256": "a7079862d76788ae791d9e8d5ae6ba920b7b7ed181d2ff746fce38dacd98f58b",
+  "prepared_sha256": "f45cb843e6270f4f807fc30cdaacbf9b1e8b76ec99457cfa752b314573488845",
+  "evaluated_at": "2026-10-03T22:14:01.457Z",
+  "elapsed_ms": 18310,
+  "provider_http_status": 503,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "failed",
+  "error": "model_error",
+  "message": "Gemini could not complete recognition. Try manually later or enter connections yourself. No paid fallback occurs."
+}

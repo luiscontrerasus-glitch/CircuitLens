@@ -1,0 +1,70 @@
+{
+  "image": "light",
+  "source": "https://learn.adafruit.com/assets/2273",
+  "original_sha256": "ce2b70aed3b26e16aab4434e069056171e2f73cb2b768638e3f5a2d70977057a",
+  "prepared_sha256": "f9b76279a17200ed3bf465926d4751a120258aa817f576c0dd74bdf6e58bb8c3",
+  "evaluated_at": "2026-10-03T22:23:24.604Z",
+  "elapsed_ms": 2298,
+  "provider_http_status": 200,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "model": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f25bab77e99a71edd4bf3d235ae960a9ef748564646b46fca5b148d7debd7416",
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "received",
+  "observations": {
+    "image_kind": "photograph",
+    "summary": "An Arduino Uno connected to a breadboard containing multiple LEDs, resistors, a photoresistor, and an IC with various jumper wires.",
+    "supply_voltage": null,
+    "components": [
+      {
+        "id": "U1",
+        "type": "unknown",
+        "confidence": 0.99,
+        "evidence": "Arduino Uno board",
+        "bbox": {
+          "x": 0.55,
+          "y": 0.13,
+          "width": 0.38,
+          "height": 0.63
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      }
+    ],
+    "warnings": [
+      "Contains unsupported components like an IC, photoresistor, and microcontroller board (Arduino Uno)."
+    ],
+    "confidence_note": "Model-assessed scores are uncalibrated; every component and terminal requires human review."
+  },
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini",
+    "model": "gemini-3.5-flash-lite",
+    "generated_at": "2026-10-03T22:23:24.603Z",
+    "image_sha256": "f9b76279a17200ed3bf465926d4751a120258aa817f576c0dd74bdf6e58bb8c3",
+    "width": 1600,
+    "height": 1064,
+    "usage": {
+      "input_tokens": 1595,
+      "output_tokens": 312
+    }
+  }
+}

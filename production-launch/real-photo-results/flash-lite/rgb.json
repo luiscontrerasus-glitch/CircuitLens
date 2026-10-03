@@ -1,0 +1,287 @@
+{
+  "image": "rgb",
+  "source": "https://learn.adafruit.com/assets/2083",
+  "original_sha256": "e112a5eae43b882f126fc5036ac65ed1ef408a3d3fad62ef37f6546562200e2f",
+  "prepared_sha256": "da9f887ec6fe6ef1a0fcc608d5b50a06d075cfb962a2db86148acc9e9c9a1252",
+  "evaluated_at": "2026-10-03T22:24:18.319Z",
+  "elapsed_ms": 4795,
+  "provider_http_status": 200,
+  "synthetic": false,
+  "reference_context_sent": false,
+  "model": "gemini-3.5-flash-lite",
+  "prompt_sha256": "f25bab77e99a71edd4bf3d235ae960a9ef748564646b46fca5b148d7debd7416",
+  "human_acceptance": "None. All proposals remain pending; no hardware validation.",
+  "status": "received",
+  "observations": {
+    "image_kind": "photograph",
+    "summary": "An Arduino Uno connected via jumper wires to a breadboard containing three resistors in series/parallel and an illuminated LED.",
+    "supply_voltage": 5,
+    "components": [
+      {
+        "id": "U1",
+        "type": "unknown",
+        "confidence": 0.99,
+        "evidence": "Arduino Uno board",
+        "bbox": {
+          "x": 0.05,
+          "y": 0.25,
+          "width": 0.45,
+          "height": 0.7
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0.42,
+            "y": 0.45
+          }
+        },
+        "b": {
+          "hole": null,
+          "confidence": 0,
+          "point": {
+            "x": 0.42,
+            "y": 0.52
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W1",
+        "type": "wire",
+        "confidence": 0.9,
+        "evidence": "Red jumper wire from Arduino 5V/digital area to breadboard",
+        "bbox": {
+          "x": 0.41,
+          "y": 0.06,
+          "width": 0.15,
+          "height": 0.45
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.5,
+          "point": {
+            "x": 0.41,
+            "y": 0.22
+          }
+        },
+        "b": {
+          "hole": "C2",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.56,
+            "y": 0.24
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W2",
+        "type": "wire",
+        "confidence": 0.9,
+        "evidence": "Green jumper wire",
+        "bbox": {
+          "x": 0.41,
+          "y": 0.1,
+          "width": 0.16,
+          "height": 0.35
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.5,
+          "point": {
+            "x": 0.41,
+            "y": 0.28
+          }
+        },
+        "b": {
+          "hole": "C3",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.57,
+            "y": 0.26
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "W3",
+        "type": "wire",
+        "confidence": 0.9,
+        "evidence": "Blue jumper wire",
+        "bbox": {
+          "x": 0.41,
+          "y": 0.18,
+          "width": 0.17,
+          "height": 0.35
+        },
+        "a": {
+          "hole": null,
+          "confidence": 0.5,
+          "point": {
+            "x": 0.41,
+            "y": 0.52
+          }
+        },
+        "b": {
+          "hole": "C4",
+          "confidence": 0.8,
+          "point": {
+            "x": 0.58,
+            "y": 0.28
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R1",
+        "type": "resistor",
+        "confidence": 0.8,
+        "evidence": "Top resistor on breadboard",
+        "bbox": {
+          "x": 0.61,
+          "y": 0.14,
+          "width": 0.14,
+          "height": 0.08
+        },
+        "a": {
+          "hole": "E2",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.62,
+            "y": 0.18
+          }
+        },
+        "b": {
+          "hole": "I2",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.74,
+            "y": 0.18
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R2",
+        "type": "resistor",
+        "confidence": 0.8,
+        "evidence": "Middle resistor on breadboard",
+        "bbox": {
+          "x": 0.61,
+          "y": 0.17,
+          "width": 0.14,
+          "height": 0.08
+        },
+        "a": {
+          "hole": "E3",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.62,
+            "y": 0.21
+          }
+        },
+        "b": {
+          "hole": "I3",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.74,
+            "y": 0.21
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "R3",
+        "type": "resistor",
+        "confidence": 0.8,
+        "evidence": "Bottom resistor on breadboard",
+        "bbox": {
+          "x": 0.61,
+          "y": 0.21,
+          "width": 0.14,
+          "height": 0.08
+        },
+        "a": {
+          "hole": "E4",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.62,
+            "y": 0.25
+          }
+        },
+        "b": {
+          "hole": "I4",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.74,
+            "y": 0.25
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      },
+      {
+        "id": "D1",
+        "type": "led",
+        "confidence": 0.9,
+        "evidence": "Lit red LED on breadboard",
+        "bbox": {
+          "x": 0.71,
+          "y": 0.04,
+          "width": 0.12,
+          "height": 0.26
+        },
+        "a": {
+          "hole": "I5",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.75,
+            "y": 0.28
+          }
+        },
+        "b": {
+          "hole": "I9",
+          "confidence": 0.7,
+          "point": {
+            "x": 0.75,
+            "y": 0.32
+          }
+        },
+        "value": null,
+        "closed": null,
+        "review": "pending"
+      }
+    ],
+    "warnings": [
+      "Arduino microcontroller board treated as an unknown component block."
+    ],
+    "confidence_note": "Model-assessed scores are uncalibrated; every component and terminal requires human review."
+  },
+  "provenance": {
+    "mode": "live",
+    "provider": "Google Gemini",
+    "model": "gemini-3.5-flash-lite",
+    "generated_at": "2026-10-03T22:24:18.319Z",
+    "image_sha256": "da9f887ec6fe6ef1a0fcc608d5b50a06d075cfb962a2db86148acc9e9c9a1252",
+    "width": 800,
+    "height": 558,
+    "usage": {
+      "input_tokens": 1568,
+      "output_tokens": 1888
+    }
+  }
+}

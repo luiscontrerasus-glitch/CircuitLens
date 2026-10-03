@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-03",
+  "automatedTests": { "total": 67, "passed": 67, "failed": 0, "skipped": 0 },
+  "syntaxFiles": 42,
+  "productionBuildFiles": 59,
+  "localProductionSmoke": { "assetsRoutes": 49, "demos": 7, "passed": true },
+  "formatting": "passed",
+  "dependencyAudit": { "vulnerabilities": 0 },
+  "secretScan": {
+    "passed": true,
+    "filesBlobs": 978,
+    "localEnvIgnoredUntracked": true
+  },
+  "realPhotos": {
+    "uniqueImages": 6,
+    "providerAttempts": 20,
+    "structuredResponses": 9,
+    "provider503": 10,
+    "obsoleteModel404": 1,
+    "completeVerifiedReconstructions": 0,
+    "openaiRequests": 0
+  },
+  "googleBilling": "owner attested Free Tier with billing disabled; not independently verified",
+  "renderBilling": "authenticated dashboard: Hobby, no card, no pending charges",
+  "demo": {
+    "file": "CircuitLens_Zero_Cost_Demo.mp4",
+    "durationSeconds": 150.0,
+    "audio": false
+  },
+  "publicDeployment": "pending Free service creation"
+}
