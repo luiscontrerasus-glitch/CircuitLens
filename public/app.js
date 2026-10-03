@@ -4,7 +4,25 @@ import { terminalPoint } from "./layout.js";
 import { schematicMarkup } from "./schematic.js";
 import { initCinematic } from "./cinematic.js";
 import { analysisPhase } from "./instrument.js";
+import { mountAssembly, initSpatialStory } from "./assembly.js";
 initCinematic();
+const resizeAssembly = initSpatialStory();
+let circuitView = matchMedia(
+  "(max-width: 700px), (prefers-reduced-motion: reduce)",
+).matches
+  ? "schematic"
+  : "assembly";
+let viewChosen = false;
+const compactView = matchMedia(
+  "(max-width: 700px), (prefers-reduced-motion: reduce)",
+);
+compactView.addEventListener("change", () => {
+  if (!viewChosen) {
+    circuitView = compactView.matches ? "schematic" : "assembly";
+    applyView();
+    resizeAssembly();
+  }
+});
 const $ = (id) => document.getElementById(id),
   esc = (s) =>
     String(s).replace(
@@ -56,13 +74,28 @@ function invalidate() {
   error("");
   renderImage();
   renderGraph();
+  renderInspector();
 }
 function renderGraph() {
-  $("live-graph").innerHTML = schematicMarkup(
+  $("live-graph").innerHTML =
+    '<div class="assembly-view"></div><div class="schematic-view"></div>';
+  $("live-graph").querySelector(".schematic-view").innerHTML = schematicMarkup(
     circuit,
     result?.issues,
     result?.status,
   );
+  const compact = document.createElement("div");
+  compact.className = "compact-connections";
+  compact.setAttribute("aria-label", "Readable component connections");
+  compact.innerHTML = circuit.components
+    .map(
+      (part, index) =>
+        `<button data-component="${index}" class="${result?.issues.some((issue) => issue.components.includes(part.id)) ? "faulty" : ""}"><strong>${esc(part.id)} / ${esc(part.type)}</strong><span>${esc(part.a)} → ${esc(part.b)}</span></button>`,
+    )
+    .join("");
+  $("live-graph").append(compact);
+  applyView();
+  resizeAssembly();
   $("graph-status").textContent = result
     ? result.status === "pass"
       ? "RULE CHECKS PASSED"
@@ -71,11 +104,97 @@ function renderGraph() {
       ? "UNVERIFIED / EDITABLE"
       : "AWAITING INPUT";
 }
+function applyView() {
+  const empty = !circuit.components.length;
+  const assembly = $("live-graph").querySelector(".assembly-view");
+  if (circuitView === "assembly" && !empty && !assembly.firstChild) {
+    mountAssembly(assembly, circuit, result?.issues);
+    const index = circuit.components.findIndex((part) => part.id === focusedId);
+    assembly
+      .querySelectorAll(`[data-component="${index}"]`)
+      .forEach((part) => part.classList.add("selected"));
+  }
+  $("live-graph").querySelector(".assembly-view").hidden =
+    circuitView !== "assembly" || empty;
+  $("live-graph").querySelector(".schematic-view").hidden =
+    circuitView !== "schematic" && !empty;
+  $("view-assembly").setAttribute(
+    "aria-pressed",
+    String(circuitView === "assembly"),
+  );
+  $("view-schematic").setAttribute(
+    "aria-pressed",
+    String(circuitView === "schematic"),
+  );
+}
+for (const view of ["assembly", "schematic"])
+  $(`view-${view}`).onclick = () => {
+    viewChosen = true;
+    circuitView = view;
+    applyView();
+    resizeAssembly();
+  };
+function renderInspector() {
+  const p = circuit.components.find((part) => part.id === focusedId);
+  if (!p) {
+    $("component-inspector").innerHTML =
+      '<span class="eyebrow">SELECT A COMPONENT</span><h3>Look at the connection.</h3><p>Select a part to inspect its terminals and related evidence.</p>';
+    return;
+  }
+  const issues =
+    result?.issues.filter((issue) => issue.components.includes(p.id)) || [];
+  $("component-inspector").innerHTML =
+    `<span class="eyebrow">${esc(p.type.toUpperCase())} / ${issues.length ? "FINDING" : "CONNECTION"}</span><h3>${esc(p.id)}</h3><div class="inspector-terminals"><label>A / ${p.type === "led" ? "anode" : "terminal"}<input aria-label="Inspect ${esc(p.id)} terminal A" data-inspect="a" value="${esc(p.a)}" maxlength="5"></label><span>→</span><label>B / ${p.type === "led" ? "cathode" : "terminal"}<input aria-label="Inspect ${esc(p.id)} terminal B" data-inspect="b" value="${esc(p.b)}" maxlength="5"></label></div>${p.type === "resistor" ? `<p>${esc(p.value)} Ω / current limiting</p>` : p.type === "button" ? `<p>${p.closed ? "Closed" : "Open"} / switch state</p>` : ""}<div class="inspector-evidence">${
+      issues.length
+        ? `<strong>${esc(issues[0].title)}</strong><p>${esc(issues[0].evidence)}</p><p>${esc(issues[0].fix)}</p>${
+            issues.length > 1
+              ? `<details><summary>${issues.length - 1} related findings</summary>${issues
+                  .slice(1)
+                  .map(
+                    (issue) =>
+                      `<p><strong>${esc(issue.title)}</strong><br>${esc(issue.evidence)}</p>`,
+                  )
+                  .join("")}</details>`
+              : ""
+          }`
+        : `<p>${result ? "No supported-rule finding for this part." : "Review both terminals, then confirm and analyze."}</p>`
+    }</div>${p.type === "led" ? '<button id="swap-polarity" class="secondary small">Swap A / K →</button>' : ""}`;
+}
+$("component-inspector").addEventListener("change", (e) => {
+  if (!e.target.dataset.inspect) return;
+  const p = circuit.components.find((part) => part.id === focusedId);
+  if (!p) return;
+  const id = p.id;
+  p[e.target.dataset.inspect] = e.target.value.trim().toUpperCase();
+  invalidate();
+  renderEditor();
+  focusComponent(
+    circuit.components.findIndex((part) => part.id === id),
+    false,
+  );
+});
+$("component-inspector").addEventListener("click", (e) => {
+  if (e.target.id !== "swap-polarity") return;
+  const p = circuit.components.find((part) => part.id === focusedId);
+  const id = p.id;
+  [p.a, p.b] = [p.b, p.a];
+  invalidate();
+  renderEditor();
+  focusComponent(
+    circuit.components.findIndex((part) => part.id === id),
+    false,
+  );
+  $("live-graph")
+    .querySelector(
+      `.model-part[data-component="${circuit.components.indexOf(p)}"]`,
+    )
+    ?.classList.add("repair-turn");
+});
 function focusComponent(index, navigate = true) {
   const row = $("components").querySelector(`[data-index="${index}"]`);
   if (!row) return;
   document
-    .querySelectorAll("tr.selected, .schematic-part.selected")
+    .querySelectorAll("tr.selected, [data-component].selected")
     .forEach((el) => el.classList.remove("selected"));
   focusedId = circuit.components[index].id;
   row.classList.add("selected");
@@ -90,12 +209,19 @@ function focusComponent(index, navigate = true) {
   $("focus-readout").textContent =
     `${focusedId} / linked observation · topology · evidence`;
   renderImage();
+  renderInspector();
   $("live-graph")
-    .querySelector(`[data-component="${index}"]`)
-    ?.classList.add("selected");
+    .querySelectorAll(`[data-component="${index}"]`)
+    .forEach((part) => part.classList.add("selected"));
   if (navigate) {
-    row.querySelector('[data-field="a"]').focus();
-    row.scrollIntoView({ block: "center", behavior: motion() });
+    $("component-inspector")
+      .querySelector("input")
+      ?.focus({ preventScroll: true });
+    if (matchMedia("(max-width: 1000px)").matches)
+      $("component-inspector").scrollIntoView({
+        block: "nearest",
+        behavior: motion(),
+      });
   }
 }
 $("components").addEventListener("focusin", (e) => {
@@ -113,6 +239,10 @@ $("reduce-motion").onclick = () => {
   const reduced = document.body.classList.toggle("reduced-motion");
   $("reduce-motion").setAttribute("aria-pressed", String(reduced));
   $("reduce-motion").textContent = reduced ? "Motion reduced" : "Reduce motion";
+  if (reduced) {
+    circuitView = "schematic";
+    applyView();
+  }
 };
 $("live-graph").addEventListener("click", (e) => {
   const part = e.target.closest("[data-component]");
@@ -147,6 +277,16 @@ function renderEditor() {
         `<tr data-index="${i}" class="${result?.issues.some((x) => x.components.includes(p.id)) ? "flagged" : ""}"><td><input aria-label="Component ${i + 1} ID" data-field="id" value="${esc(p.id)}"><select aria-label="${esc(p.id)} type" data-field="type">${["wire", "resistor", "led", "button"].map((t) => `<option ${t === p.type ? "selected" : ""}>${t}</option>`).join("")}</select><button class="text-button" data-mark="${i}" aria-label="Mark ${esc(p.id)} terminals">Mark ↗</button></td><td><input aria-label="${esc(p.id)} terminal A" data-field="a" value="${esc(p.a)}" maxlength="5"></td><td><input aria-label="${esc(p.id)} terminal B" data-field="b" value="${esc(p.b)}" maxlength="5"></td><td>${p.type === "resistor" ? `<input type="number" aria-label="${esc(p.id)} resistance" data-field="value" min="1" max="10000000" value="${p.value}">` : p.type === "button" ? `<select aria-label="${esc(p.id)} state" data-field="closed"><option value="true" ${p.closed ? "selected" : ""}>Closed</option><option value="false" ${!p.closed ? "selected" : ""}>Open</option></select>` : `<span class="helper">—</span>`}</td><td><button class="remove" data-remove="${i}" aria-label="Remove ${esc(p.id)}">×</button></td></tr>`,
     )
     .join("");
+  renderInspector();
+  if (focusedId) {
+    const index = circuit.components.findIndex((part) => part.id === focusedId);
+    $("live-graph")
+      .querySelectorAll(`[data-component="${index}"]`)
+      .forEach((part) => part.classList.add("selected"));
+    $("components")
+      .querySelector(`[data-index="${index}"]`)
+      ?.classList.add("selected");
+  }
 }
 function renderImage() {
   if (!image) return;
@@ -255,6 +395,13 @@ async function loadExample(id) {
   }
   scrollBench();
   await analyzeCircuit(false);
+  const selected = result?.issues[0]?.components[0];
+  const index = selected
+    ? circuit.components.findIndex((part) => part.id === selected)
+    : circuit.components.findIndex(
+        (part) => part.type === "led" || part.type === "resistor",
+      );
+  if (index >= 0) focusComponent(index, false);
 }
 function reset() {
   perception?.reset();
@@ -329,6 +476,12 @@ function renderResults() {
     .join("");
   $("bench-evidence").innerHTML = result.issues.length
     ? result.issues
+        .filter(
+          (issue, index, all) =>
+            all.findIndex(
+              (other) => other.components[0] === issue.components[0],
+            ) === index,
+        )
         .map(
           (i) =>
             `<button class="docked-finding" data-focus-component="${esc(i.components[0] || "")}"><span>${esc(i.title)}</span><small>${esc(i.components.join(" / "))} ↗</small></button>`,
@@ -554,9 +707,11 @@ $("upload").onchange = async (e) => {
     error(e.message);
   } finally {
     URL.revokeObjectURL(url);
-    $("upload").value = "";
+    e.target.value = "";
   }
 };
+$("capture-photo").onclick = () => $("camera-upload").click();
+$("camera-upload").onchange = $("upload").onchange;
 $("reset").onclick = () => {
   reset();
   scrollBench();
@@ -631,13 +786,8 @@ perception = initPerception({
       }));
     renderEditor();
     renderImage();
-    $("components").scrollIntoView({
-      behavior:
-        document.body.classList.contains("reduced-motion") ||
-        matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-    });
+    scrollBench();
+    if (circuit.components.length) focusComponent(0, false);
   },
   onImage: async (demo) => {
     reset();

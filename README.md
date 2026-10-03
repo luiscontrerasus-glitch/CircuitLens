@@ -2,9 +2,11 @@
 
 **See the fault. Understand the fix.** An electronics debugging workbench with structured visual suggestions, human review and deterministic circuit reasoning.
 
-> The latest cinematic frontend is implemented and passes 44 tests. Browser review and new captures are pending because local browser access was denied. The screenshot below depicts the previous verified design, not the latest cinematic scenes. See [current verification](submission/evaluation/cinematic-verification.md).
+The current frontend is an industrial field instrument with a continuous, scroll-driven CSS 3D assembly, raised components, an editable schematic and a linked component inspector. The main workflow is upload or choose a demo, review connections, then understand and correct the fault. Advanced settings and perception consent are disclosed on demand. Phone layouts default to a scrollable schematic with readable connection rows; reduced motion collapses the scroll story into a directly navigable scene.
 
-![Previous verified CircuitLens design](submission/gibc-v2/screenshots-final/01-hero.jpg)
+The redesign passes **48 automated tests**, a production build and smoke check, and browser interaction checks for all seven demos. See [verification and limitations](submission/evaluation/instrument-verification.md) and [the selected screenshots](submission/screenshots-instrument/final/SELECTED.md).
+
+![CircuitLens engineering instrument](submission/screenshots-instrument/final/07-linked-workbench.png)
 
 > **Current verification boundary:** The runtime OpenAI integration is implemented, but successful live recognition has not been verified. On October 1, five Responses API attempts (correct image three times, reversed once, disconnected once) returned HTTP 429; the diagnostic response identified `credit_balance_exhausted` / `insufficient_quota`. Authentication and access to the selected model were separately verified with HTTP 200 from the models endpoint. No successful model observations, recognition accuracy, or real-hardware validation are claimed. Automated/provider-simulated checks and manual graph demos are separate evidence.
 

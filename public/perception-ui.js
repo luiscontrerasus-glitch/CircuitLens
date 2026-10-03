@@ -1,4 +1,25 @@
 import { analysisPhase } from "./instrument.js";
+import { terminalNet } from "./schematic.js";
+export function canBuildObservations(observations) {
+  const parts = observations?.components || [];
+  if (parts.some((part) => part.review === "pending")) return false;
+  const accepted = parts.filter((part) => part.review === "accepted");
+  return (
+    accepted.length > 0 &&
+    new Set(accepted.map((part) => part.id)).size === accepted.length &&
+    accepted.every(
+      (part) =>
+        ["wire", "resistor", "led", "button"].includes(part.type) &&
+        terminalNet(part.a.hole) &&
+        terminalNet(part.b.hole) &&
+        (part.type !== "resistor" ||
+          (Number.isFinite(part.value) &&
+            part.value >= 1 &&
+            part.value <= 10000000)) &&
+        (part.type !== "button" || typeof part.closed === "boolean"),
+    )
+  );
+}
 const $ = (id) => document.getElementById(id),
   esc = (s) =>
     String(s).replace(
@@ -66,11 +87,10 @@ export function initPerception({
         return `<article class="detection ${p.review} ${low ? "uncertain" : ""}" data-detection="${i}"><div class="detection-title"><button class="text-button" data-focus="${i}">${esc(p.id)} · highlight</button><span>${low ? "REVIEW CAREFULLY" : "REVIEW REQUIRED"} · ${Math.round(p.confidence * 100)}%*</span><strong>${esc(p.review)}${p.edited ? " · edited" : ""}</strong></div><p>${esc(p.evidence)}</p><div class="detection-fields"><label>ID<input data-key="id" value="${esc(p.id)}" aria-label="Detection ${i + 1} ID"></label><label>Type<select data-key="type" aria-label="${esc(p.id)} detected type">${["wire", "resistor", "led", "button", "unknown"].map((t) => `<option ${p.type === t ? "selected" : ""}>${t}</option>`).join("")}</select></label><label>A / anode (${Math.round(p.a.confidence * 100)}%*)<input data-key="a" placeholder="Unknown" value="${esc(p.a.hole ?? "")}" aria-label="${esc(p.id)} detected terminal A"></label><label>B / cathode (${Math.round(p.b.confidence * 100)}%*)<input data-key="b" placeholder="Unknown" value="${esc(p.b.hole ?? "")}" aria-label="${esc(p.id)} detected terminal B"></label>${p.type === "resistor" ? `<label>Resistance (Ω)<input type="number" data-key="value" placeholder="Unknown" value="${p.value ?? ""}" aria-label="${esc(p.id)} detected resistance"></label>` : ""}${p.type === "button" ? `<label>Switch state<select data-key="closed" aria-label="${esc(p.id)} detected state"><option value="" ${p.closed === null ? "selected" : ""}>Unknown</option><option value="true" ${p.closed === true ? "selected" : ""}>Closed</option><option value="false" ${p.closed === false ? "selected" : ""}>Open</option></select></label>` : ""}</div><div class="detection-actions"><button class="secondary small" data-review="accepted" data-i="${i}">Accept ${esc(p.id)}</button><button class="text-button" data-review="rejected" data-i="${i}">Reject ${esc(p.id)}</button></div></article>`;
       })
       .join("");
-    $("vision-apply").disabled =
-      busy ||
-      !obs.components.length ||
-      obs.components.some((p) => p.review === "pending") ||
-      !obs.components.some((p) => p.review === "accepted");
+    $("vision-apply").disabled = busy || !canBuildObservations(obs);
+    $("review-readiness").textContent = canBuildObservations(obs)
+      ? "Accepted connections are ready to build. Engineering checks follow your confirmation."
+      : "Review every detection. Resolve unknown terminals, values and switch states in accepted parts; keep IDs unique.";
     updateReviewSummary();
   }
   async function run(recorded = false) {

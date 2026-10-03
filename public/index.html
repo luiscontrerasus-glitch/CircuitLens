@@ -21,7 +21,7 @@
         ><img class="logo" src="/favicon.svg" alt="" />Circuit<span
           >Lens</span
         ></a
-      ><span class="header-label">THE ELECTRONICS DEBUGGING WORKBENCH</span>
+      ><span class="header-label">FIELD INSTRUMENT / 001</span>
       <nav aria-label="Main navigation">
         <a href="#examples">Demo library</a
         ><a href="#architecture">Inside the engine</a
@@ -45,14 +45,13 @@
               <p id="story-note" class="eyebrow">01 / PHYSICAL CIRCUIT</p>
               <h1 id="story-heading">See<br />what’s wrong.</h1>
               <p id="story-copy">
-                A dark LED. One wrong connection.<br />Make the invisible
-                understandable.
+                Turn a circuit photo into connections you can review. Find the
+                fault. Understand the repair.
               </p>
               <div class="cinema-actions">
-                <button id="try-demo" class="primary">
-                  Diagnose a dark LED →</button
+                <button id="try-demo" class="primary">Try a circuit →</button
                 ><button id="start" class="text-button">
-                  Open a circuit photo ↗
+                  Upload a photo ↗
                 </button>
               </div>
             </div>
@@ -290,7 +289,7 @@
         <div class="section-head">
           <div>
             <div class="eyebrow">02 / ENGINEERING WORKBENCH</div>
-            <h2>From observation to understanding.</h2>
+            <h2>Your circuit. Under the lens.</h2>
           </div>
           <div class="bench-navigation">
             <button id="findings-jump" class="secondary small" hidden>
@@ -299,9 +298,9 @@
           </div>
         </div>
         <ol class="steps">
-          <li class="active">1 <span>Capture</span></li>
-          <li>2 <span>Confirm connections</span></li>
-          <li>3 <span>Understand & fix</span></li>
+          <li class="active">01 <span>Upload or choose a demo</span></li>
+          <li>02 <span>Review the connections</span></li>
+          <li>03 <span>Understand & correct</span></li>
         </ol>
         <div id="analysis-pipeline" class="analysis-pipeline" data-phase="idle">
           <div class="pipeline-stages" aria-hidden="true">
@@ -319,6 +318,20 @@
         <output id="focus-readout" class="focus-readout" aria-live="polite"
           >SELECT A COMPONENT / link observation, topology and evidence</output
         >
+        <section class="examples-section" id="examples">
+          <div class="section-head">
+            <div>
+              <div class="eyebrow">01 / DEMO LIBRARY</div>
+              <h2>Seven circuits. Seven investigations.</h2>
+            </div>
+            <p>Simulated inputs / deterministic engineering checks</p>
+          </div>
+          <div
+            id="example-list"
+            class="example-list"
+            aria-label="Example circuits"
+          ></div>
+        </section>
         <div class="bench-grid">
           <div class="visual-panel">
             <div class="panel-head">
@@ -352,16 +365,26 @@
             <div class="image-tools">
               <button id="replace-photo" class="text-button">
                 Upload / replace photo</button
+              ><button id="capture-photo" class="text-button">
+                Photograph ↗</button
               ><label
                 ><input id="features" type="checkbox" /> Highlight color
                 features</label
               >
             </div>
+            <input
+              type="file"
+              id="camera-upload"
+              accept="image/jpeg,image/png,image/webp"
+              capture="environment"
+              hidden
+            />
             <p id="image-help" class="helper">
               Run live vision to propose components and terminals. Review each
               detection before constructing the circuit graph.
             </p>
-            <div class="vision-control">
+            <details class="vision-control">
+              <summary>AI observations · availability & consent</summary>
               <h3>Visual perception</h3>
               <p id="vision-model" class="helper">
                 Checking vision availability...
@@ -390,7 +413,7 @@
                 remains available.
               </p>
               <p id="vision-status" class="helper" role="status"></p>
-            </div>
+            </details>
             <div class="legend">
               <span><i class="dot resistor"></i> Resistor</span
               ><span><i class="dot led"></i> LED</span
@@ -404,78 +427,102 @@
               <span class="badge">EDITABLE TOPOLOGY</span>
             </div>
             <div class="schematic-head">
-              <span>TERMINAL TOPOLOGY</span
-              ><span id="graph-status">AWAITING INPUT</span>
+              <div class="view-switch" role="group" aria-label="Circuit view">
+                <button id="view-assembly" aria-pressed="true">Assembly</button>
+                <button id="view-schematic" aria-pressed="false">
+                  Schematic
+                </button>
+              </div>
+              <span id="graph-status">AWAITING INPUT</span>
             </div>
             <div id="live-graph" class="live-graph"></div>
             <div id="bench-evidence" class="bench-evidence" aria-live="polite">
               ENGINEERING / confirm connections to trace evidence
             </div>
             <p class="graph-caption">
-              Select a component to edit its terminals. This view shows
-              breadboard groups before wire nets are merged.
+              Select a part to link its image, connections and evidence.
+              Assembly positions represent logical terminals, not inferred photo
+              geometry.
             </p>
           </section>
           <div class="editor-panel">
             <div class="panel-head">
-              <h3>03 / Properties & connections</h3>
-              <span class="badge">HUMAN IN THE LOOP</span>
+              <h3>03 / Component inspector</h3>
+              <span class="badge">REVIEW & CORRECT</span>
             </div>
-            <div class="form-row">
-              <label
-                >Intended circuit<select id="reference">
-                  <option value="">No reference · safety checks only</option>
-                </select></label
-              ><label class="voltage-label"
-                >Supply (V)<input
-                  type="number"
-                  id="voltage"
-                  min="0.1"
-                  max="12"
-                  step="0.1"
-                  value="5"
-              /></label>
-            </div>
-            <details>
-              <summary>How breadboard terminals work</summary>
+            <div
+              id="component-inspector"
+              class="component-inspector"
+              aria-live="polite"
+            >
+              <span class="eyebrow">NO COMPONENT SELECTED</span>
+              <h3>Look at the connection.</h3>
               <p>
-                A1–E1 share a net; F1–J1 share a separate net. Rows 1–30 are
-                isolated. VCC and GND are logical continuous rails. Verify split
-                rails on your real board. LED terminal A means anode; B means
-                cathode. Resistor A/B labels are matched to the reference.
+                Select a part in the assembly or schematic to inspect its
+                terminals and related findings.
               </p>
-            </details>
+            </div>
+            <details class="connection-editor" id="connection-editor">
+              <summary>All connections & circuit settings</summary>
+              <div class="form-row">
+                <label
+                  >Intended circuit<select id="reference">
+                    <option value="">No reference · safety checks only</option>
+                  </select></label
+                ><label class="voltage-label"
+                  >Supply (V)<input
+                    type="number"
+                    id="voltage"
+                    min="0.1"
+                    max="12"
+                    step="0.1"
+                    value="5"
+                /></label>
+              </div>
+              <details>
+                <summary>How breadboard terminals work</summary>
+                <p>
+                  A1–E1 share a net; F1–J1 share a separate net. Rows 1–30 are
+                  isolated. VCC and GND are logical continuous rails. Verify
+                  split rails on your real board. LED terminal A means anode; B
+                  means cathode. Resistor A/B labels are matched to the
+                  reference.
+                </p>
+              </details>
 
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>ID / type</th>
-                    <th>A / anode</th>
-                    <th>B / cathode</th>
-                    <th>Ω / state</th>
-                    <th><span class="sr-only">Remove</span></th>
-                  </tr>
-                </thead>
-                <tbody id="components"></tbody>
-              </table>
-            </div>
-            <p id="empty-components" class="helper">
-              Add each visible component and its two terminals.
-            </p>
-            <div class="editor-actions">
-              <button id="add" class="secondary small">+ Component</button
-              ><button id="import" class="text-button">Import JSON</button
-              ><input
-                type="file"
-                id="netlist"
-                accept=".json,application/json"
-                hidden
-              /><button id="export" class="text-button">Export JSON ↗</button>
-            </div>
-            <details id="reference-detail">
-              <summary>View intended connections</summary>
-              <pre id="reference-preview">Choose a reference above.</pre>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID / type</th>
+                      <th>A / anode</th>
+                      <th>B / cathode</th>
+                      <th>Ω / state</th>
+                      <th><span class="sr-only">Remove</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="components"></tbody>
+                </table>
+              </div>
+              <p id="empty-components" class="helper">
+                Add each visible component and its two terminals.
+              </p>
+              <div class="editor-actions">
+                <button id="add" class="secondary small">+ Component</button
+                ><button id="import" class="text-button">Import JSON</button
+                ><input
+                  type="file"
+                  id="netlist"
+                  accept=".json,application/json"
+                  hidden
+                /><button id="export" class="text-button">
+                  Export JSON ↗
+                </button>
+              </div>
+              <details id="reference-detail">
+                <summary>View intended connections</summary>
+                <pre id="reference-preview">Choose a reference above.</pre>
+              </details>
             </details>
             <label class="confirm"
               ><input type="checkbox" id="confirmed" /> I checked the component
@@ -536,6 +583,7 @@
             Build circuit from accepted observations
           </button>
         </div>
+        <p id="review-readiness" class="helper" aria-live="polite"></p>
         <details>
           <summary>Inspect structured observations</summary>
           <pre id="observation-json"></pre>
@@ -581,21 +629,10 @@
           Select JSON to copy
         </button>
       </section>
-      <section class="examples-section" id="examples">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">01 / DEMO LIBRARY</div>
-            <h2>Pick a circuit. Trace the problem.</h2>
-          </div>
-          <p>Generated diagrams • editable fixtures • live rule engine</p>
-        </div>
-        <div
-          id="example-list"
-          class="example-list"
-          aria-label="Example circuits"
-        ></div>
-      </section>
-      <section class="vision-experiments">
+      <details class="vision-experiments">
+        <summary>
+          Advanced · synthetic images for perception experiments
+        </summary>
         <div class="section-head">
           <div>
             <div class="eyebrow">PIXELS TO OBSERVATIONS TO ENGINEERING</div>
@@ -604,8 +641,11 @@
           <p>Three synthetic images - no diagnoses supplied to the model</p>
         </div>
         <div id="vision-demos" class="editor-actions"></div>
-      </section>
-      <section id="architecture" class="architecture">
+      </details>
+      <details id="architecture" class="architecture">
+        <summary>
+          Inside the instrument · how observations become evidence
+        </summary>
         <div class="section-head">
           <div>
             <div class="eyebrow">INSIDE THE INSTRUMENT</div>
@@ -674,20 +714,7 @@
             Unknown terminals stay unknown until you resolve them.
           </p>
         </div>
-      </section>
-      <section class="film-ending" aria-label="Circuit story conclusion">
-        <div class="ending-circuit" aria-hidden="true">
-          <svg viewBox="0 0 900 150">
-            <path
-              d="M30 75H310l12-20 18 40 18-40 18 40 12-20H580m0-20v40l35-20zM620 55v40m0-20h250"
-            />
-          </svg>
-        </div>
-        <p class="eyebrow">CIRCUITLENS / THE PATH IS CLEAR</p>
-        <h2>See the fault.<br />Understand the fix.</h2>
-        <a class="primary" href="#workbench">Try CircuitLens ↗</a>
-        <p class="helper">AI observes. Engineering rules reason.</p>
-      </section>
+      </details>
     </main>
     <footer>
       <a class="brand" href="/">CircuitLens</a

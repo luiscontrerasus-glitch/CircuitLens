@@ -1,0 +1,172 @@
+{
+  "demos": [
+    {
+      "id": "healthy",
+      "issues": 0,
+      "parts": 4,
+      "rows": 4,
+      "status": "RULE CHECKS PASSED",
+      "summary": "No supported-rule faults found"
+    },
+    {
+      "id": "reversed",
+      "issues": 4,
+      "parts": 4,
+      "rows": 4,
+      "status": "FINDINGS HIGHLIGHTED",
+      "summary": "Review the highlighted connections"
+    },
+    {
+      "id": "disconnected",
+      "issues": 2,
+      "parts": 4,
+      "rows": 4,
+      "status": "FINDINGS HIGHLIGHTED",
+      "summary": "Review the highlighted connections"
+    },
+    {
+      "id": "no-resistor",
+      "issues": 3,
+      "parts": 4,
+      "rows": 4,
+      "status": "FINDINGS HIGHLIGHTED",
+      "summary": "Disconnect power before making changes"
+    },
+    {
+      "id": "short",
+      "issues": 3,
+      "parts": 5,
+      "rows": 5,
+      "status": "FINDINGS HIGHLIGHTED",
+      "summary": "Disconnect power before making changes"
+    },
+    {
+      "id": "divider",
+      "issues": 0,
+      "parts": 4,
+      "rows": 4,
+      "status": "RULE CHECKS PASSED",
+      "summary": "No supported-rule faults found"
+    },
+    {
+      "id": "button",
+      "issues": 0,
+      "parts": 5,
+      "rows": 5,
+      "status": "RULE CHECKS PASSED",
+      "summary": "No supported-rule faults found"
+    }
+  ],
+  "correction": "D1 swapped D18/D12 to D12/D18; re-analysis passed",
+  "export": {
+    "data": {
+      "components": [
+        {
+          "a": "VCC",
+          "b": "A5",
+          "id": "W1",
+          "type": "wire"
+        },
+        {
+          "a": "B5",
+          "b": "B12",
+          "id": "R1",
+          "type": "resistor",
+          "value": 330
+        },
+        {
+          "a": "D18",
+          "b": "D12",
+          "id": "D1",
+          "type": "led"
+        },
+        {
+          "a": "A18",
+          "b": "GND",
+          "id": "W2",
+          "type": "wire"
+        }
+      ],
+      "name": "LED + current limiter",
+      "voltage": 5
+    },
+    "title": "circuitlens-netlist.json"
+  },
+  "reset": {
+    "exportHidden": true,
+    "photoHidden": true,
+    "resultsHidden": true,
+    "rows": 0
+  },
+  "upload": {
+    "capture": "environment",
+    "consent": false,
+    "photoHidden": false,
+    "source": "YOUR PHOTO"
+  },
+  "mobile": {
+    "assemblyNodes": 0,
+    "connections": 4,
+    "default": "true",
+    "overflow": false,
+    "size": [390, 844]
+  },
+  "reduced": {
+    "flow": "none",
+    "height": 900.0000610351562,
+    "os": true,
+    "staticStory": true
+  },
+  "manualReduced": {
+    "enabled": true,
+    "flow": "none",
+    "staticStory": true
+  },
+  "perception": {
+    "components": 4,
+    "provenance": "SIMULATED TEST RESPONSE · NOT AI INFERENCE · TEST FIXTURE - NOT LIVE AI · 10/3/2026, 12:07:23 PM",
+    "status": "RULE CHECKS PASSED"
+  },
+  "unknownBlocks": true,
+  "photoSelection": {
+    "inspector": "R1",
+    "linkedParts": 4,
+    "readout": "R1 / linked observation · topology · evidence"
+  },
+  "reportExport": {
+    "analysis": "review",
+    "title": "circuitlens-report.json"
+  },
+  "pointer": {
+    "pitch": "0.30320478554715485deg",
+    "yaw": "2.400000325986514deg"
+  },
+  "tablet": {
+    "columns": "295.83px 443.759px",
+    "overflow": false,
+    "size": [820, 1180]
+  },
+  "smallPhone": {
+    "controlsBottom": 652.4286251068115,
+    "overflow": false,
+    "sceneHeight": 667.4285888671875,
+    "size": [375, 667]
+  },
+  "wide": {
+    "overflow": false,
+    "size": [1920, 1080]
+  },
+  "import": {
+    "components": 4,
+    "confirmed": false,
+    "resultsHidden": true,
+    "errorHidden": true
+  },
+  "console": [],
+  "shortLaptop": {
+    "actionsVisibility": "hidden",
+    "copyEvidenceOverlap": false,
+    "overflow": false,
+    "size": [1280, 720]
+  }
+}

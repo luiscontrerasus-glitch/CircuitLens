@@ -6,6 +6,7 @@ const files = [
   "cinematic.css",
   "app.js",
   "cinematic.js",
+  "assembly.js",
   "instrument.js",
   "circuit-object.svg",
   "favicon.svg",
@@ -34,7 +35,7 @@ const report = {
   total_gzip_bytes: assets.reduce((n, a) => n + a.gzip_bytes, 0),
 };
 await writeFile(
-  "submission/evaluation/cinematic-asset-sizes.json",
+  process.argv[2] || "submission/evaluation/cinematic-asset-sizes.json",
   JSON.stringify(report, null, 2) + "\n",
 );
 console.log(

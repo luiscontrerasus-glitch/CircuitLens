@@ -1,0 +1,89 @@
+{
+  "captures": [
+    {
+      "filename": "01-circuit-study.png",
+      "width": 1425,
+      "height": 891,
+      "bytes": 63117,
+      "sha256": "fef472b67bf55ff18134b63af5d46cbc869580345cbc43c89c1672866484324b"
+    },
+    {
+      "filename": "02-exploded-model.png",
+      "width": 1425,
+      "height": 891,
+      "bytes": 72957,
+      "sha256": "4db1bf9ece76d379f356905864fc4dfb624d66054832da7cab28f68df75e5f35"
+    },
+    {
+      "filename": "03-review-candidates.png",
+      "width": 1425,
+      "height": 891,
+      "bytes": 71128,
+      "sha256": "639beaaf51eef10067153edf290a9a41c7bfdce76c8cf6e56612fb3403cfc0c3"
+    },
+    {
+      "filename": "04-trace-signal.png",
+      "width": 1425,
+      "height": 891,
+      "bytes": 70138,
+      "sha256": "0f8065c809d98f8bd24e7661e515e639e7495685b4c9feaca868ac32a5761821"
+    },
+    {
+      "filename": "05-fault-evidence.png",
+      "width": 1425,
+      "height": 891,
+      "bytes": 82488,
+      "sha256": "e7fc3ef5452f63374499190e3a8e392be74501f4c348c9d6e86f3f00a670acb1"
+    },
+    {
+      "filename": "06-restored-path.png",
+      "width": 1425,
+      "height": 891,
+      "bytes": 77060,
+      "sha256": "2ab2bf449f58489827bd39be1aadcf27b909d97de276daddf4bfb713403cd498"
+    },
+    {
+      "filename": "07-linked-workbench.png",
+      "width": 1425,
+      "height": 891,
+      "bytes": 102570,
+      "sha256": "cdf57c7575ebf8514415fb67f41fbe4e9d9865f117775338701ec26ebfaa7f7e"
+    },
+    {
+      "filename": "08-linked-schematic.png",
+      "width": 1425,
+      "height": 891,
+      "bytes": 105953,
+      "sha256": "2124c5c169966501bb72aa9a6df08ff2b269801ec54113870b919d14bb1492eb"
+    },
+    {
+      "filename": "09-tablet-instrument.png",
+      "width": 805,
+      "height": 1016,
+      "bytes": 78414,
+      "sha256": "f3a81dece8b1581781ee61774563ff9cdc49948494a36d3ffa8c17d5c6a1b468"
+    },
+    {
+      "filename": "10-mobile-connections.png",
+      "width": 375,
+      "height": 811,
+      "bytes": 35419,
+      "sha256": "5c4c04aa0e884a1cdd0ff5ac62290ff1319553fc072c1d491b33f5f43276f1ce"
+    },
+    {
+      "filename": "11-simulated-review.png",
+      "width": 1265,
+      "height": 712,
+      "bytes": 74019,
+      "sha256": "180d70d26fb82de6e935d8045410e07b2b17cf423481c5349bb5605ba402f6de"
+    },
+    {
+      "filename": "12-mobile-study.png",
+      "width": 375,
+      "height": 811,
+      "bytes": 28347,
+      "sha256": "00c65d84066f74ac01d36eef29187acde1e0b5cae6ec53f941b05d3d0233d2af"
+    }
+  ],
+  "all_pngs_decoded": true
+}

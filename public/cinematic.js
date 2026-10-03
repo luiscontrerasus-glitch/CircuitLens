@@ -3,7 +3,7 @@ export const storyScenes = [
     id: "physical",
     label: "The circuit",
     heading: "See what’s<br><em>wrong.</em>",
-    copy: "A dark LED. One wrong connection.",
+    copy: "Turn a circuit photo into connections you can review. Find the fault. Understand the repair.",
     note: "01 / PHYSICAL CIRCUIT",
     readout: "A circuit waiting to be understood.",
     action: "Explore the signal ↓",
@@ -73,6 +73,23 @@ export function sceneAt(progress) {
     ),
   );
 }
+export function cameraAt(progress) {
+  const p = Number.isFinite(progress) ? Math.max(0, Math.min(1, progress)) : 0;
+  const keys = [
+    [48, -8, -18, 0],
+    [32, 5, -12, 0],
+    [22, -6, 0, 90],
+    [30, 4, 8, 22],
+    [22, -4, -6, 45],
+    [38, 6, -12, 14],
+    [42, 0, -10, 0],
+  ];
+  const step = p * 6,
+    i = Math.min(5, Math.floor(step));
+  const t = step - i,
+    smooth = t * t * (3 - 2 * t);
+  return keys[i].map((value, j) => value + (keys[i + 1][j] - value) * smooth);
+}
 export function initCinematic() {
   const root = document.querySelector(".cinema");
   if (!root) return;
@@ -87,6 +104,7 @@ export function initCinematic() {
     index = next;
     const scene = storyScenes[index];
     root.dataset.scene = scene.id;
+    root.querySelector(".fault-evidence").hidden = scene.id !== "diagnosis";
     document.body.dataset.storyScene = scene.id;
     root.querySelector("#story-heading").innerHTML = scene.heading;
     root.querySelector("#story-copy").innerHTML = scene.copy;
@@ -110,6 +128,11 @@ export function initCinematic() {
     if (reduced() || manual) return;
     const progress = Math.max(0, Math.min(1, -rect.top / Math.max(1, span)));
     show(sceneAt(progress));
+    const [x, y, z, lift] = cameraAt(progress);
+    root.style.setProperty("--camera-x", `${x}deg`);
+    root.style.setProperty("--camera-y", `${y}deg`);
+    root.style.setProperty("--camera-z", `${z}deg`);
+    root.style.setProperty("--component-lift", `${lift}px`);
     root.style.setProperty("--story-progress", String(progress));
     root.style.setProperty("--scroll-rotation", `${progress * 12}deg`);
   };
@@ -186,6 +209,11 @@ export function initCinematic() {
   show(0);
   refreshMotion();
   queue();
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver((entries) =>
+      root.classList.toggle("offscreen", !entries[0].isIntersecting),
+    ).observe(root);
+  }
   // Architecture reveals by visibility; no autoplay timer or artificial delay.
   const stages = document.querySelectorAll(".architecture-flow > div");
   const process = document.querySelector(".process-instrument");
