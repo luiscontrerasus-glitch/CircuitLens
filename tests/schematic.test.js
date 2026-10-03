@@ -4,6 +4,45 @@ import { terminalNet, schematicMarkup } from "../public/schematic.js";
 import { nodeOf, analyze } from "../src/engine.js";
 import { examples } from "../src/examples.js";
 
+test("compact diagrams preserve every editable part and keep symbols within the canvas", () => {
+  for (const example of examples) {
+    const result = analyze(example.circuit);
+    const compact = schematicMarkup(
+      example.circuit,
+      result.issues,
+      result.status,
+      true,
+    );
+    const desktop = schematicMarkup(
+      example.circuit,
+      result.issues,
+      result.status,
+    );
+    const ids = (view) =>
+      [...view.matchAll(/data-component="(\d+)"/g)].map((m) => m[1]);
+    assert.deepEqual(ids(compact), ids(desktop));
+    const [, width, height] = /viewBox="0 0 (\d+) (\d+)"/
+      .exec(compact)
+      .map(Number);
+    for (const match of compact.matchAll(
+      /class="symbol" transform="translate\(([\d.]+) ([\d.]+)\)/g,
+    )) {
+      assert.ok(
+        Number(match[1]) - 28 >= 0 && Number(match[1]) + 28 <= width,
+        example.id,
+      );
+      assert.ok(
+        Number(match[2]) - 30 >= 0 && Number(match[2]) + 23 <= height,
+        example.id,
+      );
+    }
+    assert.equal(
+      (compact.match(/class="schematic-part [^"]*faulty/g) || []).length,
+      (desktop.match(/class="schematic-part [^"]*faulty/g) || []).length,
+    );
+  }
+});
+
 test("schematic terminal labels agree with engine across all 300 breadboard holes", () => {
   for (const column of "ABCDEFGHIJ")
     for (let row = 1; row <= 30; row++) {

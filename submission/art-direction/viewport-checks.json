@@ -1,0 +1,50 @@
+[
+  {
+    "brokenImages": 0,
+    "overflow": false,
+    "url": "http://127.0.0.1:3005/?final=1440",
+    "width": 1440
+  },
+  {
+    "brokenImages": 0,
+    "overflow": false,
+    "url": "http://127.0.0.1:3005/workbench.html?demo=reversed&final=1440",
+    "width": 1440
+  },
+  {
+    "brokenImages": 0,
+    "overflow": false,
+    "url": "http://127.0.0.1:3005/?final=1920",
+    "width": 1920
+  },
+  {
+    "brokenImages": 0,
+    "overflow": false,
+    "url": "http://127.0.0.1:3005/workbench.html?demo=reversed&final=1920",
+    "width": 1920
+  },
+  {
+    "brokenImages": 0,
+    "overflow": false,
+    "url": "http://127.0.0.1:3005/?final=768",
+    "width": 768
+  },
+  {
+    "brokenImages": 0,
+    "overflow": false,
+    "url": "http://127.0.0.1:3005/workbench.html?demo=reversed&final=768",
+    "width": 768
+  },
+  {
+    "brokenImages": 0,
+    "overflow": false,
+    "url": "http://127.0.0.1:3005/?final=390",
+    "width": 390
+  },
+  {
+    "brokenImages": 0,
+    "overflow": false,
+    "url": "http://127.0.0.1:3005/workbench.html?demo=reversed&final=390",
+    "width": 390
+  }
+]

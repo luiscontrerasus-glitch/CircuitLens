@@ -1,12 +1,12 @@
 # CircuitLens
 
-**See the fault. Understand the fix.** An electronics debugging workbench with structured visual suggestions, human review and deterministic circuit reasoning.
+**See beyond the schematic.** An electronics debugging workbench with structured visual suggestions, human review and deterministic circuit reasoning.
 
-The current frontend is an industrial field instrument with a continuous, scroll-driven CSS 3D assembly, raised components, an editable schematic and a linked component inspector. The main workflow is upload or choose a demo, review connections, then understand and correct the fault. Advanced settings and perception consent are disclosed on demand. Phone layouts default to a scrollable schematic with readable connection rows; reduced motion collapses the scroll story into a directly navigable scene.
+The editorial website and application are separate pages. The website pairs locally hosted Archivo type with authentic component photography; `/workbench.html` opens a useful circuit immediately. A collapsible example library, large central physical/schematic/source canvas, and contextual inspector replace the previous marketing-style workbench. Connections, image review, and full reports use accessible dialogs. Tablet and phone layouts use an adapted, readable schematic; reduced motion removes transitions and defaults to that view.
 
-The redesign passes **48 automated tests**, a production build and smoke check, and browser interaction checks for all seven demos. See [verification and limitations](submission/evaluation/instrument-verification.md) and [the selected screenshots](submission/screenshots-instrument/final/SELECTED.md).
+The redesign passes **49 automated tests**, a production build and smoke check, and browser interaction checks for all seven demos. See [art direction](submission/art-direction/DESIGN.md), [verification and limitations](submission/art-direction/VERIFICATION.md), and [selected screenshots](submission/art-direction/final/SELECTED.md). Earlier official screenshots, videos and Git history are preserved.
 
-![CircuitLens engineering instrument](submission/screenshots-instrument/final/07-linked-workbench.png)
+![CircuitLens circuit workspace](submission/art-direction/final/workbench-schematic-1440.jpg)
 
 > **Current verification boundary:** The runtime OpenAI integration is implemented, but successful live recognition has not been verified. On October 1, five Responses API attempts (correct image three times, reversed once, disconnected once) returned HTTP 429; the diagnostic response identified `credit_balance_exhausted` / `insufficient_quota`. Authentication and access to the selected model were separately verified with HTTP 200 from the models endpoint. No successful model observations, recognition accuracy, or real-hardware validation are claimed. Automated/provider-simulated checks and manual graph demos are separate evidence.
 

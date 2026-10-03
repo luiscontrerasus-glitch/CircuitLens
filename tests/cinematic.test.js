@@ -15,9 +15,9 @@ test("cinematic scroll selects stable scenes at boundaries and clamps invalid in
   assert.equal(sceneAt(1), 6);
 });
 
-test("every story scene has an accessible direct control and preserves product entry points", async () => {
+test("separate marketing and workspace preserve accessible product entry points", async () => {
   const html = await readFile(
-    new URL("../public/index.html", import.meta.url),
+    new URL("../public/workbench.html", import.meta.url),
     "utf8",
   );
   const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]);
@@ -39,13 +39,28 @@ test("every story scene has an accessible direct control and preserves product e
     "download-report",
   ])
     assert.ok(ids.includes(id), id);
-  assert.equal(
-    (html.match(/data-scene-target=/g) || []).length,
-    storyScenes.length,
-  );
   assert.equal(new Set(storyScenes.map((s) => s.id)).size, 7);
-  assert.ok(html.includes("Synthetic explainer"));
-  assert.ok(html.replace(/\s+/g, " ").includes("not live inference"));
+  assert.ok(html.includes("not live AI"));
+  for (const id of [
+    "example-library",
+    "view-assembly",
+    "view-schematic",
+    "view-source",
+    "component-inspector",
+    "connections-dialog",
+    "review-dialog",
+    "report-dialog",
+  ])
+    assert.ok(ids.includes(id), id);
+  assert.ok(!html.includes("Your circuit. Under the lens."));
+  assert.ok(!html.includes('class="steps"'));
+  const landing = await readFile(
+    new URL("../public/index.html", import.meta.url),
+    "utf8",
+  );
+  assert.ok(landing.includes("/workbench.html"));
+  assert.ok(!landing.includes('class="cinema"'));
+  assert.ok(!landing.includes('id="live-graph"'));
   assert.ok(
     !html.includes("style="),
     "production CSP forbids inline style attributes",

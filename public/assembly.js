@@ -107,7 +107,7 @@ export function initSpatialStory() {
     '<div class="story-board-edge"></div><button class="story-part story-resistor" aria-label="Inspect illustrative resistor R1"><span class="story-part-label">R1 / 330 Ω</span></button><button class="story-part story-led" aria-label="Inspect illustrative LED D1"><span class="story-part-label">D1 / CHECK POLARITY</span></button>';
   layers.querySelector(".story-resistor").append(componentObject("resistor"));
   layers.querySelector(".story-led").append(componentObject("led"));
-  assembly.append(layers);
+  assembly?.append(layers);
   layers.querySelectorAll("button").forEach((button) =>
     button.addEventListener("click", () => {
       const selected = button.classList.toggle("selected");
@@ -134,14 +134,15 @@ export function initSpatialStory() {
       document.querySelectorAll(".model-stage").forEach((stage) => {
         stage.style.setProperty(
           "--model-scale",
-          Math.min(0.95, stage.clientWidth / 860, stage.clientHeight / 630),
+          Math.min(1.35, stage.clientWidth / 800, stage.clientHeight / 520),
         );
       });
-      layers.style.setProperty("--solid-scale", assembly.clientWidth / 900);
+      if (assembly)
+        layers.style.setProperty("--solid-scale", assembly.clientWidth / 900);
     });
   };
   new ResizeObserver(resize).observe(document.querySelector(".graph-panel"));
-  new ResizeObserver(resize).observe(assembly);
+  if (assembly) new ResizeObserver(resize).observe(assembly);
   const graph = document.querySelector("#live-graph");
   let pointerFrame = 0;
   graph.addEventListener("pointermove", (event) => {

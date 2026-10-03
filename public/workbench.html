@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#292a2c" />
+    <title>CircuitLens — Workbench</title>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/workbench.css" />
+    <script type="module" src="/app.js"></script>
+    <script type="module" src="/workbench-shell.js"></script>
+  </head>
+  <body class="application">
+    <a class="skip-link" href="#live-graph">Skip to circuit</a>
+    <header class="app-nav">
+      <a class="brand" href="/">◉ CircuitLens</a
+      ><span id="circuit-name">Circuit workbench</span
+      ><span class="nav-provenance" id="nav-provenance">Generated fixture</span>
+      <div class="nav-actions">
+        <button id="start">Upload circuit</button
+        ><button id="nav-export">Export ↓</button
+        ><button id="reset">New</button>
+      </div>
+    </header>
+    <main class="app-workspace">
+      <aside
+        id="example-library"
+        class="example-library"
+        aria-label="Example library"
+      >
+        <div class="library-title">
+          <h2>Example library</h2>
+          <button id="close-library" aria-label="Collapse example library">
+            ‹
+          </button>
+        </div>
+        <p class="library-intro">
+          Known circuits.<br />Inspectable engineering evidence.
+        </p>
+        <div id="example-list" aria-label="Example circuits"></div>
+        <div class="library-footer">
+          <p>Generated fixtures · not live AI</p>
+          <button id="try-demo">Try reversed LED ↗</button
+          ><button id="open-help">Images & how it works</button
+          ><button id="reduce-motion" aria-pressed="false">
+            Reduce motion
+          </button>
+        </div>
+      </aside>
+      <section id="workbench" class="workbench" aria-label="Circuit workspace">
+        <div class="workspace-heading">
+          <button
+            id="toggle-library"
+            aria-expanded="true"
+            aria-controls="example-library"
+          >
+            ☰ Examples</button
+          ><span class="workspace-label">Circuit workspace</span
+          ><button id="findings-jump" hidden>View findings</button>
+        </div>
+        <section class="graph-panel" aria-label="Circuit model">
+          <div class="schematic-head">
+            <div class="view-switch" role="group" aria-label="Circuit view">
+              <button id="view-assembly" aria-pressed="true">Physical</button>
+              <button id="view-schematic" aria-pressed="false">
+                Schematic
+              </button>
+              <button id="view-source" aria-pressed="false">
+                Source image
+              </button>
+            </div>
+            <span id="graph-status">AWAITING INPUT</span>
+          </div>
+          <div class="canvas-content">
+            <div id="live-graph" class="live-graph"></div>
+            <div class="visual-panel" hidden>
+              <div class="panel-head">
+                <h3 id="image-title">01 / Input & observation</h3>
+                <span id="source-badge" class="badge">NO IMAGE</span>
+              </div>
+              <div id="image-stage" class="image-stage">
+                <div id="empty-image">
+                  <div class="upload-icon">↥</div>
+                  <h3>Bring your circuit to the bench</h3>
+                  <p>
+                    Choose a photo or start with an example.<br />JPG, PNG or
+                    WebP · up to 12 MB
+                  </p>
+                  <button id="upload-button" class="secondary">
+                    Choose circuit photo
+                  </button>
+                </div>
+                <canvas
+                  id="photo"
+                  hidden
+                  aria-label="Circuit image with editable terminal annotations"
+                ></canvas>
+              </div>
+              <input
+                type="file"
+                id="upload"
+                accept="image/jpeg,image/png,image/webp"
+                hidden
+              />
+              <div class="image-tools">
+                <button id="replace-photo" class="text-button">
+                  Upload / replace photo</button
+                ><button id="capture-photo" class="text-button">
+                  Photograph ↗</button
+                ><label
+                  ><input id="features" type="checkbox" /> Highlight color
+                  features</label
+                >
+              </div>
+              <input
+                type="file"
+                id="camera-upload"
+                accept="image/jpeg,image/png,image/webp"
+                capture="environment"
+                hidden
+              />
+              <p id="image-help" class="helper">
+                Run live vision to propose components and terminals. Review each
+                detection before constructing the circuit graph.
+              </p>
+              <details class="vision-control">
+                <summary>AI observations · availability & consent</summary>
+                <h3>Visual perception</h3>
+                <p id="vision-model" class="helper">
+                  Checking vision availability...
+                </p>
+                <label class="confirm"
+                  ><input type="checkbox" id="vision-consent" /> Send this
+                  resized image to OpenAI for visual analysis.</label
+                >
+                <label id="vision-access-label" hidden
+                  >Demo access code<input
+                    type="password"
+                    id="vision-access"
+                    autocomplete="off"
+                    placeholder="Provided by the deployment owner"
+                /></label>
+                <div class="editor-actions">
+                  <button id="vision-run" class="primary" disabled>
+                    Analyze image with AI</button
+                  ><button id="vision-replay" class="secondary" hidden>
+                    Use recorded observations
+                  </button>
+                </div>
+                <p class="helper">
+                  One request, no automatic retries. Photos are not saved by
+                  this app. Provider processing policies apply. Manual entry
+                  always remains available.
+                </p>
+                <p id="vision-status" class="helper" role="status"></p>
+                <button id="open-review" class="secondary" hidden>
+                  Review existing observations
+                </button>
+              </details>
+              <div class="legend">
+                <span><i class="dot resistor"></i> Resistor</span
+                ><span><i class="dot led"></i> LED</span
+                ><span><i class="dot wire"></i> Jumper</span
+                ><span><i class="dot fault"></i> Needs review</span>
+              </div>
+            </div>
+          </div>
+          <div id="bench-evidence" class="bench-evidence" aria-live="polite">
+            ENGINEERING / confirm connections to trace evidence
+          </div>
+          <p class="graph-caption">
+            Select a part to link its image, connections and evidence. Assembly
+            positions represent logical terminals, not inferred photo geometry.
+          </p>
+        </section>
+        <div id="analysis-pipeline" class="analysis-pipeline" data-phase="idle">
+          <div class="pipeline-stages" aria-hidden="true">
+            <span class="phase-perception"
+              >Scan components / map candidates</span
+            ><span class="phase-review">Review observations</span
+            ><span class="phase-model">Build model</span
+            ><span class="phase-engineering">Trace paths / check rules</span
+            ><span class="phase-ready">Diagnosis</span>
+          </div>
+          <output id="pipeline-state" aria-live="polite"
+            >Ready for a generated fixture, image, or manual circuit</output
+          >
+        </div>
+        <output id="focus-readout" class="focus-readout" aria-live="polite"
+          >SELECT A COMPONENT / link observation, topology and evidence</output
+        >
+      </section>
+      <div class="editor-panel">
+        <div class="inspector-title">Component inspector</div>
+        <div
+          id="component-inspector"
+          class="component-inspector"
+          aria-live="polite"
+        >
+          <span class="eyebrow">NO COMPONENT SELECTED</span>
+          <h3 class="empty-inspector">Inspect a component</h3>
+          <p>
+            Select a part in the assembly or schematic to inspect its terminals
+            and related findings.
+          </p>
+        </div>
+        <button id="open-connections" class="settings-link">
+          All connections & settings ↗
+        </button>
+        <label class="confirm"
+          ><input type="checkbox" id="confirmed" /> I checked the component
+          types, terminals and values.</label
+        ><button id="analyze" class="primary full" disabled>
+          Analyze connections <span>→</span>
+        </button>
+        <p class="helper">
+          Results describe your confirmed netlist. They cannot verify hidden
+          contacts or physical continuity.
+        </p>
+        <div id="error" role="alert" hidden></div>
+      </div>
+    </main>
+    <dialog id="connections-dialog">
+      <div class="dialog-head">
+        <h2>Circuit connections</h2>
+        <button data-close-dialog aria-label="Close connections">×</button>
+      </div>
+      <details class="connection-editor" id="connection-editor" open>
+        <summary>All connections & circuit settings</summary>
+        <div class="form-row">
+          <label
+            >Intended circuit<select id="reference">
+              <option value="">No reference · safety checks only</option>
+            </select></label
+          ><label class="voltage-label"
+            >Supply (V)<input
+              type="number"
+              id="voltage"
+              min="0.1"
+              max="12"
+              step="0.1"
+              value="5"
+          /></label>
+        </div>
+        <details>
+          <summary>How breadboard terminals work</summary>
+          <p>
+            A1–E1 share a net; F1–J1 share a separate net. Rows 1–30 are
+            isolated. VCC and GND are logical continuous rails. Verify split
+            rails on your real board. LED terminal A means anode; B means
+            cathode. Resistor A/B labels are matched to the reference.
+          </p>
+        </details>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID / type</th>
+                <th>A / anode</th>
+                <th>B / cathode</th>
+                <th>Ω / state</th>
+                <th><span class="sr-only">Remove</span></th>
+              </tr>
+            </thead>
+            <tbody id="components"></tbody>
+          </table>
+        </div>
+        <p id="empty-components" class="helper">
+          Add each visible component and its two terminals.
+        </p>
+        <div class="editor-actions">
+          <button id="add" class="secondary small">+ Component</button
+          ><button id="import" class="text-button">Import JSON</button
+          ><input
+            type="file"
+            id="netlist"
+            accept=".json,application/json"
+            hidden
+          /><button id="export" class="text-button">Export JSON ↗</button>
+        </div>
+        <details id="reference-detail">
+          <summary>View intended connections</summary>
+          <pre id="reference-preview">Choose a reference above.</pre>
+        </details>
+      </details>
+    </dialog>
+    <dialog id="review-dialog">
+      <div class="dialog-head">
+        <h2>Visual observations</h2>
+        <button data-close-dialog aria-label="Close observations">×</button>
+      </div>
+      <section id="detection-review" class="detection-review" hidden>
+        <div class="section-head">
+          <span id="review-count" class="helper"></span>
+        </div>
+        <p id="vision-provenance" class="badge"></p>
+        <p id="vision-summary"></p>
+        <p id="vision-warnings" class="helper"></p>
+        <p class="helper">
+          * Confidence scores are model estimates, not calibrated probabilities.
+          A = LED anode; B = cathode. Dashed boxes need review. Accept only what
+          you can verify.
+        </p>
+        <div class="review-grid">
+          <aside class="review-visual">
+            <div class="panel-head">
+              <h3>Image + observations</h3>
+              <span class="badge">REVIEW EVERY TERMINAL</span>
+            </div>
+            <canvas
+              id="review-photo"
+              aria-label="Circuit image with confidence and review overlays"
+            ></canvas>
+            <p class="helper">
+              Select “highlight” on a detection to locate it. Boxes are
+              observations; a confirmed terminal label determines the electrical
+              connection.
+            </p>
+            <div class="review-legend">
+              <span>◇ Pending / uncertain</span><span>✓ Accepted</span
+              ><span>× Rejected</span>
+            </div>
+          </aside>
+          <div id="detection-list" class="detection-list"></div>
+        </div>
+        <div class="editor-actions">
+          <button id="detection-add" class="secondary">
+            + Missing detection</button
+          ><button id="vision-apply" class="primary" disabled>
+            Build circuit from accepted observations
+          </button>
+        </div>
+        <p id="review-readiness" class="helper" aria-live="polite"></p>
+        <details>
+          <summary>Inspect structured observations</summary>
+          <pre id="observation-json"></pre>
+        </details>
+      </section>
+    </dialog>
+    <dialog id="help-dialog">
+      <div class="dialog-head">
+        <h2>Images & how it works</h2>
+        <button data-close-dialog aria-label="Close help">×</button>
+      </div>
+      <details class="vision-experiments">
+        <summary>
+          Advanced · synthetic images for perception experiments
+        </summary>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">PIXELS TO OBSERVATIONS TO ENGINEERING</div>
+            <h2>Start with pixels.</h2>
+          </div>
+          <p>Three synthetic images - no diagnoses supplied to the model</p>
+        </div>
+        <div id="vision-demos" class="editor-actions"></div>
+      </details>
+      <details id="architecture" class="architecture">
+        <summary>
+          Inside the instrument · how observations become evidence
+        </summary>
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">INSIDE THE INSTRUMENT</div>
+            <h2>AI observes.<br />Engineering rules reason.</h2>
+          </div>
+          <p>Every step is inspectable.</p>
+        </div>
+        <div class="process-instrument" aria-hidden="true">
+          <div class="process-track"></div>
+          <span class="process-packet">OBSERVATION / DATA</span>
+        </div>
+        <output
+          id="architecture-state"
+          class="architecture-state"
+          aria-live="polite"
+          >01 / Circuit image → reviewable visual evidence</output
+        >
+        <div class="architecture-flow">
+          <div>
+            <span>01 / INPUT</span>
+            <h3>Circuit image</h3>
+            <p>Photo or labeled synthetic demo</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>02 / PERCEPTION</span>
+            <h3>Visual observations</h3>
+            <p>Parts, terminals, confidence</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>03 / OBSERVATIONS</span>
+            <h3>Structured evidence</h3>
+            <p>Typed candidates, boxes, terminal proposals</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>04 / YOU</span>
+            <h3>Human review</h3>
+            <p>Accept, reject, correct</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>05 / STRUCTURE</span>
+            <h3>Graph / netlist</h3>
+            <p>Explicit electrical connections</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>06 / ENGINEERING</span>
+            <h3>Rules & comparison</h3>
+            <p>Trace faults. Explain the fix.</p>
+          </div>
+          <b aria-hidden="true">→</b>
+          <div>
+            <span>07 / DIAGNOSIS</span>
+            <h3>Understand the fix</h3>
+            <p>Evidence, expected behavior, actionable correction</p>
+          </div>
+        </div>
+        <div class="architecture-note">
+          <strong>An explanation you can trace back to a connection.</strong>
+          <p>
+            The vision model proposes what it sees. The rule engine checks the
+            reviewed netlist against electrical rules and your intended design.
+            Unknown terminals stay unknown until you resolve them.
+          </p>
+        </div>
+      </details>
+    </dialog>
+    <dialog id="report-dialog">
+      <div class="dialog-head">
+        <h2>Analysis report</h2>
+        <button data-close-dialog aria-label="Close report">×</button>
+      </div>
+      <section id="results" hidden aria-live="polite">
+        <div class="section-head">
+          <div>
+            <h2 id="result-heading"></h2>
+          </div>
+          <label class="education"
+            ><input type="checkbox" id="education" checked /> Explain the
+            why</label
+          >
+        </div>
+        <div id="result-summary"></div>
+        <div id="measurements" class="measurements"></div>
+        <div id="issue-list" class="issue-list"></div>
+        <details class="graph-details">
+          <summary>Inspect the circuit graph</summary>
+          <div id="graph-view"></div>
+        </details>
+        <button id="download-report" class="secondary">
+          Download analysis report ↓
+        </button>
+        <p id="limits" class="helper"></p>
+      </section>
+    </dialog>
+    <dialog id="export-dialog">
+      <div class="dialog-head">
+        <h2>Export</h2>
+        <button data-close-dialog aria-label="Close export">×</button>
+      </div>
+      <section id="export-preview" class="export-preview" hidden>
+        <h3 id="export-title">JSON export</h3>
+        <p class="helper">
+          Your export is ready. If your browser does not save the file, select
+          the JSON below and copy it into a .json file.
+        </p>
+        <textarea
+          id="export-data"
+          aria-label="Exported JSON"
+          readonly
+          rows="10"
+          spellcheck="false"
+        ></textarea>
+        <button id="select-export" class="secondary small">
+          Select JSON to copy
+        </button>
+      </section>
+    </dialog>
+  </body>
+</html>

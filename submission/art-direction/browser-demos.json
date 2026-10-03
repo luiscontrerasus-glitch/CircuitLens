@@ -1,0 +1,44 @@
+[
+  {
+    "error": null,
+    "id": "healthy",
+    "parts": 4,
+    "status": "Checks passed"
+  },
+  {
+    "error": null,
+    "id": "reversed",
+    "parts": 4,
+    "status": "4 findings"
+  },
+  {
+    "error": null,
+    "id": "disconnected",
+    "parts": 4,
+    "status": "2 findings"
+  },
+  {
+    "error": null,
+    "id": "no-resistor",
+    "parts": 4,
+    "status": "3 findings"
+  },
+  {
+    "error": null,
+    "id": "short",
+    "parts": 5,
+    "status": "3 findings"
+  },
+  {
+    "error": null,
+    "id": "divider",
+    "parts": 4,
+    "status": "Checks passed"
+  },
+  {
+    "error": null,
+    "id": "button",
+    "parts": 5,
+    "status": "Checks passed"
+  }
+]

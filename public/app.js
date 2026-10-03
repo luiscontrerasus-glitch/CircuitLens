@@ -4,24 +4,25 @@ import { terminalPoint } from "./layout.js";
 import { schematicMarkup } from "./schematic.js";
 import { initCinematic } from "./cinematic.js";
 import { analysisPhase } from "./instrument.js";
+import { openPanel } from "./workbench-shell.js";
 import { mountAssembly, initSpatialStory } from "./assembly.js";
 initCinematic();
 const resizeAssembly = initSpatialStory();
 let circuitView = matchMedia(
-  "(max-width: 700px), (prefers-reduced-motion: reduce)",
+  "(max-width: 1000px), (prefers-reduced-motion: reduce)",
 ).matches
   ? "schematic"
   : "assembly";
 let viewChosen = false;
 const compactView = matchMedia(
-  "(max-width: 700px), (prefers-reduced-motion: reduce)",
+  "(max-width: 1000px), (prefers-reduced-motion: reduce)",
 );
 compactView.addEventListener("change", () => {
   if (!viewChosen) {
     circuitView = compactView.matches ? "schematic" : "assembly";
-    applyView();
-    resizeAssembly();
   }
+  renderGraph();
+  resizeAssembly();
 });
 const $ = (id) => document.getElementById(id),
   esc = (s) =>
@@ -83,6 +84,7 @@ function renderGraph() {
     circuit,
     result?.issues,
     result?.status,
+    matchMedia("(max-width: 1000px)").matches,
   );
   const compact = document.createElement("div");
   compact.className = "compact-connections";
@@ -94,6 +96,12 @@ function renderGraph() {
     )
     .join("");
   $("live-graph").append(compact);
+  if (focusedId) {
+    const index = circuit.components.findIndex((part) => part.id === focusedId);
+    $("live-graph")
+      .querySelectorAll(`[data-component="${index}"]`)
+      .forEach((part) => part.classList.add("selected"));
+  }
   applyView();
   resizeAssembly();
   $("graph-status").textContent = result
@@ -105,6 +113,8 @@ function renderGraph() {
       : "AWAITING INPUT";
 }
 function applyView() {
+  document.body.dataset.circuitView = circuitView;
+  document.querySelector(".visual-panel").hidden = circuitView !== "source";
   const empty = !circuit.components.length;
   const assembly = $("live-graph").querySelector(".assembly-view");
   if (circuitView === "assembly" && !empty && !assembly.firstChild) {
@@ -126,8 +136,12 @@ function applyView() {
     "aria-pressed",
     String(circuitView === "schematic"),
   );
+  $("view-source").setAttribute(
+    "aria-pressed",
+    String(circuitView === "source"),
+  );
 }
-for (const view of ["assembly", "schematic"])
+for (const view of ["assembly", "schematic", "source"])
   $(`view-${view}`).onclick = () => {
     viewChosen = true;
     circuitView = view;
@@ -138,7 +152,7 @@ function renderInspector() {
   const p = circuit.components.find((part) => part.id === focusedId);
   if (!p) {
     $("component-inspector").innerHTML =
-      '<span class="eyebrow">SELECT A COMPONENT</span><h3>Look at the connection.</h3><p>Select a part to inspect its terminals and related evidence.</p>';
+      '<span class="eyebrow">NOTHING SELECTED</span><h3 class="empty-inspector">Inspect a component</h3><p>Select a part to inspect its terminals and related evidence.</p>';
     return;
   }
   const issues =
@@ -217,7 +231,10 @@ function focusComponent(index, navigate = true) {
     $("component-inspector")
       .querySelector("input")
       ?.focus({ preventScroll: true });
-    if (matchMedia("(max-width: 1000px)").matches)
+    if (
+      matchMedia("(max-width: 1000px)").matches &&
+      !document.querySelector("dialog[open]")
+    )
       $("component-inspector").scrollIntoView({
         block: "nearest",
         behavior: motion(),
@@ -371,7 +388,8 @@ async function setImage(url, demo) {
   renderImage();
 }
 function scrollBench() {
-  $("workbench").scrollIntoView({ behavior: motion() });
+  if (matchMedia("(max-width: 700px)").matches)
+    $("workbench").scrollIntoView({ behavior: motion() });
 }
 async function loadExample(id) {
   const example = fixtures.find((x) => x.id === id);
@@ -383,11 +401,13 @@ async function loadExample(id) {
   $("voltage").value = circuit.voltage;
   $("reference").value = example.reference;
   $("image-title").textContent = example.name;
+  $("circuit-name").textContent = example.name;
   referencePreview();
   renderEditor();
-  document
-    .querySelectorAll(".example-card")
-    .forEach((b) => b.classList.toggle("selected", b.dataset.id === id));
+  document.querySelectorAll(".example-card").forEach((b) => {
+    b.classList.toggle("selected", b.dataset.id === id);
+    b.setAttribute("aria-pressed", String(b.dataset.id === id));
+  });
   try {
     await setImage(example.image, true);
   } catch (e) {
@@ -416,15 +436,18 @@ function reset() {
   $("empty-image").hidden = false;
   $("source-badge").textContent = "NO IMAGE";
   $("image-title").textContent = "Your circuit, in focus";
+  $("circuit-name").textContent = "New circuit";
   $("voltage").value = 5;
   $("reference").value = "";
   $("features").checked = false;
   $("features").disabled = false;
   $("image-help").textContent =
-    "Run live AI to propose components and terminals, or enter them manually.";
-  document
-    .querySelectorAll(".example-card")
-    .forEach((b) => b.classList.remove("selected"));
+    "Review the photo and enter components manually. Optional AI observations require configured API access.";
+  document.querySelectorAll(".example-card").forEach((b) => {
+    b.classList.remove("selected");
+    b.setAttribute("aria-pressed", "false");
+  });
+  circuitView = "source";
   renderEditor();
   referencePreview();
 }
@@ -433,6 +456,7 @@ function download(name, data) {
   $("export-title").textContent = name;
   $("export-data").value = serialized;
   $("export-preview").hidden = false;
+  openPanel("export-dialog");
   const url = URL.createObjectURL(
     new Blob([serialized], { type: "application/json" }),
   );
@@ -460,9 +484,7 @@ function renderResults() {
   const n = result.issues.length;
   $("results").hidden = false;
   $("findings-jump").hidden = false;
-  $("findings-jump").textContent = n
-    ? `${n} findings / read diagnostics ↓`
-    : "Checks passed / view report ↓";
+  $("findings-jump").textContent = n ? `${n} findings` : "Checks passed";
   $("result-heading").textContent = n
     ? `${n} finding${n === 1 ? "" : "s"}. A clearer next step.`
     : "The connections check out.";
@@ -555,6 +577,8 @@ $("components").addEventListener("click", (e) => {
       );
       return;
     }
+    document.getElementById("connections-dialog").close();
+    $("view-source").click();
     mark = { id: circuit.components[+b.dataset.mark].id, points: [] };
     $("image-help").textContent =
       `Click terminal A, then terminal B for ${mark.id} on the photo. This only places visual anchors.`;
@@ -653,7 +677,19 @@ async function analyzeCircuit(scroll = true) {
     document
       .querySelectorAll(".steps li")
       .forEach((li) => li.classList.add("active"));
-    if (scroll) $("results").scrollIntoView({ behavior: motion() });
+    if (scroll && circuit.components.length) {
+      const index = circuit.components.findIndex((p) => p.id === focusedId);
+      focusComponent(
+        index >= 0
+          ? index
+          : result.issues.length
+            ? circuit.components.findIndex(
+                (p) => p.id === result.issues[0].components[0],
+              )
+            : 0,
+        false,
+      );
+    }
   } catch (e) {
     analysisPhase("model", "Analysis unavailable / editable circuit retained");
     error(e.message);
@@ -666,16 +702,17 @@ async function analyzeCircuit(scroll = true) {
   }
 }
 $("analyze").onclick = () => analyzeCircuit();
-$("findings-jump").onclick = () =>
-  $("results").scrollIntoView({ behavior: motion() });
+$("findings-jump").onclick = () => openPanel("report-dialog");
 $("issue-list").onclick = (e) => {
   const button = e.target.closest("[data-focus-component]");
-  if (button)
+  if (button) {
+    document.getElementById("report-dialog").close();
     focusComponent(
       circuit.components.findIndex(
         (p) => p.id === button.dataset.focusComponent,
       ),
     );
+  }
 };
 $("education").onchange = renderResults;
 $("features").onchange = () => {
@@ -685,7 +722,10 @@ $("features").onchange = () => {
   renderImage();
 };
 for (const id of ["start", "upload-button", "replace-photo"])
-  $(id).onclick = () => $("upload").click();
+  $(id).onclick = () => {
+    $("view-source").click();
+    $("upload").click();
+  };
 $("upload").onchange = async (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -773,6 +813,7 @@ perception = initPerception({
     renderEditor();
   },
   onApply: (converted, observation) => {
+    document.getElementById("review-dialog").close();
     invalidate();
     circuit = converted;
     isDemo = false;
@@ -828,7 +869,7 @@ try {
     .sort((a, b) => demoOrder.indexOf(a.id) - demoOrder.indexOf(b.id))
     .map(
       (x, i) =>
-        `<button class="example-card" data-id="${x.id}"><span class="number example-number">0${i + 1}</span><span class="arrow">↗</span><strong>${esc(demoNames[x.id] || x.name)}</strong><p>${esc(x.description)}</p><span class="demo-state">GENERATED FIXTURE →</span></button>`,
+        `<button class="example-card" data-id="${x.id}" aria-pressed="false"><strong>${esc(demoNames[x.id] || x.name)}</strong></button>`,
     )
     .join("");
   $("reference").insertAdjacentHTML(
@@ -838,6 +879,14 @@ try {
       .join(""),
   );
   renderEditor();
+  const requested = new URLSearchParams(location.search);
+  if (requested.has("new")) reset();
+  else
+    await loadExample(
+      fixtures.some((x) => x.id === requested.get("demo"))
+        ? requested.get("demo")
+        : "reversed",
+    );
 } catch (e) {
   error(e.message);
 }

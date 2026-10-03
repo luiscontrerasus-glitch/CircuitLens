@@ -14,7 +14,12 @@ export function terminalNet(hole) {
   const m = /^([A-J])([1-9]|[12]\d|30)$/.exec(h);
   return m ? `${m[1] <= "E" ? "L" : "R"}${m[2]}` : null;
 }
-export function schematicMarkup(circuit, issues = [], status = "unverified") {
+export function schematicMarkup(
+  circuit,
+  issues = [],
+  status = "unverified",
+  compact = false,
+) {
   const parts = circuit.components.filter(
     (p) => terminalNet(p.a) && terminalNet(p.b),
   );
@@ -34,7 +39,10 @@ export function schematicMarkup(circuit, issues = [], status = "unverified") {
             ? -1
             : a.localeCompare(b, undefined, { numeric: true }),
   );
-  const width = Math.max(640, nets.length * 120),
+  const width = Math.max(
+      compact ? 340 : 640,
+      nets.length * (compact ? 60 : 120),
+    ),
     height = Math.max(240, 90 + parts.length * 62);
   const x = (n) =>
     52 + (nets.indexOf(n) * (width - 104)) / Math.max(1, nets.length - 1);
@@ -45,7 +53,7 @@ export function schematicMarkup(circuit, issues = [], status = "unverified") {
     button:
       '<path d="M-28 0h13m0 0 25-12M15 0h13"/><circle cx="-15" r="3"/><circle cx="15" r="3"/>',
   };
-  return `<svg class="schematic ${status === "pass" ? "verified" : ""}" viewBox="0 0 ${width} ${height}" width="${width}" aria-label="Editable terminal topology; wires are shown before net merging" role="group"><defs><pattern id="schematic-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#243d47"/></pattern></defs><rect width="100%" height="100%" fill="url(#schematic-grid)"/>${nets.map((n) => `<g class="net ${n === "VCC" ? "power" : n === "GND" ? "ground" : ""}"><path d="M${x(n)} 48V${height - 22}"/><circle cx="${x(n)}" cy="32" r="5"/><text x="${x(n)}" y="18" text-anchor="middle">${esc(n)}</text></g>`).join("")}${parts
+  return `<svg class="schematic ${status === "pass" ? "verified" : ""}" viewBox="0 0 ${width} ${height}" width="${width}" aria-label="Editable terminal topology; wires are shown before net merging" role="group"><defs><pattern id="schematic-grid" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="#d2d2d0"/></pattern></defs><rect width="100%" height="100%" fill="url(#schematic-grid)"/>${nets.map((n) => `<g class="net ${n === "VCC" ? "power" : n === "GND" ? "ground" : ""}"><path d="M${x(n)} 48V${height - 22}"/><circle cx="${x(n)}" cy="32" r="5"/><text x="${x(n)}" y="18" text-anchor="middle">${esc(n)}</text></g>`).join("")}${parts
     .map((p) => {
       const i = circuit.components.indexOf(p),
         y = 70 + parts.indexOf(p) * 62,

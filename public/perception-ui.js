@@ -1,4 +1,5 @@
 import { analysisPhase } from "./instrument.js";
+import { openPanel } from "./workbench-shell.js";
 import { terminalNet } from "./schematic.js";
 export function canBuildObservations(observations) {
   const parts = observations?.components || [];
@@ -163,13 +164,7 @@ export function initPerception({
       );
       render();
       redraw();
-      $("detection-review").scrollIntoView({
-        behavior:
-          document.body.classList.contains("reduced-motion") ||
-          matchMedia("(prefers-reduced-motion: reduce)").matches
-            ? "instant"
-            : "smooth",
-      });
+      openPanel("review-dialog");
     } catch (e) {
       if (token === generation) {
         analysisPhase(

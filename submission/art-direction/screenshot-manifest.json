@@ -1,0 +1,177 @@
+[
+  {
+    "file": "direction-a.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "69f440693a5429c93abe9313ffcceded722c69e93f1d1adc1d70821b4e69cee1"
+  },
+  {
+    "file": "direction-b.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "c38198b781f11310112d006cc9805285a6de6f9b1444f11fd8693ddb3c7137b6"
+  },
+  {
+    "file": "direction-c.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "0770a25434d060582300a5b22385233b15932b90cb715f2254bab460739e19ee"
+  },
+  {
+    "file": "final/export-roundtrip.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "f110c781069e14cf26909e43640138889c47d0c249e00e57db3aa1b35dfb645a"
+  },
+  {
+    "file": "final/marketing-1440.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "20347db5cdf23df5ac0970e19ad42099ac02fb11811e32b971be3431c3b99e62"
+  },
+  {
+    "file": "final/marketing-390.jpg",
+    "width": 390,
+    "height": 843,
+    "format": "JPEG",
+    "sha256": "1a3ec41122f759fad4731044efe355e84c12e4aec603f43f5c73cf438d613700"
+  },
+  {
+    "file": "final/marketing-768.jpg",
+    "width": 768,
+    "height": 844,
+    "format": "JPEG",
+    "sha256": "e45058092ae8e91cbb73fed9d442fc6b09e229e7abed1410fee7a81e137fa607"
+  },
+  {
+    "file": "final/marketing-full-1440.jpg",
+    "width": 1425,
+    "height": 3739,
+    "format": "JPEG",
+    "sha256": "b870d7d9c811cdb8134e24cbfa7f40b1aa62b5383a34ccd0f0b6b49939eae56e"
+  },
+  {
+    "file": "final/marketing-full-1920.jpg",
+    "width": 1905,
+    "height": 4088,
+    "format": "JPEG",
+    "sha256": "79b120abd57df95ed5d5545e867f5f89d56000a26d13e52726a87101686766e5"
+  },
+  {
+    "file": "final/marketing-full-390.jpg",
+    "width": 375,
+    "height": 3748,
+    "format": "JPEG",
+    "sha256": "a23fd615b2a1a4ffa0e016b7088ccd059e15482ab483481684a700d3683c74c7"
+  },
+  {
+    "file": "final/marketing-full-768.jpg",
+    "width": 753,
+    "height": 3168,
+    "format": "JPEG",
+    "sha256": "83b1ef28bf3027eafbedf82739e66c665d495e4b8eb1480981da610b36991186"
+  },
+  {
+    "file": "final/reduced-motion.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "72f7bca697cbbd0577998a6ebd26ba5acb15e362bd8a706f86a0ce685f5a88d4"
+  },
+  {
+    "file": "final/simulated-review-mobile.jpg",
+    "width": 375,
+    "height": 811,
+    "format": "JPEG",
+    "sha256": "ba995c4fa41ee60fc568f2e43a76ab2eea75fa6ea9d3f2f481600b0939ff72ad"
+  },
+  {
+    "file": "final/simulated-review.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "7c02c08b0d07e77fe441d59adb243aa68ab947876f32783e6db31af8da40e505"
+  },
+  {
+    "file": "final/workbench-1440.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "1cf03857499435875dd6c5915bdfae479774e3aa85e5f14334984b52771c64b9"
+  },
+  {
+    "file": "final/workbench-390.jpg",
+    "width": 390,
+    "height": 843,
+    "format": "JPEG",
+    "sha256": "90d7f160d1843083690cedc4044f04237fbb8238631c114dcd458655514038d2"
+  },
+  {
+    "file": "final/workbench-768.jpg",
+    "width": 768,
+    "height": 844,
+    "format": "JPEG",
+    "sha256": "9e740cc5e9d1a0c964d9e2e3d0253896e6a2776df93928d51b8b203ec59e2196"
+  },
+  {
+    "file": "final/workbench-full-1440.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "57e49d2db909b63b4c8bbba98e2bea03fbaa4105dcbff7d12953391d5dbc6839"
+  },
+  {
+    "file": "final/workbench-full-1920.jpg",
+    "width": 1920,
+    "height": 1080,
+    "format": "JPEG",
+    "sha256": "32710115ca882775f42a1ad33c975a10b7f5dee7461fe2928afc03254fbc975e"
+  },
+  {
+    "file": "final/workbench-full-390.jpg",
+    "width": 375,
+    "height": 1396,
+    "format": "JPEG",
+    "sha256": "f8e4dec2a3ceeff067883886fe07f94db272a90be493ca6972bae385264ac18d"
+  },
+  {
+    "file": "final/workbench-full-768.jpg",
+    "width": 768,
+    "height": 844,
+    "format": "JPEG",
+    "sha256": "6d016c7c3276aa0a94fe58e14b381f12e612151a9532711967329e869889807e"
+  },
+  {
+    "file": "final/workbench-physical-1440.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "adc58a89114dddccd4d82241c2b16e12f114c33ddd8d452ec9fc345d281bb736"
+  },
+  {
+    "file": "final/workbench-schematic-1440.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "716e221f5865e33ac62adf71819c1292be8a768c6f32dbc31521bd395bf7bd90"
+  },
+  {
+    "file": "workbench-prototype-desktop.jpg",
+    "width": 1440,
+    "height": 900,
+    "format": "JPEG",
+    "sha256": "61f7a22f53786c5e69c5c40562469f9d2f612c59c492a6ac21120b5ebba3861d"
+  },
+  {
+    "file": "workbench-prototype-mobile.jpg",
+    "width": 375,
+    "height": 811,
+    "format": "JPEG",
+    "sha256": "eca534ea4025e0d99a96d2c8210eae3a7255f8024e9c0edbef1d8f07d9774aa4"
+  }
+]
