@@ -1,0 +1,165 @@
+/* Shared diagram language. Only presentation; topology remains in schematic.js. */
+.circuit-surface {
+  --trace: #bdcabe;
+  --trace-muted: #a2afa5;
+  --fault: #efb484;
+  --selection: #dfb66d;
+  --selected-fill: #dfb66d0c;
+  color: var(--on-dark);
+}
+.circuit-surface .net path {
+  stroke: #657369;
+  stroke-dasharray: 2 7;
+  stroke-width: 1;
+  fill: none;
+}
+.circuit-surface .net circle {
+  fill: #a2afa5;
+}
+.circuit-surface .net text {
+  fill: var(--trace-muted);
+  font: 11px var(--mono);
+}
+.circuit-surface .part-label {
+  fill: var(--trace);
+  font: 12px var(--mono);
+}
+.circuit-surface .trace,
+.circuit-surface .symbol path,
+.circuit-surface .symbol circle {
+  fill: none;
+  stroke: var(--trace);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.circuit-surface .terminal {
+  fill: var(--trace);
+}
+.circuit-surface .hit-area {
+  fill: transparent;
+  stroke: transparent;
+}
+.circuit-surface .schematic-part {
+  cursor: pointer;
+  outline: none;
+}
+.circuit-surface .faulty .trace,
+.circuit-surface .faulty .symbol path,
+.circuit-surface .faulty .symbol circle {
+  stroke: var(--fault);
+}
+.circuit-surface .faulty .terminal {
+  fill: var(--fault);
+}
+.circuit-surface .faulty .part-label {
+  fill: var(--fault);
+}
+.circuit-surface .schematic-part.selected .hit-area,
+.circuit-surface .schematic-part:focus-visible .hit-area {
+  fill: var(--selected-fill);
+  stroke: var(--selection);
+  stroke-width: 1;
+  stroke-dasharray: none;
+}
+.circuit-surface .schematic-part:hover .hit-area {
+  fill: #ffffff0a;
+  stroke: #849285;
+}
+.circuit-surface .schematic-part.selected .part-label {
+  fill: var(--signal);
+  font-weight: 600;
+}
+.circuit-surface .schematic > rect {
+  opacity: 0.15;
+}
+.circuit-surface .board-layer {
+  border: 1px solid #b7b9ac;
+  border-radius: 12px;
+}
+.circuit-surface .board-layer.top {
+  background-color: #e9e8dc;
+  background-image: radial-gradient(
+    circle,
+    #81877a 1.8px,
+    #c9cbbd 2.3px,
+    transparent 3px
+  );
+}
+.circuit-surface .board-layer.middle {
+  background: #bfc4b3;
+}
+.circuit-surface .board-layer.bottom {
+  background: #899582;
+  box-shadow: 0 32px 45px #0005;
+}
+.circuit-surface .board-engraving {
+  color: #555f50;
+  font: 10px var(--mono);
+  letter-spacing: 1px;
+}
+.circuit-surface .board-rail {
+  color: #515e4c;
+  font: 13px var(--mono);
+}
+.circuit-surface .model-lead {
+  height: 4px;
+  background: #879a8b;
+  border-color: #5d6e60;
+  box-shadow: 0 5px 4px #0003;
+}
+.circuit-surface .model-part.faulty .model-lead {
+  background: #bc724d;
+  border-color: #9b5534;
+}
+.circuit-surface .model-label {
+  font: 13px var(--mono);
+  color: #253529;
+  background: #eeeee3;
+  padding: 4px 7px;
+  border-radius: 3px;
+}
+.circuit-surface .model-part.faulty .model-label {
+  background: #884830;
+  color: #fff8ed;
+}
+.circuit-surface .model-part.selected {
+  outline: 2px solid #876227;
+  outline-offset: 9px;
+  transform: translate(-50%, -50%) translateZ(32px);
+  border-radius: 4px;
+}
+.circuit-surface .model-part.selected .model-label {
+  background: #30392c;
+  color: #f7d69e;
+}
+.circuit-surface .component-chip {
+  font: 11px var(--mono);
+  color: #b9c7bc;
+  background: transparent;
+  border: 1px solid var(--dark-line);
+  border-radius: 4px;
+  padding: 9px 12px;
+  min-height: 36px;
+}
+.circuit-surface .component-chip.faulty {
+  color: var(--fault);
+  border-color: #65513f;
+}
+.circuit-surface .component-chip.selected {
+  color: var(--signal);
+  background: #dfb66d10;
+  border-color: #998256;
+}
+.circuit-surface .component-chip:hover {
+  background: #ffffff0b;
+}
+.circuit-surface .led-disc {
+  background: radial-gradient(
+    circle at 30% 28%,
+    #f6dca5cc,
+    #c6884899 55%,
+    #704025dd
+  );
+  border-color: #b1875599;
+}

@@ -34,6 +34,9 @@ if (root) {
   }
   function render() {
     if (!circuit || !result) return;
+    root.dataset.status = result.status;
+    root.querySelector(".evidence-icon").textContent =
+      result.status === "pass" ? "✓" : "!";
     mountAssembly(physical, circuit, result.issues);
     schematic.innerHTML = schematicMarkup(
       circuit,
@@ -111,8 +114,12 @@ if (root) {
     render();
     button.disabled = false;
   } catch {
+    physical.innerHTML =
+      '<p class="demo-loading">Circuit preview unavailable.</p>';
+    schematic.innerHTML =
+      '<p class="demo-loading">Open the workbench to retry.</p>';
     readout.textContent =
-      "Open the workbench to explore the generated circuit.";
+      "The example could not load. Open the workbench to try again.";
     button.hidden = true;
   }
 }

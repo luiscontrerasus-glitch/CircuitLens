@@ -32,6 +32,14 @@ if (typeof document !== "undefined" && $("workbench")) {
         ? heading.textContent
         : "Select a component to inspect";
   }).observe($("component-inspector"), { childList: true, subtree: true });
+  $("example-search").addEventListener("input", () => {
+    const query = $("example-search").value.trim().toLowerCase();
+    const cards = [...$("example-list").querySelectorAll(".example-card")];
+    cards.forEach((card) => {
+      card.hidden = !card.textContent.toLowerCase().includes(query);
+    });
+    $("no-examples").hidden = cards.some((card) => !card.hidden);
+  });
   const library = $("example-library");
   const compact = matchMedia("(max-width: 1000px)");
   const setLibrary = (open) => {
@@ -78,7 +86,11 @@ if (typeof document !== "undefined" && $("workbench")) {
     attributeFilter: ["hidden"],
   });
   new MutationObserver(() => {
-    $("circuit-name").textContent = $("image-title").textContent;
+    const selected = $("example-list").querySelector('[aria-pressed="true"]');
+    const title =
+      selected?.getAttribute("aria-label") || $("image-title").textContent;
+    $("circuit-name").textContent = title;
+    $("workspace-title").textContent = title;
   }).observe($("image-title"), {
     childList: true,
     subtree: true,

@@ -1,0 +1,5 @@
+
+> circuitlens@2.0.0 check
+> node scripts/check.js
+
+Syntax checks passed: 43 JavaScript files.

@@ -1,3 +1,4 @@
+import { demoMetadata, summarizeCircuit } from "./workspace-presentation.js";
 import { initPerception } from "./perception-ui.js";
 import { colorFeatureMask } from "./vision.js";
 import { terminalPoint } from "./layout.js";
@@ -23,6 +24,7 @@ compactView.addEventListener("change", () => {
   if (!viewChosen) {
     circuitView = compactView.matches ? "schematic" : "assembly";
   }
+  if (compactView.matches && circuitView === "split") circuitView = "schematic";
   renderGraph();
   resizeAssembly();
 });
@@ -82,7 +84,7 @@ function invalidate() {
   $("focus-readout").textContent =
     "SELECT A COMPONENT / link observation, topology and evidence";
   $("bench-evidence").textContent =
-    "ENGINEERING / confirm connections to trace evidence";
+    "Model changed. Review your connections, confirm, and run the checks again.";
   version++;
   result = null;
   $("results").hidden = true;
@@ -95,7 +97,22 @@ function invalidate() {
   renderGraph();
   renderInspector();
 }
+function renderOverview() {
+  const summary = summarizeCircuit(circuit, result);
+  document.body.dataset.analysisStatus = summary.state;
+  $("overview-status").textContent = summary.label;
+  $("stat-voltage").textContent = summary.voltage;
+  $("stat-parts").textContent = summary.components;
+  $("stat-nets").textContent = summary.nets;
+  $("component-picker").innerHTML = circuit.components
+    .map(
+      (part, index) =>
+        `<button data-picker="${index}" aria-label="Inspect ${esc(part.id)}" aria-pressed="${part.id === focusedId}">${esc(part.id)}</button>`,
+    )
+    .join("");
+}
 function renderGraph() {
+  renderOverview();
   $("live-graph").innerHTML =
     '<div class="assembly-view"></div><div class="schematic-view"></div>';
   $("live-graph").querySelector(".schematic-view").innerHTML = schematicMarkup(
@@ -135,7 +152,11 @@ function applyView() {
   document.querySelector(".visual-panel").hidden = circuitView !== "source";
   const empty = !circuit.components.length;
   const assembly = $("live-graph").querySelector(".assembly-view");
-  if (circuitView === "assembly" && !empty && !assembly.firstChild) {
+  if (
+    ["assembly", "split"].includes(circuitView) &&
+    !empty &&
+    !assembly.firstChild
+  ) {
     mountAssembly(assembly, circuit, result?.issues);
     const index = circuit.components.findIndex((part) => part.id === focusedId);
     assembly
@@ -143,9 +164,9 @@ function applyView() {
       .forEach((part) => part.classList.add("selected"));
   }
   $("live-graph").querySelector(".assembly-view").hidden =
-    circuitView !== "assembly" || empty;
+    !["assembly", "split"].includes(circuitView) || empty;
   $("live-graph").querySelector(".schematic-view").hidden =
-    circuitView !== "schematic" && !empty;
+    !["schematic", "split"].includes(circuitView) && !empty;
   $("view-assembly").setAttribute(
     "aria-pressed",
     String(circuitView === "assembly"),
@@ -158,26 +179,41 @@ function applyView() {
     "aria-pressed",
     String(circuitView === "source"),
   );
+  $("view-split").setAttribute("aria-pressed", String(circuitView === "split"));
   viewport.refresh();
 }
-for (const view of ["assembly", "schematic", "source"])
+for (const view of ["assembly", "schematic", "split", "source"])
   $(`view-${view}`).onclick = () => {
     viewChosen = true;
     circuitView = view;
     applyView();
     resizeAssembly();
   };
+$("component-picker").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-picker]");
+  if (button) focusComponent(Number(button.dataset.picker));
+});
 function renderInspector() {
+  $("component-picker")
+    .querySelectorAll("[data-picker]")
+    .forEach((button) => {
+      button.setAttribute(
+        "aria-pressed",
+        String(
+          circuit.components[Number(button.dataset.picker)]?.id === focusedId,
+        ),
+      );
+    });
   const p = circuit.components.find((part) => part.id === focusedId);
   if (!p) {
     $("component-inspector").innerHTML =
-      '<span class="eyebrow">NOTHING SELECTED</span><h3 class="empty-inspector">Inspect a component</h3><p>Select a part to inspect its terminals and related evidence.</p>';
+      '<span class="eyebrow">SELECT A PART TO BEGIN</span><h3 class="empty-inspector">Every part has<br>a connection.</h3><p>Select a component in the canvas or the list above. Its terminals and diagnostic evidence will appear here.</p>';
     return;
   }
   const issues =
     result?.issues.filter((issue) => issue.components.includes(p.id)) || [];
   $("component-inspector").innerHTML =
-    `<span class="eyebrow">${esc(p.type.toUpperCase())} / ${issues.length ? "FINDING" : "CONNECTION"}</span><h3>${esc(p.id)}</h3><div class="inspector-terminals"><label>A / ${p.type === "led" ? "anode" : "terminal"}<input aria-label="Inspect ${esc(p.id)} terminal A" data-inspect="a" value="${esc(p.a)}" maxlength="5"></label><span>→</span><label>B / ${p.type === "led" ? "cathode" : "terminal"}<input aria-label="Inspect ${esc(p.id)} terminal B" data-inspect="b" value="${esc(p.b)}" maxlength="5"></label></div>${p.type === "resistor" ? `<p>${esc(p.value)} Ω / current limiting</p>` : p.type === "button" ? `<p>${p.closed ? "Closed" : "Open"} / switch state</p>` : ""}<div class="inspector-evidence">${
+    `<span class="eyebrow">${esc(p.type.toUpperCase())} / ${issues.length ? "FINDING" : "CONNECTION"}</span><h3>${esc(p.id)}</h3><div class="inspector-terminals"><label>A / ${p.type === "led" ? "anode" : "terminal"}<input aria-label="Inspect ${esc(p.id)} terminal A" data-inspect="a" value="${esc(p.a)}" maxlength="5"></label><span>→</span><label>B / ${p.type === "led" ? "cathode" : "terminal"}<input aria-label="Inspect ${esc(p.id)} terminal B" data-inspect="b" value="${esc(p.b)}" maxlength="5"></label></div>${p.type === "resistor" ? `<p>${esc(p.value)} Ω / current limiting</p>` : p.type === "button" ? `<p>${p.closed ? "Closed" : "Open"} / switch state</p>` : ""}<div class="inspector-evidence ${issues.length ? "has-finding" : "no-finding"}">${
       issues.length
         ? `<strong>${esc(issues[0].title)}</strong><p>${esc(issues[0].evidence)}</p><p>${esc(issues[0].fix)}</p>${
             issues.length > 1
@@ -414,7 +450,8 @@ async function loadExample(id) {
   $("voltage").value = circuit.voltage;
   $("reference").value = example.reference;
   $("image-title").textContent = example.name;
-  $("circuit-name").textContent = example.name;
+  $("circuit-name").textContent = demoMetadata[id]?.name || example.name;
+  $("workspace-title").textContent = demoMetadata[id]?.name || example.name;
   referencePreview();
   renderEditor();
   document.querySelectorAll(".example-card").forEach((b) => {
@@ -451,6 +488,7 @@ function reset() {
   $("source-badge").textContent = "NO IMAGE";
   $("image-title").textContent = "Your circuit, in focus";
   $("circuit-name").textContent = "New circuit";
+  $("workspace-title").textContent = "Your circuit";
   $("voltage").value = 5;
   $("reference").value = "";
   $("features").checked = false;
@@ -862,15 +900,6 @@ try {
       "Cannot load examples. Check that the local server is running.",
     );
   ({ examples: fixtures, references } = await response.json());
-  const demoNames = {
-    healthy: "Healthy LED",
-    reversed: "Reversed polarity",
-    disconnected: "Open connection",
-    "no-resistor": "Missing resistor",
-    short: "Crossed rails",
-    divider: "Voltage divider",
-    button: "Push-button LED",
-  };
   const demoOrder = [
     "healthy",
     "reversed",
@@ -884,7 +913,7 @@ try {
     .sort((a, b) => demoOrder.indexOf(a.id) - demoOrder.indexOf(b.id))
     .map(
       (x, i) =>
-        `<button class="example-card" data-id="${x.id}" aria-pressed="false"><strong>${esc(demoNames[x.id] || x.name)}</strong></button>`,
+        `<button class="example-card" data-id="${x.id}" aria-label="${esc(demoMetadata[x.id]?.name || x.name)}" aria-pressed="false"><span class="example-number" aria-hidden="true">${String(i + 1).padStart(2, "0")}</span><span class="example-copy"><strong>${esc(demoMetadata[x.id]?.name || x.name)}</strong><small>${esc(demoMetadata[x.id]?.detail || "Editable fixture")}</small></span><span class="example-arrow" aria-hidden="true">↗</span></button>`,
     )
     .join("");
   $("reference").insertAdjacentHTML(

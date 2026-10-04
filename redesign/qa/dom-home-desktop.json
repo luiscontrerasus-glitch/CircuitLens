@@ -1,0 +1,10 @@
+{
+  "mode": "home",
+  "simulatedWidth": 1440,
+  "checks": [
+    "linked selection",
+    "actual polarity correction passes",
+    "restore fault"
+  ],
+  "renderingVerified": false
+}

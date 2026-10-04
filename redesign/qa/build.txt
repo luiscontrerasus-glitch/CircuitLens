@@ -1,0 +1,5 @@
+
+> circuitlens@2.0.0 build
+> node scripts/build.js
+
+Production build: 64 allowlisted files in dist; secrets and development fixtures excluded.
