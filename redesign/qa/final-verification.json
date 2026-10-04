@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-04",
+  "bundleCommit": "1943a55dc9286483196b80676ae9634e4d77d9ad",
+  "baseCommit": "aff97f5906c8e7116bd51ebb0cbd2362e15afc15",
+  "branch": "circuitlens-astra-redesign",
+  "tests": {
+    "total": 67,
+    "passed": 67,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 1906.5017
+  },
+  "syntaxFiles": 43,
+  "productionBuildFiles": 64,
+  "productionSmoke": {
+    "url": "http://127.0.0.1:3011",
+    "routes": 54,
+    "demos": 7,
+    "passed": true,
+    "perceptionRequests": 0
+  },
+  "dependencyAudit": { "vulnerabilities": 0 },
+  "securityScan": {
+    "passed": true,
+    "filesBlobsCheckedBeforeVisualQaCommit": 1137,
+    "envLocalIgnoredUntracked": true
+  },
+  "formatting": "passed",
+  "preserved": [
+    "src",
+    "server.js",
+    "render.yaml",
+    "Dockerfile",
+    "package.json",
+    "package-lock.json",
+    "scripts/build.js"
+  ],
+  "liveVisionEnabled": false,
+  "realPhotoAssessment": "Preserved: 0 of 6 complete verified reconstructions",
+  "visualFixes": [
+    "Fit tilted homepage board inside its physical panel",
+    "Use existing SVG favicon on credits page"
+  ],
+  "browserEvidence": "browser-verification.json",
+  "demoEvidence": "browser-demos.json",
+  "deployment": "Not merged or deployed; production configuration unchanged"
+}

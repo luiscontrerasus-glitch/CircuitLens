@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#292a2c" />
+    <meta name="theme-color" content="#191d1b" />
     <title>CircuitLens — Workbench</title>
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/workbench.css" />
+    <link rel="stylesheet" href="/design-system.css" />
+    <link rel="stylesheet" href="/diagram-theme.css" />
     <link rel="stylesheet" href="/refinement.css" />
     <script type="module" src="/app.js"></script>
     <script type="module" src="/workbench-shell.js"></script>
@@ -14,15 +16,22 @@
   <body class="application">
     <a class="skip-link" href="#live-graph">Skip to circuit</a>
     <header class="app-nav">
-      <a class="brand" href="/">◉ CircuitLens</a
+      <a class="brand" href="/" aria-label="CircuitLens home"
+        ><svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true">
+          <circle cx="14" cy="14" r="9" />
+          <circle cx="14" cy="14" r="3" />
+          <path d="M14 1v5m0 16v5M1 14h5m16 0h5" /></svg
+        >CircuitLens</a
+      ><span class="app-divider" aria-hidden="true">/</span
       ><span id="circuit-name">Circuit workbench</span
       ><span class="nav-provenance" id="nav-provenance">Generated fixture</span>
       <div class="nav-actions">
-        <button id="start">Upload circuit</button
+        <button id="start"><span aria-hidden="true">＋</span> Add photo</button
         ><button id="nav-export">Export ↓</button
         ><button id="reset">New</button>
       </div>
     </header>
+    <div id="error" role="alert" hidden></div>
     <main class="app-workspace">
       <aside
         id="example-library"
@@ -30,14 +39,26 @@
         aria-label="Example library"
       >
         <div class="library-title">
-          <h2>Example library</h2>
+          <h2>Example library <span class="library-count">07</span></h2>
           <button id="close-library" aria-label="Collapse example library">
             ‹
           </button>
         </div>
         <p class="library-intro">
-          Known circuits.<br />Inspectable engineering evidence.
+          Start with a known circuit.<br />Make a connection. Learn why.
         </p>
+        <label class="library-search"
+          ><svg viewBox="0 0 20 20" aria-hidden="true">
+            <circle cx="8" cy="8" r="5" />
+            <path d="m12 12 5 5" /></svg
+          ><input
+            id="example-search"
+            type="search"
+            placeholder="Find an example"
+            aria-label="Find an example"
+            autocomplete="off"
+        /></label>
+        <p id="no-examples" hidden role="status">No matching examples.</p>
         <div id="example-list" aria-label="Example circuits"></div>
         <div class="library-footer">
           <p>Generated fixtures · not live AI</p>
@@ -55,17 +76,40 @@
             aria-expanded="true"
             aria-controls="example-library"
           >
-            ☰ Examples</button
-          ><span class="workspace-label">Circuit workspace</span
+            <span aria-hidden="true">☷</span> Examples</button
+          ><span class="workspace-label"
+            >WORKBENCH <span aria-hidden="true">/</span> CONNECTION REVIEW</span
           ><button id="findings-jump" hidden>View findings</button>
         </div>
-        <section class="graph-panel" aria-label="Circuit model">
+        <section class="circuit-overview" aria-label="Circuit overview">
+          <div>
+            <p class="eyebrow">DETERMINISTIC CIRCUIT ANALYSIS</p>
+            <h1 id="workspace-title">Circuit workbench</h1>
+            <p id="overview-status" role="status">Loading example library…</p>
+          </div>
+          <dl class="circuit-stats">
+            <div>
+              <dt>Supply</dt>
+              <dd id="stat-voltage">5 V</dd>
+            </div>
+            <div>
+              <dt>Parts</dt>
+              <dd id="stat-parts">—</dd>
+            </div>
+            <div>
+              <dt>Nets</dt>
+              <dd id="stat-nets">—</dd>
+            </div>
+          </dl>
+        </section>
+        <section class="graph-panel circuit-surface" aria-label="Circuit model">
           <div class="schematic-head">
             <div class="view-switch" role="group" aria-label="Circuit view">
               <button id="view-assembly" aria-pressed="true">Physical</button>
               <button id="view-schematic" aria-pressed="false">
                 Schematic
               </button>
+              <button id="view-split" aria-pressed="false">Linked views</button>
               <button id="view-source" aria-pressed="false">
                 Source image
               </button>
@@ -186,11 +230,11 @@
             </button>
           </div>
           <div id="bench-evidence" class="bench-evidence" aria-live="polite">
-            ENGINEERING / confirm connections to trace evidence
+            Review your model, then confirm connections to trace evidence.
           </div>
           <p class="graph-caption">
-            Select a part to link its image, connections and evidence. Assembly
-            positions represent logical terminals, not inferred photo geometry.
+            Select a part to inspect its connections. Generated assembly ·
+            logical terminals, not photo geometry.
           </p>
         </section>
         <div id="analysis-pipeline" class="analysis-pipeline" data-phase="idle">
@@ -203,20 +247,33 @@
             ><span class="phase-ready">Diagnosis</span>
           </div>
           <output id="pipeline-state" aria-live="polite"
-            >Ready for a generated fixture, image, or manual circuit</output
+            >Ready for a fixture, photo, or manual circuit</output
           >
         </div>
         <output id="focus-readout" class="focus-readout" aria-live="polite"
           >SELECT A COMPONENT / link observation, topology and evidence</output
         >
       </section>
-      <div class="editor-panel" id="inspector-panel">
+      <div
+        class="editor-panel"
+        id="inspector-panel"
+        role="region"
+        aria-label="Component inspector"
+      >
         <div class="inspector-title">
-          Component inspector
+          <span
+            >INSPECTOR <span class="inspector-subtitle">/ Component</span></span
+          >
           <button id="close-inspector" aria-label="Close component inspector">
             ×
           </button>
         </div>
+        <div
+          id="component-picker"
+          class="component-picker"
+          role="group"
+          aria-label="Select a component"
+        ></div>
         <div
           id="component-inspector"
           class="component-inspector"
@@ -229,20 +286,21 @@
             and related findings.
           </p>
         </div>
-        <button id="open-connections" class="settings-link">
-          All connections & settings ↗
-        </button>
-        <label class="confirm"
-          ><input type="checkbox" id="confirmed" /> I checked the component
-          types, terminals and values.</label
-        ><button id="analyze" class="primary full" disabled>
-          Analyze connections <span>→</span>
-        </button>
-        <p class="helper">
-          Results describe your confirmed netlist. They cannot verify hidden
-          contacts or physical continuity.
-        </p>
-        <div id="error" role="alert" hidden></div>
+        <div class="inspector-actions">
+          <button id="open-connections" class="settings-link">
+            All connections & settings ↗
+          </button>
+          <label class="confirm"
+            ><input type="checkbox" id="confirmed" /> I checked the component
+            types, terminals and values.</label
+          ><button id="analyze" class="primary full" disabled>
+            Analyze connections <span>→</span>
+          </button>
+          <p class="helper">
+            Results describe your confirmed netlist. They cannot verify hidden
+            contacts or physical continuity.
+          </p>
+        </div>
       </div>
     </main>
     <button
@@ -253,7 +311,7 @@
     >
       Select a component to inspect
     </button>
-    <dialog id="connections-dialog">
+    <dialog id="connections-dialog" aria-label="Circuit connections">
       <div class="dialog-head">
         <h2>Circuit connections</h2>
         <button data-close-dialog aria-label="Close connections">×</button>
@@ -318,7 +376,7 @@
         </details>
       </details>
     </dialog>
-    <dialog id="review-dialog">
+    <dialog id="review-dialog" aria-label="Visual observations">
       <div class="dialog-head">
         <h2>Visual observations</h2>
         <button data-close-dialog aria-label="Close observations">×</button>
@@ -378,7 +436,7 @@
         </details>
       </section>
     </dialog>
-    <dialog id="help-dialog">
+    <dialog id="help-dialog" aria-label="Images and how it works">
       <div class="dialog-head">
         <h2>Images & how it works</h2>
         <button data-close-dialog aria-label="Close help">×</button>
@@ -470,7 +528,7 @@
         </div>
       </details>
     </dialog>
-    <dialog id="report-dialog">
+    <dialog id="report-dialog" aria-label="Analysis report">
       <div class="dialog-head">
         <h2>Analysis report</h2>
         <button data-close-dialog aria-label="Close report">×</button>
@@ -498,7 +556,7 @@
         <p id="limits" class="helper"></p>
       </section>
     </dialog>
-    <dialog id="export-dialog">
+    <dialog id="export-dialog" aria-label="Export">
       <div class="dialog-head">
         <h2>Export</h2>
         <button data-close-dialog aria-label="Close export">×</button>

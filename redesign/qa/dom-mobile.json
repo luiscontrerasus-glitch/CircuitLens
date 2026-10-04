@@ -1,0 +1,27 @@
+{
+  "mode": "workbench",
+  "simulatedWidth": 390,
+  "checks": [
+    "healthy: pass",
+    "reversed: review",
+    "disconnected: review",
+    "no-resistor: critical",
+    "short: critical",
+    "divider: pass",
+    "button: pass",
+    "library search and no-results",
+    "schematic keyboard selection and component identity",
+    "edit invalidates and reconfirmed correction passes",
+    "zoom and keyboard fit",
+    "report/settings dialogs",
+    "manual source review; recognition disabled",
+    "invalid import error",
+    "valid import invalidates diagnosis",
+    "netlist export JSON",
+    "new circuit empty state",
+    "manual component creation",
+    "reduced-motion control",
+    "mobile inspector open/close"
+  ],
+  "renderingVerified": false
+}

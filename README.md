@@ -1,3 +1,5 @@
+> **Redesign branch — not deployed:** `circuitlens-astra-redesign` contains a new homepage and workbench interface. See [the review package](redesign/REVIEW.md) for implementation details, baseline screenshots, verification evidence, and outstanding visual QA. The historical release notes below describe earlier versions. Do not treat their screenshots as this branch’s redesign.
+
 # CircuitLens
 
 **See beyond the schematic.** An electronics debugging workbench with structured visual suggestions, human review and deterministic circuit reasoning.

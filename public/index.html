@@ -3,51 +3,83 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#edf1f5" />
+    <meta name="theme-color" content="#191d1b" />
     <meta
       name="description"
-      content="Inspect circuit connections, understand diagnostic evidence, and correct an editable model in CircuitLens."
+      content="Trace breadboard connections, inspect circuit faults, and understand what to change. An interactive circuit workbench with seven editable examples."
     />
-    <title>CircuitLens — Every connection, a clearer picture.</title>
+    <title>CircuitLens — Understand every connection.</title>
     <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" href="/editorial.css" />
-    <link rel="stylesheet" href="/lens.css" />
-    <script type="module" src="/landing.js"></script>
+    <link rel="stylesheet" href="/design-system.css" />
+    <link rel="stylesheet" href="/physical.css" />
+    <link rel="stylesheet" href="/diagram-theme.css" />
+    <link rel="stylesheet" href="/homepage.css" />
     <script type="module" src="/lens-demo.js"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-nav">
-      <a class="brand" href="/">◉ CircuitLens</a
-      ><a class="examples-nav" href="#examples">Explore examples</a
-      ><a href="/workbench.html">Open workbench ↗</a>
+      <a class="brand" href="/" aria-label="CircuitLens home"
+        ><svg class="brand-mark" viewBox="0 0 28 28" aria-hidden="true">
+          <circle cx="14" cy="14" r="9" />
+          <circle cx="14" cy="14" r="3" />
+          <path d="M14 1v5m0 16v5M1 14h5m16 0h5" /></svg
+        >CircuitLens</a
+      >
+      <nav aria-label="Main navigation">
+        <a href="#how-it-works">How it works</a
+        ><a href="#examples">Examples <span class="nav-count">07</span></a>
+      </nav>
+      <a class="nav-cta" href="/workbench.html"
+        >Open workbench <span aria-hidden="true">↗</span></a
+      >
     </header>
     <main id="main">
-      <section class="lens-hero">
-        <div class="lens-intro">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-intro">
           <div>
-            <p class="kicker">CIRCUIT DIAGNOSIS, MADE INSPECTABLE</p>
-            <h1>Every connection.<br /><em>A clearer picture.</em></h1>
-          </div>
-          <div class="lens-explanation">
-            <p>
-              Trace a circuit’s connections.<br />Understand the fault.<br />Know
-              what to change.
+            <p class="kicker">
+              <span class="status-dot"></span>A workbench for circuit
+              understanding
             </p>
-            <a class="action" href="/workbench.html?demo=reversed"
-              >Open this circuit <span>↗</span></a
-            ><small>Start with an example, or bring a circuit photo.</small>
+            <h1 id="hero-title">
+              Small circuit.<br /><span>Clearer thinking.</span>
+            </h1>
+          </div>
+          <div class="hero-copy">
+            <p>
+              See how your breadboard connects.<br />Find the fault. Understand
+              the fix.
+            </p>
+            <div class="hero-actions">
+              <a class="action" href="/workbench.html?demo=reversed"
+                >Explore the workbench <span aria-hidden="true">↗</span></a
+              ><a class="quiet-link" href="/workbench.html?new=1"
+                >Start with your own circuit
+                <span aria-hidden="true">→</span></a
+              >
+            </div>
+            <small>No account. No API key. Seven working examples.</small>
           </div>
         </div>
         <div
           id="linked-demo"
-          class="linked-demo"
+          class="linked-demo circuit-surface"
           aria-label="Interactive generated circuit demonstration"
         >
+          <div class="demo-toolbar">
+            <span
+              ><span class="technical">01 /</span> The LED that won’t
+              light</span
+            ><span class="fixture-label"
+              >Interactive example <span class="status-dot"></span
+            ></span>
+          </div>
           <div class="linked-views">
             <figure class="physical-study">
               <figcaption>
-                <strong>Physical assembly</strong><span>Generated fixture</span>
+                <span class="technical">A</span
+                ><strong>Physical assembly</strong><span>Generated model</span>
               </figcaption>
               <div
                 id="demo-physical"
@@ -56,142 +88,265 @@
               >
                 <p class="demo-loading">Preparing the circuit…</p>
               </div>
+              <div class="view-footnote">
+                <span>5 V supply</span><span>4 components</span
+                ><span>Editable terminals</span>
+              </div>
             </figure>
-            <div class="view-bridge" aria-hidden="true">
-              <span>↔</span><small>Same part.<br />Same connection.</small>
-            </div>
             <figure class="schematic-study">
               <figcaption>
-                <strong>Connection schematic</strong><span>Select a part</span>
+                <span class="technical">B</span
+                ><strong>Connection schematic</strong
+                ><span>Linked selection</span>
               </figcaption>
               <div id="demo-schematic" class="demo-schematic">
                 <p class="demo-loading">Loading reviewed connections…</p>
               </div>
+              <div class="view-footnote">
+                <span>Select a part in either view</span
+                ><span aria-hidden="true">↔</span>
+              </div>
             </figure>
           </div>
           <div class="demo-evidence">
-            <div>
+            <span class="evidence-icon" aria-hidden="true">!</span>
+            <div class="demo-finding">
               <small id="demo-state">Reversed LED · generated fixture</small>
               <p id="demo-readout" aria-live="polite">
                 Select a component to connect the two views.
               </p>
             </div>
             <div class="demo-actions">
-              <button id="demo-correct">Preview polarity correction →</button
+              <button id="demo-correct" class="action">
+                Preview polarity correction
+                <span aria-hidden="true">→</span></button
               ><a id="demo-inspect" href="/workbench.html?demo=reversed"
-                >Inspect in workbench ↗</a
+                >Inspect the evidence ↗</a
               >
             </div>
           </div>
         </div>
-        <p class="demo-caption">
-          Select a part in either view. Both representations follow the same
-          editable terminals. This generated assembly shows logical connections,
-          not inferred photo geometry or live AI results.
+        <div class="hero-caption">
+          <p>
+            A real rule check. An editable model. Try correcting the LED above.
+          </p>
+          <span>Generated fixture · not photo recognition</span>
+        </div>
+      </section>
+      <section
+        id="how-it-works"
+        class="workflow"
+        aria-labelledby="workflow-title"
+      >
+        <div class="section-intro">
+          <p class="kicker">From connection to understanding</p>
+          <h2 id="workflow-title">
+            A circuit is a story.<br />Follow the evidence.
+          </h2>
+          <p>
+            Keep the physical part, its electrical connections, and the reason
+            behind each finding in view.
+          </p>
+        </div>
+        <div class="workflow-grid">
+          <article>
+            <span class="step-number">01</span
+            ><svg viewBox="0 0 48 48" aria-hidden="true">
+              <rect x="8" y="10" width="32" height="28" rx="4" />
+              <path d="M16 18h16m-16 6h16m-16 6h8" />
+            </svg>
+            <h3>Start with what you know.</h3>
+            <p>
+              Load an example, enter a circuit, or bring a photo for manual
+              review. Confirm the component types, values, and terminals.
+            </p>
+          </article>
+          <article>
+            <span class="step-number">02</span
+            ><svg viewBox="0 0 48 48" aria-hidden="true">
+              <path d="M7 24h10l3-8 6 16 3-8h12M12 12v24m24-24v24" />
+              <circle cx="12" cy="12" r="2" />
+              <circle cx="36" cy="36" r="2" />
+            </svg>
+            <h3>Trace the connection.</h3>
+            <p>
+              Select a part to connect its assembly, schematic, and inspector.
+              Check polarity, open paths, and supported circuit rules.
+            </p>
+          </article>
+          <article>
+            <span class="step-number">03</span
+            ><svg viewBox="0 0 48 48" aria-hidden="true">
+              <path d="m13 24 7 7 15-16M8 10h6m20 0h6v6M8 32v6h6m20 0h6" />
+            </svg>
+            <h3>Understand what to change.</h3>
+            <p>
+              Read the evidence and suggested fix. Correct the terminals,
+              confirm your model, then run the checks again.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section class="evidence-section" aria-labelledby="evidence-title">
+        <div class="evidence-copy">
+          <p class="kicker">Nothing hidden behind a verdict</p>
+          <h2 id="evidence-title">
+            “Check the LED.”<br /><span>Now you know why.</span>
+          </h2>
+          <p>
+            Every finding connects a specific component to its terminals, the
+            electrical consequence, and an actionable correction.
+          </p>
+          <a class="text-link" href="/workbench.html?demo=reversed"
+            >Open the reversed-LED example <span>↗</span></a
+          >
+        </div>
+        <article class="evidence-card">
+          <div class="evidence-card-head">
+            <span class="technical">D1 / LED</span
+            ><span class="review-tag">Needs review</span>
+          </div>
+          <h3>Polarity is reversed</h3>
+          <div class="terminal-pair">
+            <div><small>A · Anode</small><strong>D18</strong></div>
+            <span>→</span>
+            <div><small>K · Cathode</small><strong>D12</strong></div>
+          </div>
+          <dl>
+            <dt>Evidence</dt>
+            <dd>
+              The cathode reaches VCC and the anode reaches GND through the
+              passive network.
+            </dd>
+            <dt>Suggested correction</dt>
+            <dd>
+              Disconnect power. Swap the LED leads; connect the anode toward the
+              resistor and VCC.
+            </dd>
+          </dl>
+          <p class="evidence-source">From the generated reversed-LED fixture</p>
+        </article>
+      </section>
+      <section
+        id="examples"
+        class="examples-section"
+        aria-labelledby="examples-title"
+      >
+        <div class="examples-heading">
+          <div>
+            <p class="kicker">The example library / 07 circuits</p>
+            <h2 id="examples-title">A good place to start.</h2>
+          </div>
+          <p>Explore a working circuit.<br />Or learn from a broken one.</p>
+        </div>
+        <div class="example-grid">
+          <a class="example-link" href="/workbench.html?demo=healthy"
+            ><span class="example-id">01 <i class="tag pass">Pass</i></span>
+            <h3>Healthy LED</h3>
+            <p>A complete path, with current limiting.</p>
+            <span class="example-bottom">Series LED <b>↗</b></span></a
+          >
+          <a class="example-link" href="/workbench.html?demo=reversed"
+            ><span class="example-id">02 <i class="tag review">Review</i></span>
+            <h3>Reversed polarity</h3>
+            <p>The right part, facing the wrong way.</p>
+            <span class="example-bottom">LED orientation <b>↗</b></span></a
+          >
+          <a class="example-link" href="/workbench.html?demo=disconnected"
+            ><span class="example-id">03 <i class="tag review">Review</i></span>
+            <h3>Open connection</h3>
+            <p>One row can make all the difference.</p>
+            <span class="example-bottom">Continuity model <b>↗</b></span></a
+          >
+          <a class="example-link" href="/workbench.html?demo=no-resistor"
+            ><span class="example-id"
+              >04 <i class="tag critical">Critical</i></span
+            >
+            <h3>Missing resistor</h3>
+            <p>A path without a current limiter.</p>
+            <span class="example-bottom">Current protection <b>↗</b></span></a
+          >
+          <a class="example-link" href="/workbench.html?demo=short"
+            ><span class="example-id"
+              >05 <i class="tag critical">Critical</i></span
+            >
+            <h3>Crossed rails</h3>
+            <p>When the supply meets ground.</p>
+            <span class="example-bottom">Supply short <b>↗</b></span></a
+          >
+          <a class="example-link" href="/workbench.html?demo=divider"
+            ><span class="example-id">06 <i class="tag pass">Pass</i></span>
+            <h3>Voltage divider</h3>
+            <p>Two resistors. One unloaded output.</p>
+            <span class="example-bottom">Voltage division <b>↗</b></span></a
+          >
+          <a class="example-link" href="/workbench.html?demo=button"
+            ><span class="example-id">07 <i class="tag pass">Pass</i></span>
+            <h3>Push-button LED</h3>
+            <p>Explore what happens when a path opens.</p>
+            <span class="example-bottom">Switching <b>↗</b></span></a
+          >
+          <a class="example-link own-circuit" href="/workbench.html?new=1"
+            ><span class="example-id">Your next experiment</span>
+            <h3>Bring your circuit.</h3>
+            <p>Add a photo or enter connections manually.</p>
+            <span class="example-bottom">New workbench <b>+</b></span></a
+          >
+        </div>
+        <p class="section-note">
+          Statuses describe the supplied fixtures. Editing a connection clears
+          the result until you confirm and analyze again.
         </p>
       </section>
-      <section class="evidence-chapter">
+      <section class="boundaries">
+        <p class="kicker">Know the instrument</p>
         <div>
-          <p class="kicker">LESS GUESSWORK. MORE UNDERSTANDING.</p>
-          <h2>A finding should<br />come with <em>an explanation.</em></h2>
+          <h2>Clear about what it can see.</h2>
           <p>
-            A highlighted component is only the beginning. Inspect the
-            connection, follow the evidence, and correct the model. CircuitLens
-            keeps the circuit and its explanation together.
+            CircuitLens checks a confirmed model. It cannot measure physical
+            continuity, inspect hidden contacts, or replace a circuit simulator.
           </p>
-          <a href="/workbench.html?demo=reversed">Follow the evidence ↗</a>
-        </div>
-        <figure class="evidence-example">
-          <figcaption>
-            From the reversed-LED example
-            <span>Deterministic rule evidence</span>
-          </figcaption>
-          <div class="evidence-part">
-            <strong>D1</strong><span>LED · reversed polarity</span>
-          </div>
-          <div class="evidence-terminals">
-            <span><small>Anode</small>D18</span><b>→</b
-            ><span><small>Cathode</small>D12</span>
-          </div>
-          <blockquote>
-            The cathode reaches VCC and the anode reaches GND through the
-            passive network.
-          </blockquote>
-          <p>
-            Disconnect power. Swap the LED leads; connect its anode toward the
-            resistor and VCC.
-          </p>
-          <a href="/workbench.html?demo=reversed"
-            >Review and correct the model →</a
-          >
-        </figure>
-      </section>
-      <section class="example-index" id="examples">
-        <div>
-          <p class="kicker">THE EXAMPLE COLLECTION</p>
-          <h2>Start with<br />something known.</h2>
-          <p>
-            Seven circuits, from a healthy LED to crossed supply rails. Each is
-            editable. Every finding comes from the engineering engine.
-          </p>
-        </div>
-        <div class="index-links">
-          <a href="/workbench.html?demo=healthy"
-            ><span
-              ><strong>Healthy LED</strong><small>A complete path</small></span
-            ><span aria-hidden="true">↗</span></a
-          ><a href="/workbench.html?demo=reversed"
-            ><span
-              ><strong>Reversed polarity</strong
-              ><small>Look at the LED</small></span
-            ><span aria-hidden="true">↗</span></a
-          ><a href="/workbench.html?demo=disconnected"
-            ><span
-              ><strong>Open connection</strong><small>One row away</small></span
-            ><span aria-hidden="true">↗</span></a
-          ><a href="/workbench.html?demo=no-resistor"
-            ><span
-              ><strong>Missing resistor</strong
-              ><small>A path without a limiter</small></span
-            ><span aria-hidden="true">↗</span></a
-          ><a href="/workbench.html?demo=short"
-            ><span
-              ><strong>Crossed rails</strong
-              ><small>Supply meets ground</small></span
-            ><span aria-hidden="true">↗</span></a
-          ><a href="/workbench.html?demo=divider"
-            ><span
-              ><strong>Voltage divider</strong
-              ><small>Split the voltage</small></span
-            ><span aria-hidden="true">↗</span></a
-          ><a href="/workbench.html?demo=button"
-            ><span
-              ><strong>Push-button LED</strong
-              ><small>Open and closed</small></span
-            ><span aria-hidden="true">↗</span></a
-          >
+          <details>
+            <summary>Supported components and analysis</summary>
+            <p>
+              Wires, resistors, two-lead LEDs, and effective two-terminal
+              switches. Series LED estimates assume a 2 V drop; voltage-divider
+              estimates assume no load. Split rails and unsupported components
+              need human interpretation.
+            </p>
+          </details>
+          <details>
+            <summary>Photo review and recognition limits</summary>
+            <p>
+              Manual photo review is available. Public AI recognition is
+              disabled. In the documented evaluation, none of six real
+              breadboard photos produced a complete verified Gemini
+              reconstruction. Example circuits are supplied models, not
+              AI-recognition results.
+            </p>
+          </details>
+          <details>
+            <summary>Keep your circuit and report</summary>
+            <p>
+              Export the netlist or analysis report as JSON. Work stays in
+              browser memory until you export it; refreshing clears the session.
+              Exports do not include uploaded images.
+            </p>
+          </details>
         </div>
       </section>
-
-      <section class="lens-closing">
-        <h2>Bring the circuit.<br /><em>Find the connection.</em></h2>
-        <div>
-          <p>
-            Seven examples to explore.<br />Your own photo to review.<br />Every
-            connection stays editable.
-          </p>
-          <a class="action" href="/workbench.html?new=1"
-            >Bring a circuit photo ↗</a
-          ><a class="quiet-link" href="/workbench.html"
-            >Explore the workbench →</a
-          >
-        </div>
+      <section class="closing">
+        <p class="kicker">Ready when you are</p>
+        <h2>Make the next<br />connection count.</h2>
+        <a class="action" href="/workbench.html"
+          >Open CircuitLens <span>↗</span></a
+        >
       </section>
     </main>
     <footer>
-      <a class="brand" href="/">◉ CircuitLens</a
+      <a class="brand" href="/">CircuitLens<span class="footer-dot">.</span></a
       ><span>Reviewed models. Inspectable evidence.</span
-      ><a href="/credits.html">Image & type credits</a>
+      ><a href="/credits.html">Credits & scope ↗</a>
     </footer>
   </body>
 </html>

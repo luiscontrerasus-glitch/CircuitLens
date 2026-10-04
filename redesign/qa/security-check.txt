@@ -1,0 +1,5 @@
+
+> circuitlens@2.0.0 security:check
+> node scripts/security-check.js
+
+Security scan passed: 1082 files/blobs checked; .env.local ignored and untracked. Secret bytes were never printed.
