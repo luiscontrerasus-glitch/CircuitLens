@@ -40,7 +40,7 @@ body {
 }
 .hero {
   max-width: 1440px;
-  padding: 70px 5% 36px;
+  padding: 48px 5% 36px;
   margin: auto;
 }
 .hero-intro {
@@ -48,7 +48,7 @@ body {
   grid-template-columns: 1.25fr 1fr;
   gap: 64px;
   align-items: end;
-  margin-bottom: 50px;
+  margin-bottom: 36px;
 }
 .kicker {
   color: var(--dim);
@@ -718,12 +718,12 @@ footer > a:last-child:hover {
     padding: 8px 10px;
   }
   .hero {
-    padding: 38px 5% 28px;
+    padding: 30px 5% 28px;
   }
   .hero-intro {
     grid-template-columns: 1fr;
     gap: 24px;
-    margin-bottom: 30px;
+    margin-bottom: 24px;
   }
   .hero .kicker {
     font-size: 10px;
@@ -946,6 +946,24 @@ footer > a:last-child:hover {
     font-size: 10px;
   }
   .circuit-surface .part-label {
-    font-size: 13px;
+    font-size: 16px;
+  }
+  .hero-copy > small,
+  .fixture-label,
+  .view-footnote,
+  .linked-views figcaption > span:last-child,
+  .demo-finding small,
+  .hero-caption,
+  .hero-caption > span,
+  .example-link > p,
+  .example-bottom,
+  .section-note {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .nav-cta,
+  .quiet-link {
+    min-height: 44px;
+    align-items: center;
   }
 }

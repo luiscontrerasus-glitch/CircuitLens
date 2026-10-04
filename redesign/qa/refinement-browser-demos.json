@@ -1,0 +1,51 @@
+[
+  {
+    "clippedLabels": [],
+    "name": "Healthy LED",
+    "overflow": false,
+    "parts": 4,
+    "status": "Supported checks passed"
+  },
+  {
+    "clippedLabels": [],
+    "name": "Reversed polarity",
+    "overflow": false,
+    "parts": 4,
+    "status": "Connections need review"
+  },
+  {
+    "clippedLabels": [],
+    "name": "Open connection",
+    "overflow": false,
+    "parts": 4,
+    "status": "Connections need review"
+  },
+  {
+    "clippedLabels": [],
+    "name": "Missing resistor",
+    "overflow": false,
+    "parts": 4,
+    "status": "Critical · disconnect power"
+  },
+  {
+    "clippedLabels": [],
+    "name": "Crossed rails",
+    "overflow": false,
+    "parts": 5,
+    "status": "Critical · disconnect power"
+  },
+  {
+    "clippedLabels": [],
+    "name": "Voltage divider",
+    "overflow": false,
+    "parts": 4,
+    "status": "Supported checks passed"
+  },
+  {
+    "clippedLabels": [],
+    "name": "Push-button LED",
+    "overflow": false,
+    "parts": 5,
+    "status": "Supported checks passed"
+  }
+]

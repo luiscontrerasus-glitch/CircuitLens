@@ -1,0 +1,68 @@
+{
+  "assets": 54,
+  "all_assets_ok": true,
+  "credential_free_startup": true,
+  "perception_requests": 0,
+  "demos": [
+    {
+      "id": "healthy",
+      "status": "pass",
+      "findings": 0,
+      "measurements": [
+        {
+          "label": "D1 path estimate",
+          "value": "9.1 mA",
+          "note": "Assumes 2.0 V LED drop and 330 Ω in a simple series path; not a simulation of parallel networks."
+        }
+      ]
+    },
+    {
+      "id": "reversed",
+      "status": "review",
+      "findings": 4,
+      "measurements": []
+    },
+    {
+      "id": "no-resistor",
+      "status": "critical",
+      "findings": 3,
+      "measurements": []
+    },
+    {
+      "id": "disconnected",
+      "status": "review",
+      "findings": 2,
+      "measurements": []
+    },
+    {
+      "id": "short",
+      "status": "critical",
+      "findings": 3,
+      "measurements": []
+    },
+    {
+      "id": "divider",
+      "status": "pass",
+      "findings": 0,
+      "measurements": [
+        {
+          "label": "Unloaded divider output",
+          "value": "2.50 V",
+          "note": "Ideal two-resistor divider; assumes no output load."
+        }
+      ]
+    },
+    {
+      "id": "button",
+      "status": "pass",
+      "findings": 0,
+      "measurements": [
+        {
+          "label": "D1 path estimate",
+          "value": "9.1 mA",
+          "note": "Assumes 2.0 V LED drop and 330 Ω in a simple series path; not a simulation of parallel networks."
+        }
+      ]
+    }
+  ]
+}

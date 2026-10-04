@@ -18,11 +18,11 @@
 }
 .circuit-surface .net text {
   fill: var(--trace-muted);
-  font: 11px var(--mono);
+  font: 14px var(--mono);
 }
 .circuit-surface .part-label {
   fill: var(--trace);
-  font: 12px var(--mono);
+  font: 16px var(--mono);
 }
 .circuit-surface .trace,
 .circuit-surface .symbol path,
@@ -113,7 +113,7 @@
   border-color: #9b5534;
 }
 .circuit-surface .model-label {
-  font: 13px var(--mono);
+  font: 18px var(--mono);
   color: #253529;
   background: #eeeee3;
   padding: 4px 7px;

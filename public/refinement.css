@@ -571,6 +571,16 @@ body[data-circuit-view="source"] .viewport-controls {
 .application[data-circuit-view="split"] .component-strip {
   display: none;
 }
+/* Linked panes scale the same circuit geometry into half the canvas. */
+.application[data-circuit-view="split"] .part-label {
+  font-size: 20px;
+}
+.application[data-circuit-view="split"] .net text {
+  font-size: 18px;
+}
+.application[data-circuit-view="split"] .model-label {
+  font-size: 20px;
+}
 .editor-panel {
   background: var(--surface);
   border-left: 1px solid #d5dccb;
@@ -1461,6 +1471,52 @@ tr.selected {
   #error {
     top: 65px;
     font-size: 12px;
+  }
+}
+@media (max-width: 700px) {
+  .nav-actions button,
+  .nav-actions #start,
+  .workspace-heading button,
+  .view-switch button,
+  .docked-finding,
+  .component-picker button,
+  .inspector-title button,
+  .viewport-controls button,
+  .library-search input,
+  .component-inspector #swap-polarity,
+  #open-connections {
+    min-height: 44px;
+  }
+  .nav-actions button,
+  .viewport-controls button,
+  .inspector-title button {
+    min-width: 44px;
+  }
+  .nav-actions button,
+  .nav-actions #start,
+  .view-switch button,
+  .docked-finding,
+  .healthy-readout,
+  .circuit-overview #overview-status,
+  .circuit-stats dt,
+  .inspector-title,
+  .inspector-subtitle,
+  .component-inspector .eyebrow,
+  .inspector-terminals label,
+  .inspector-actions > .helper,
+  .inspector-evidence summary,
+  .inspector-evidence details p,
+  .example-copy small {
+    font-size: 12px;
+  }
+  .viewport-controls output,
+  .viewport-controls #zoom-fit,
+  .mobile-inspect::after,
+  .inspector-evidence > p:nth-of-type(2)::before {
+    font-size: 11px;
+  }
+  .confirm {
+    min-height: 44px;
   }
 }
 @media (max-width: 370px) {

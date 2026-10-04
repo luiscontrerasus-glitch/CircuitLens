@@ -5,6 +5,16 @@
 Branch: `circuitlens-astra-redesign`.
 Base: `aff97f5906c8e7116bd51ebb0cbd2362e15afc15`.
 
+## Final refinement review — October 4, 2026
+
+Owner-requested spacing, readability and mobile target refinements are complete. Three stylesheet changes preserve the established visual identity and all circuit geometry/interactions. At 1440 × 1000 the homepage demonstration starts 36 pixels sooner (y=370). Schematic labels grow from 12 to 16 SVG units, with 20-unit labels in half-width desktop linked panes; physical IDs grow to 18/20 units. Mobile secondary labels are generally 12 pixels and the principal controls have 44-pixel minimum targets.
+
+Actual browser checks: all seven linked diagrams keep expected outcomes and show no labels outside the SVG bounds; R1 selection stays synchronized; zoom reaches 125% and Fit resets it; mobile inspector correction produces supported checks passed; homepage correction works; reduced motion selects Schematic; no console warnings/errors. No workbench horizontal overflow at 320, 360, 390 or 768 pixels. Navigation buttons remain inside the 320-pixel viewport. Desktop and complete mobile captures were inspected for composition, clipping and wrapping.
+
+Final regression: 67/67 tests, 43 syntax checks, 64-file build and seven-demo/54-route production smoke pass. Runtime audit reports zero vulnerabilities. Secret scan passes over 1,165 files/blobs; `.env.local` stays ignored and untracked. Changed stylesheets pass Prettier. Gemini stays disabled and production remains untouched.
+
+Seven updated captures in `screenshots/refined-*.png`: desktop/mobile homepage (viewport and complete), desktop linked workbench, mobile workbench, and mobile inspector. The prior 12 captures remain intact. Latest smoke and linked-demo records are `qa/production-smoke-refined.json` and `qa/refinement-browser-demos.json`. Existing physical-device, assistive-technology and native-download limitations still apply.
+
 ## What changed
 
 - New graphite/ivory/olive/amber visual identity, custom reticle mark, shared typography and component colors.

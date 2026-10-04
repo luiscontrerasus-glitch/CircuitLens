@@ -14,6 +14,15 @@ The existing interface makes users gather circuit status, selected-part details,
 
 No runtime dependency, engine, backend, security guard, credential, or deployment configuration changes.
 
+### Final owner-requested refinements
+
+- Reduce the desktop hero's top padding and demo gap by 36 pixels combined; the interactive demonstration now begins at y=370 in the 1440-pixel capture. Slightly tighten mobile hero spacing.
+- Enlarge schematic net/component labels and physical component labels, with a separate size for desktop linked panes. Circuit coordinates, topology, selection and editing remain unchanged.
+- Increase mobile secondary text and give navigation, view-switch, zoom and inspector controls 44-pixel minimum targets. Checked 320, 360, 390 and 768-pixel workbench widths without horizontal overflow.
+- Re-ran 67/67 tests, production build, seven-demo/54-route production smoke, syntax, formatting and runtime audit. Browser checks verify all seven linked diagrams without clipped labels, synchronized R1 selection, zoom/Fit, mobile correction to pass, homepage correction, reduced-motion schematic and an empty warning/error console.
+
+Latest screenshots are `redesign/screenshots/refined-*.png`; the earlier approved captures are preserved. Evidence: `redesign/qa/refinement-browser-demos.json` and `production-smoke-refined.json`.
+
 ## Validation
 
 - 67 original automated tests pass.
@@ -32,6 +41,7 @@ No physical-device, full assistive-technology, or 200% browser-zoom audit is cla
 
 ## Visual evidence
 
-- [Desktop homepage](https://github.com/luiscontrerasus-glitch/CircuitLens/blob/circuitlens-astra-redesign/redesign/screenshots/after-home-desktop.png)
-- [Desktop linked workbench](https://github.com/luiscontrerasus-glitch/CircuitLens/blob/circuitlens-astra-redesign/redesign/screenshots/after-workbench-desktop.png)
-- [Mobile workbench and inspector](https://github.com/luiscontrerasus-glitch/CircuitLens/blob/circuitlens-astra-redesign/redesign/screenshots/after-workbench-mobile-inspector.png)
+- [Desktop homepage](https://github.com/luiscontrerasus-glitch/CircuitLens/blob/circuitlens-astra-redesign/redesign/screenshots/refined-home-desktop.png)
+- [Desktop linked workbench](https://github.com/luiscontrerasus-glitch/CircuitLens/blob/circuitlens-astra-redesign/redesign/screenshots/refined-workbench-desktop.png)
+- [Mobile homepage](https://github.com/luiscontrerasus-glitch/CircuitLens/blob/circuitlens-astra-redesign/redesign/screenshots/refined-home-mobile.png)
+- [Mobile workbench and inspector](https://github.com/luiscontrerasus-glitch/CircuitLens/blob/circuitlens-astra-redesign/redesign/screenshots/refined-workbench-mobile-inspector.png)
