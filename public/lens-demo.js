@@ -47,7 +47,8 @@ if (root) {
     const scale = Math.min(
       1.5,
       physical.clientWidth / 820,
-      physical.clientHeight / 510,
+      // Reserve room for the tilted board's projected corners and lower edge.
+      physical.clientHeight / 600,
     );
     physical.style.setProperty("--model-scale", String(scale));
     select(selected);

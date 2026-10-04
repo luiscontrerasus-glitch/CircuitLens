@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-04",
+  "url": "http://127.0.0.1:3010",
+  "liveVisionEnabled": false,
+  "desktop": {
+    "width": 1440,
+    "height": 1000,
+    "homepageBoardContained": true,
+    "overflow": false,
+    "linkedSelectionInstances": 4
+  },
+  "tablet": {
+    "overflow": false,
+    "width": 768
+  },
+  "mobile": {
+    "width": 390,
+    "height": 844,
+    "overflow": false,
+    "inspectorOpenAndScroll": true,
+    "correctionStatus": "Supported checks passed"
+  },
+  "reducedMotion": {
+    "reduced": true,
+    "transition": "0s",
+    "view": "schematic"
+  },
+  "interactions": {
+    "sevenDemos": "browser-demos.json",
+    "searchNoResults": true,
+    "zoom125AndKeyboardFit": true,
+    "svgSpaceSelection": "D1",
+    "dialogEscapeFocusRestored": "nav-export",
+    "netlistExportCopyPreview": true,
+    "reportExportCopyPreview": true,
+    "automaticDownloadVerified": false,
+    "validImport": true,
+    "invalidImportError": "Import failed: Unexpected end of JSON input",
+    "reset": true,
+    "actualPhotoDecoded": [1000, 890]
+  },
+  "consoleWarningsErrors": [],
+  "network": {
+    "initial": {
+      "events": 117,
+      "truncated": true,
+      "missingResource": "/favicon.ico",
+      "fixedBy": "credits.html favicon.svg declaration"
+    },
+    "finalPages": [
+      {
+        "page": "credits",
+        "events": 5,
+        "truncated": false,
+        "failures": []
+      },
+      {
+        "page": "homepage",
+        "events": 13,
+        "truncated": false,
+        "failures": []
+      },
+      {
+        "page": "workbench",
+        "events": 22,
+        "truncated": false,
+        "failures": []
+      }
+    ]
+  },
+  "limitations": [
+    "Browser emulation only; no physical phone or touch certification.",
+    "Partial keyboard checks; no full accessibility or 200% browser zoom audit.",
+    "Export copy previews verified; native save/download delivery not certified."
+  ]
+}

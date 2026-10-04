@@ -1,0 +1,114 @@
+[
+  {
+    "name": "Healthy LED",
+    "physical": {
+      "overflow": false,
+      "parts": 4,
+      "status": "Supported checks passed"
+    },
+    "schematic": {
+      "parts": 4,
+      "status": "Supported checks passed"
+    },
+    "source": {
+      "badge": "GENERATED EXAMPLE",
+      "canvas": true
+    }
+  },
+  {
+    "name": "Reversed polarity",
+    "physical": {
+      "overflow": false,
+      "parts": 4,
+      "status": "Connections need review"
+    },
+    "schematic": {
+      "parts": 4,
+      "status": "Connections need review"
+    },
+    "source": {
+      "badge": "GENERATED EXAMPLE",
+      "canvas": true
+    }
+  },
+  {
+    "name": "Open connection",
+    "physical": {
+      "overflow": false,
+      "parts": 4,
+      "status": "Connections need review"
+    },
+    "schematic": {
+      "parts": 4,
+      "status": "Connections need review"
+    },
+    "source": {
+      "badge": "GENERATED EXAMPLE",
+      "canvas": true
+    }
+  },
+  {
+    "name": "Missing resistor",
+    "physical": {
+      "overflow": false,
+      "parts": 4,
+      "status": "Critical · disconnect power"
+    },
+    "schematic": {
+      "parts": 4,
+      "status": "Critical · disconnect power"
+    },
+    "source": {
+      "badge": "GENERATED EXAMPLE",
+      "canvas": true
+    }
+  },
+  {
+    "name": "Crossed rails",
+    "physical": {
+      "overflow": false,
+      "parts": 5,
+      "status": "Critical · disconnect power"
+    },
+    "schematic": {
+      "parts": 5,
+      "status": "Critical · disconnect power"
+    },
+    "source": {
+      "badge": "GENERATED EXAMPLE",
+      "canvas": true
+    }
+  },
+  {
+    "name": "Voltage divider",
+    "physical": {
+      "overflow": false,
+      "parts": 4,
+      "status": "Supported checks passed"
+    },
+    "schematic": {
+      "parts": 4,
+      "status": "Supported checks passed"
+    },
+    "source": {
+      "badge": "GENERATED EXAMPLE",
+      "canvas": true
+    }
+  },
+  {
+    "name": "Push-button LED",
+    "physical": {
+      "overflow": false,
+      "parts": 5,
+      "status": "Supported checks passed"
+    },
+    "schematic": {
+      "parts": 5,
+      "status": "Supported checks passed"
+    },
+    "source": {
+      "badge": "GENERATED EXAMPLE",
+      "canvas": true
+    }
+  }
+]

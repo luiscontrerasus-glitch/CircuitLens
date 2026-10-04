@@ -1,6 +1,6 @@
 # CircuitLens redesign review package
 
-**Status: implemented locally; visual sign-off and GitHub publication outstanding. Nothing deployed or merged.**
+**Status: imported from the delivered bundle, visually reviewed in the local browser, and ready for draft GitHub delivery. Nothing deployed or merged.**
 
 Branch: `circuitlens-astra-redesign`.
 Base: `aff97f5906c8e7116bd51ebb0cbd2362e15afc15`.
@@ -29,9 +29,9 @@ See [the design assessment](DESIGN_ASSESSMENT.md) for criticism, rationale, refe
 | Secret scan                               | Pass; environment files remain ignored and untracked                               |
 | Repository-wide Prettier check            | Pass                                                                               |
 | DOM client regression                     | Pass for desktop/tablet/mobile media-query simulations; rendering is not simulated |
-| Actual redesigned-page browser inspection | Blocked                                                                            |
-| Desktop/mobile/tablet after screenshots   | Not captured                                                                       |
-| GitHub push / PR                          | Blocked by missing authentication                                                  |
+| Actual redesigned-page browser inspection | Completed October 4, 2026; actual rendering, interactions, and limitations below   |
+| Desktop/mobile/tablet after screenshots   | Captured in `screenshots/after-*.png`, including complete homepage views           |
+| GitHub push / PR                          | Credentials verified; draft publication follows final commit                       |
 
 ### Seven preserved outcomes
 
@@ -61,7 +61,27 @@ These are real captures of production, not redesigned screens.
 - [Workbench, desktop](screenshots/before-workbench-desktop.jpg) — 1363 × 936.
 - Individual fixture captures and the original credits page are in `screenshots/`.
 
-Before/after comparison is intentionally unfinished: the available cloud browser cannot reach this session’s local server, and its documented API provides no viewport-size setter. An offline file preview was also explicitly rejected by browser security policy. The original production interface was inspected directly. The redesigned interface has not been rendered in that browser.
+The original implementation session could not reach its local preview in the cloud browser. The continuation session on Windows reached the preview and captured the redesign at desktop, tablet, and mobile sizes. The before captures remain unchanged for comparison.
+
+## Actual visual review — October 4, 2026
+
+The bundle was verified against base `aff97f5`, imported at `1943a55`, and checked out without discarding work. The preview ran with `LIVE_VISION_ENABLED=false`; no environment file or provider key was loaded. The technical handoff was read from its existing location, `production-launch/TECHNICAL_HANDOFF.md` (there is no root-level copy).
+
+Compared with the original screenshots, the new instrument layout clearly separates navigation, the circuit canvas, model status, and editable evidence. The physical and schematic views remain actual interactive representations. Desktop linked views retain synchronized component selection; narrower views retain the legible schematic and scrollable inspector.
+
+Two browser findings were corrected: the homepage's tilted physical board clipped its lower edge, so its fit reserves more height; the credits page lacked a favicon declaration, so it now uses the existing SVG. The corrected desktop board bounds are wholly contained by the physical panel. No engine, topology, security guard, dependency, or deployment file was changed.
+
+Actual browser checks covered all seven demos in Physical/Schematic/Source views; linked selection; search/no-results; zoom to 125% and keyboard Fit; SVG Space selection; Escape/focus restoration; the mobile inspector and confirmed polarity correction; decoded real-photo upload with live AI unavailable; valid/invalid JSON imports; reset; and netlist/report export copy previews. Automatic native download delivery was not certified. Reduced motion selects Schematic with a `0s` transition. Desktop 1440 × 1000, tablet 768 × 1024, and mobile 390 × 844 were inspected with no horizontal overflow in exercised views. Full-page desktop/mobile homepage captures were also reviewed.
+
+[Browser evidence](qa/browser-verification.json) and [all-seven browser outcomes](qa/browser-demos.json) distinguish these checks from the earlier simulated DOM harness. Partial keyboard checks do not establish a complete accessibility audit or 200% browser-zoom certification. No physical phone/touch testing was performed. The six real-photo assessment remains 0/6 complete verified reconstructions; live Gemini stayed disabled throughout this review.
+
+### Final captures
+
+- `after-home-desktop.png`, `after-home-desktop-complete.png`, `after-home-tablet.png`
+- `after-home-mobile.png`, `after-home-mobile-complete.png`
+- `after-workbench-desktop.png` (linked), `after-workbench-desktop-physical.png`
+- `after-workbench-tablet.png`, `after-workbench-mobile.png`, `after-workbench-mobile-inspector.png`
+- `after-upload-desktop.png`, `after-credits-desktop.png`
 
 ## Preview from the delivered bundle
 
@@ -90,7 +110,7 @@ npm run security:check
 
 For the optional DOM harness, install `happy-dom` 20.14.5 in a temporary directory outside the repository, then set `CIRCUITLENS_DOM_MODULE` to that installation’s absolute `node_modules/happy-dom/lib/index.js` path. Run `node redesign/qa/dom-regression.mjs workbench 390` (or `768`, `1440`); use `home` to test the homepage. This tooling is not a runtime dependency.
 
-## Remaining acceptance work
+## Original implementation acceptance checklist
 
 1. Open this branch in a reachable local development browser; capture homepage, workbench, and credits at 1440 × 1000, 768 × 1024, and 390 × 844.
 2. Inspect all seven fixtures in Physical/Schematic/Source; inspect desktop Linked views. Check actual diagram sizing, label collisions, pan/zoom, fit, and selected-state correspondence.
@@ -99,4 +119,4 @@ For the optional DOM harness, install `happy-dom` 20.14.5 in a temporary directo
 5. Correct any visual or browser-specific regressions, capture after screenshots, and add them to this package before design acceptance.
 6. Authenticate GitHub with repository write access, push only this branch, and create a draft pull request using [PR_BODY.md](PR_BODY.md). Keep production and Render unchanged.
 
-The task’s visual-completion gate is not satisfied yet. Do not merge or deploy based only on passing automated tests.
+The actual visual-completion work above supersedes the original blocked-browser checkpoint. Full assistive-technology, physical-device, and 200% zoom audits remain outside this review. The GitHub deliverable is a draft for the owner's design review. Do not merge or deploy without a separate instruction.
