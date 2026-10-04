@@ -1,6 +1,6 @@
 # CircuitLens redesign review package
 
-**Status: imported from the delivered bundle, visually reviewed in the local browser, and ready for draft GitHub delivery. Nothing deployed or merged.**
+**Status: imported from the delivered bundle, visually reviewed in the local browser, pushed to GitHub, and delivered as [draft PR #1](https://github.com/luiscontrerasus-glitch/CircuitLens/pull/1) against `main`. Nothing deployed or merged.**
 
 Branch: `circuitlens-astra-redesign`.
 Base: `aff97f5906c8e7116bd51ebb0cbd2362e15afc15`.
@@ -31,7 +31,7 @@ See [the design assessment](DESIGN_ASSESSMENT.md) for criticism, rationale, refe
 | DOM client regression                     | Pass for desktop/tablet/mobile media-query simulations; rendering is not simulated |
 | Actual redesigned-page browser inspection | Completed October 4, 2026; actual rendering, interactions, and limitations below   |
 | Desktop/mobile/tablet after screenshots   | Captured in `screenshots/after-*.png`, including complete homepage views           |
-| GitHub push / PR                          | Credentials verified; draft publication follows final commit                       |
+| GitHub push / PR                          | Remote branch SHA verified; draft PR #1 targets `main`                             |
 
 ### Seven preserved outcomes
 
